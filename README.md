@@ -21,3 +21,9 @@ On a Mac:
 You need to have git installed on your machine, then in the terminal window and in your desired directory:  
 `git clone https://github.com/rashtar/cl0ud9-golf-tournament.git`
 
+## Starting the application
+
+1. In the directory where the project is cloned:
+` rails server `
+
+Ta-da! The applcation is up.
