@@ -27,3 +27,4 @@ You need to have git installed on your machine, then in the terminal window and 
 ` rails server `
 
 Ta-da! The applcation is up.
+ 
