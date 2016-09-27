@@ -16,10 +16,13 @@ On a Mac:
 `irb`  
 
 
-## Cloning the Project
+## Setting up the Project
 
 You need to have git installed on your machine, then in the terminal window and in your desired directory:  
 `git clone https://github.com/rashtar/cl0ud9-golf-tournament.git`
+
+Once the project is checked out, you need to get the required project dependencies, execute the following inside the project directory:
+`bundle install`
 
 ## Starting the application
 
