@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  golf_course: one
+  permissions: MyString
+
+two:
+  person: two
+  golf_course: two
+  permissions: MyString

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  tournament: one
+  team: one
+  checkedIn: false
+  ticket: one
+
+two:
+  person: two
+  tournament: two
+  team: two
+  checkedIn: false
+  ticket: two

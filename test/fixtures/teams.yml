@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tournament: one
+  numPlayers: 1
+  teeTime: 2016-10-02 13:09:39
+
+two:
+  tournament: two
+  numPlayers: 1
+  teeTime: 2016-10-02 13:09:39

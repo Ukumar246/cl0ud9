@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  tournament: one
+  type: 
+  logoLink: MyString
+  websiteURL: MyString
+  twitterLink: MyString
+  fbLink: MyString
+  snapchatHandle: MyString
+
+two:
+  person: two
+  tournament: two
+  type: 
+  logoLink: MyString
+  websiteURL: MyString
+  twitterLink: MyString
+  fbLink: MyString
+  snapchatHandle: MyString

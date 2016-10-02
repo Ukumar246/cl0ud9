@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tournament: one
+  time: 2016-10-02 13:14:49
+  description: MyText
+
+two:
+  tournament: two
+  time: 2016-10-02 13:14:49
+  description: MyText

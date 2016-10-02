@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticket_type: one
+  QRCodeLink: MyString
+
+two:
+  ticket_type: two
+  QRCodeLink: MyString
