@@ -1,0 +1,20 @@
+<% provide(:title, 'Sign up') %>
+<h1>Sign up for a cl0ud9 account!</h1>
+<%= form_for(@person) do |f| %>
+	<%= f.label :'First Name' %>
+	<%= f.text_field :fName %>
+	<br>
+	<%= f.label :'Last Name' %>
+	<%= f.text_field :lName %>
+	<br>
+	<%= f.label :email %>
+	<%= f.email_field :email %>
+	<br>
+	<%= f.label :pword %>
+	<%= f.password_field :pword %>
+	<br>
+	<%= f.label :password_confirmation, "Confirm Password" %>
+	<%= f.password_field :password_confirmation %>
+	<br>
+	<%= f.submit "Create my account", class: "btn btn-primary" %>
+<% end %>

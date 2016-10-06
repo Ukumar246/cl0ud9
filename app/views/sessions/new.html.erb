@@ -1,0 +1,13 @@
+<% provide(:title, 'Login') %>
+<h1>Log In to Cl0ud9!</h1>
+<%= form_for(:session, url: login_path) do |f| %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <br>
+  <%= f.label :pword %>
+  <%= f.password_field :pword %>
+  <br>
+  <%= f.submit "Login", class: "btn btn-primary" %>
+  <br>
+<p> New to Cl0ud9? <%= link_to "Sign up!", new_person_path %></p>
+<% end %>
