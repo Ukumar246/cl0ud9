@@ -19,7 +19,7 @@ On a Mac:
 ## Setting up the Project
 
 You need to have git installed on your machine, then in the terminal window and in your desired directory:  
-`git clone https://github.com/rashtar/cl0ud9-golf-tournament.git`
+`git clone https://github.com/cl0ud9-CSC444/cl0ud9.git`
 
 Once the project is checked out, you need to get the required project dependencies, execute the following inside the project directory:
 `bundle install`
