@@ -1,13 +1,24 @@
 <% provide(:title, 'Login') %>
-<h1>Log In to Cl0ud9!</h1>
-<%= form_for(:session, url: login_path) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-  <br>
-  <%= f.label :pword %>
-  <%= f.password_field :pword %>
-  <br>
-  <%= f.submit "Login", class: "btn btn-primary" %>
-  <br>
-<p> New to Cl0ud9? <%= link_to "Sign up!", new_person_path %></p>
-<% end %>
+<div class="container">
+  <h1>Log In to Cl0ud9!</h1>
+  <div class="span12">
+    <form>
+      <%= form_for(:session, url: login_path) do |f| %>
+
+        <div class="form-group row">
+        <%= f.label :"Login", class: "col-sm-2 col-form-label" %>
+        <%= f.email_field :email, class: "col-sm-3"%>
+        </div>
+
+        <div class="form-group row">
+        <%= f.label :Password, class: "col-sm-2 col-form-label" %>
+        <%= f.password_field :pword, class: "col-sm-3"%>
+        </div>
+        <%= f.submit "Login", class: "btn btn-primary" %>
+        <br>
+        <br>
+        <p><i> New to Cl0ud9? </i><%= link_to "Sign up!", new_person_path %></p>
+      <% end %>
+    </form>
+  </div>
+</div>
