@@ -37,6 +37,11 @@ How to set up your dev db (windows):
 
 On DB update a rake db:migrate must be run.
 
+## DB seed changes
+After making changes to db/seeds.rb, repopulate database to avoid duplicates:
+ 1. run rake db:schema:load
+ 2. run rake db:seed
+
 ## Starting the application
 
 1. In the directory where the project is cloned:
