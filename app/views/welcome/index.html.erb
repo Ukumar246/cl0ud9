@@ -5,7 +5,7 @@
 
 <div id = "main-container" class = "container">
   <div class = "row">
-    <div class = "column-xs-9">
+    <div class = "column-sm-9">
       <div class="jumbotron">
         <h1>Welcome to Cl0ud9!</h1>
         <p>A platform designed to help you create, join and sponsor golf tournaments!</p>
@@ -19,33 +19,44 @@
 
 <!--TOURNAMENTS CONTAINER STARTS------------->
 
-
-<div id = "tournamens-home" class = "container">
-  <div class="col-xs-3">
-    <!--TODO:place the map or some other part here on the left-->
-  </div>
-  <div class="col-xs-9">
-    <h2>Upcoming Tournaments:</h2>
-    <div class = "row">
-      <div class="list-group">
-        <a href="#" class="list-group-item active">
-          <h4 class="list-group-item-heading">Tournament one</h4>
-          <p class="list-group-item-text">Date: Tomorrow</p>
-        </a>
-        <a href="#" class="list-group-item active">
-          <h4 class="list-group-item-heading">Tournament two</h4>
-          <p class="list-group-item-text">Date: Day after tomorrow</p>
-        </a>
-        <a href="#" class="list-group-item active">
-          <h4 class="list-group-item-heading">Tournament three</h4>
-          <p class="list-group-item-text">Date:Yesterday</p>
-        </a>
-      </div>
-
+<!--TODO: needs font edits-->
+<div id = "tournaments-home" class = "container">
+  <div class="row">
+    <div class="col-sm-4">
+      <!--TODO:place the map or some other part here on the left-->
     </div>
-  </div>
-  <div class="col-xs-3">
-    <!--TODO:REMOVE LATER----this  section added to move the tournaments section to the left-->
+    <div class="col-sm-8">
+      <h2>Upcoming Tournaments:</h2>
+        <div class="list-group">
+          <% @tournaments.each do |tournament|%>
+              <a href="#" class="list-group-item list-group-item-action">
+                <!--sample item in the list-->
+                <div class="row">
+
+                  <!--first column image-->
+                  <div class = "col-sm-2">
+                    <!--TODO: need to make the images alot smaller-->
+                    <!--<img src=<%= tournament.logoLink %>>-->
+                  </div>
+
+                  <!--second column of info-->
+                  <div class = "col-sm-6">
+                    <!--TODO: add timer for showing when registration ends-->
+                    <h4 class="list-group-item-heading"><%= tournament.name %></h4>
+                    <p class="list-group-item-text"><%= tournament.date.to_time.strftime('%B %e')%> at <%= tournament.time.to_time.strftime('%l:%M %p') %></p>
+                    <p class="list-group-item-text"><%= tournament.golf_course.name  %></p>
+                  </div>
+
+                  <!--third column-->
+                  <div class = "col-sm-4">
+                    <p class="list-group-item-text">Attending: <%= tournament.numGuests%> players</p>
+                  </div>
+
+                </div>
+              </a>
+          <% end %>
+        </div>
+      </div>
   </div>
 </div>
 
