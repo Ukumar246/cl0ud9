@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'player/profiles'
+
   get 'sessions/new'
 
   get 'welcome/index'
