@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  
+
 	def index
 		@addresses = Array.new
 
@@ -11,19 +11,21 @@ class TournamentsController < ApplicationController
 		#	@addresses.push(get_golf_course_address(t))
 		#end
 	end
-  
+
 	def show
 		@tournament = Tournament.find(params[:id])
 		@golf_course_address = get_golf_course_address(@tournament)
+    @golf_course_name = get_golf_course_name(@tournament)
+    @golf_course_phone = get_golf_course_phone(@tournament)
 	end
-  
+
 	def new
 		@tournament = Tournament.new
 	end
 
 	def create
 		@tournament = Tournament.new(tournament_params)
-  
+
 	if @tournament.save
 		flash[:notice] = "Successfully created Tournament"
 		redirect_to :action => 'show', :id => @tournament
@@ -31,18 +33,18 @@ class TournamentsController < ApplicationController
 		@tournament.errors.full_message
 		render :action =>'new'
 	end
-	
+
 	end
-  
+
 	def update
-  
+
 	end
-	
-	private 
+
+	private
 		def tournament_params
 			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd)
 		end
-		
+
 	private
 		def get_golf_course_address (tournament)
 			golf_course_address = GolfCourse.find(tournament.golf_course_id)
@@ -50,5 +52,20 @@ class TournamentsController < ApplicationController
 		return golf_course_address
 	end
 
-  
+  private
+  def get_golf_course_name (tournament)
+      golf_course = GolfCourse.find(tournament.golf_course_id)
+      golf_course_name = golf_course.name
+      return golf_course_name
+  end
+
+  private
+  def get_golf_course_phone (tournament)
+      golf_course = GolfCourse.find(tournament.golf_course_id)
+      golf_course_phone = golf_course.phone
+      return golf_course_phone
+  end
+
+
+
 end

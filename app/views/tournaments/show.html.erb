@@ -1,21 +1,55 @@
-<div class="container">
+<div class="container-fluid text-center">
 	<div class="jumbotron">
-		<h1><%= @tournament.name %></h1>
-		<p><%= @tournament.shortDesc %></p>
-		<p><%= @tournament.tournamentDate %></p>
-		
-		
-		<div class="pull-right">
+	  <div class="well well-lg">
+	    <h1><%= @tournament.name %></h1>
+	  </div>
+
+		<div class=" well well-sm pull-right">
 			<a class="btn btn-primary" href="#">Sign Up</a>
 			<a class="btn btn-primary" href="#">Sponsor</a>
 		</div>
-	</div>
 
-	<div id="map-container">
-		<iframe width="800" height="300" frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= @golf_course_address %>"
-            allowfullscreen>
-		</iframe>
-	</div>
+	  <div class="panel-group text-left">
+	    <div class="panel panel-info">
+	      <div class="panel-heading">
+	       <h2> Details: </h2>
+	      </div>
+	    <div class="panel-body">
+	      <div class="well well-lg ">
+	        <h3> Description:</h3>
+	        <h4><%= @tournament.shortDesc %></h4>
+	      </div>
 
+	      <div class="well well-lg ">
+					<!-- ZS: TODO: add function to retrieve hostname -->
+	        <h4>Hosted by BLANK</h4>
+	        <h4><%= @tournament.numGuests%> Players</h4>
+	      </div>
+
+	      <div class="well well-lg ">
+	        <h4>Date: <%= @tournament.tournamentDate %></h4>
+	      </div>
+
+	       <div class="well well-lg ">
+	         <h3>Location:</h3>
+	         <h4>Name: <%= @golf_course_name %> </h4>
+	         <h4>Address: <%= @golf_course_address %> </h4>
+	         <h4>Phone: <%= @golf_course_phone %></h4>
+	       </div>
+	     </div>
+	  </div>
+
+	  <div id="map-container">
+	    <div class="well well-lg text-center ">
+	      <iframe width="800" height="300" frameborder="0" style="border:0"
+	          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= @golf_course_address %>"
+	          allowfullscreen>
+	      </iframe>
+	    </div>
+	  </div>
+
+
+	  <img width="200px" src="<%= @tournament.logoLink %>">
+
+	</div>
 </div>
