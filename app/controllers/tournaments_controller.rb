@@ -14,7 +14,7 @@ class TournamentsController < ApplicationController
   
 	def show
 		@tournament = Tournament.find(params[:id])
-		#@golf_course_address = get_golf_course_address(@tournament)
+		@golf_course_address = get_golf_course_address(@tournament)
 	end
   
 	def new
