@@ -1,7 +1,16 @@
 class TournamentsController < ApplicationController
+  
 	def index
-	
-	end 
+		@addresses = Array.new
+
+		@tournaments = Tournament.all
+
+
+		@count = Tournament.count
+		#@tournaments.each do |t|
+		#	@addresses.push(get_golf_course_address(t))
+		#end
+	end
   
 	def show
 		@tournament = Tournament.find(params[:id])
@@ -40,20 +49,6 @@ class TournamentsController < ApplicationController
 			golf_course_address = golf_course_address.addrStreetNum.to_s + ' ' + 	golf_course_address.addrStreetName + ' ' + golf_course_address.addrPostalCode
 		return golf_course_address
 	end
- 
-	def index
-		@addresses = Array.new
-
-		@tournaments = Tournament.all
-
-
-		@count = Tournament.count
-		#@tournaments.each do |t|
-		#	@addresses.push(get_golf_course_address(t))
-		#end
-	end
-
-	
 
   
 end

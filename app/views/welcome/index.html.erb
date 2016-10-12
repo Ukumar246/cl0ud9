@@ -43,8 +43,7 @@
                   <div class = "col-sm-6">
                     <!--TODO: add timer for showing when registration ends-->
                     <h4 class="list-group-item-heading"><%= tournament.name %></h4>
-                    <p class="list-group-item-text"><%= tournament.date.to_time.strftime('%B %e')%> at <%= tournament.time.to_time.strftime('%l:%M %p') %></p>
-                    <p class="list-group-item-text"><%= tournament.golf_course.name  %></p>
+                    <p class="list-group-item-text"><%= tournament.tournamentDate.to_time.strftime('%B %e')%></p>
                   </div>
 
                   <!--third column-->
