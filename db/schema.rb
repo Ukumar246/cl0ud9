@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161002171524) do
+ActiveRecord::Schema.define(version: 20161012014530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,12 @@ ActiveRecord::Schema.define(version: 20161002171524) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "photos", force: :cascade do |t|
+    t.string   "photoLink"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "players", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "tournament_id"
@@ -150,18 +156,13 @@ ActiveRecord::Schema.define(version: 20161002171524) do
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.text     "shortDesc"
-    t.time     "time"
-    t.date     "date"
     t.integer  "numGuests"
-    t.boolean  "sponsored"
     t.boolean  "privateURL"
     t.string   "microSiteURL"
     t.string   "logoLink"
     t.string   "language"
     t.string   "currency"
     t.string   "timeZone"
-    t.string   "photoLink"
-    t.integer  "numPhotos"
     t.integer  "ticketsLeft"
     t.datetime "registerStart"
     t.datetime "registerEnd"
@@ -169,6 +170,7 @@ ActiveRecord::Schema.define(version: 20161002171524) do
     t.integer  "golf_course_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.datetime "tournamentDate"
     t.index ["golf_course_id"], name: "index_tournaments_on_golf_course_id", using: :btree
     t.index ["host_id"], name: "index_tournaments_on_host_id", using: :btree
   end

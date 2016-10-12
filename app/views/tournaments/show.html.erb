@@ -1,18 +1,21 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1><%= @tournament.name %></h1>
-    <p><%= @tournament.shortDesc %></p>
-    <img src="<%= @tournament.logoLink %>">
-    <div class="pull-right">
-      <a class="btn btn-primary" href="#">Sign Up</a>
-      <a class="btn btn-primary" href="#">Sponsor</a>
-    </div>
-  </div>
+	<div class="jumbotron">
+		<h1><%= @tournament.name %></h1>
+		<p><%= @tournament.shortDesc %></p>
+		<p><%= @tournament.tournamentDate %></p>
+		
+		
+		<div class="pull-right">
+			<a class="btn btn-primary" href="#">Sign Up</a>
+			<a class="btn btn-primary" href="#">Sponsor</a>
+		</div>
+	</div>
 
-  <div id="map-container">
-    <iframe width="800" height="300" frameborder="0" style="border:0"
+	<div id="map-container">
+		<iframe width="800" height="300" frameborder="0" style="border:0"
             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= @golf_course_address %>"
             allowfullscreen>
-    </iframe>
-  </div>
+		</iframe>
+	</div>
+
 </div>

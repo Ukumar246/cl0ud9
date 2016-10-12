@@ -1,0 +1,42 @@
+<%= form_for @tournament do |t| %>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Create Tournaments</h1>
+			<p>
+				<%= t.label :name, "Tournament Name" %><br>
+				<%= t.text_field :name %>
+			</p>
+			
+			<p>
+				<%= t.label :shortDesc, "Description" %><br>
+				<%= t.text_area :shortDesc %>
+			</p>	
+			
+			<p>
+				<%= t.label :tournamentDate, "Tournament Date:"%><br>
+				<%= t.datetime_select :tournamentDate %>
+			<p>
+			
+			<p>
+				<%= t.label :numGuests, "Number of Guests:"%><br>
+				<%= t.text_field :numGuests %>
+			<p>
+			
+			<p>
+				<%= t.label :registerStart, "Registration Start Date:" %><br>
+				<%= t.datetime_select :registerStart%>
+			<p>
+			
+			<p>
+				<%= t.label :registerEnd, "Registration End Date:" %><br>
+				<%= t.datetime_select :registerEnd %>
+			<p>
+			
+			
+			<p>
+				<%= t.submit %>
+			</p>
+			
+		</div>
+	</div>
+<% end %>
