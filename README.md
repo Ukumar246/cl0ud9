@@ -19,7 +19,7 @@ On a Mac:
 ## Setting up the Project
 
 You need to have git installed on your machine, then in the terminal window and in your desired directory:  
-`git clone https://github.com/rashtar/cl0ud9-golf-tournament.git`
+`git clone https://github.com/cl0ud9-CSC444/cl0ud9.git`
 
 Once the project is checked out, you need to get the required project dependencies, execute the following inside the project directory:
 `bundle install`
@@ -36,6 +36,11 @@ How to set up your dev db (windows):
 5. Open pgAdmin, expand Servers->PostGreSQL 9.6->Databases and you should see two cloud9 databases, cl0ud9_dev and cl0ud9_test. They will probably have x's over them. Double click and enter the 'postgres' password we configured in step 1. If you run queries on the cl0ud9_dev db (open up query window, and for example 'select * from people') there should be data, as least for people, golf_courses, tournaments, and hosts.
 
 On DB update a rake db:migrate must be run.
+
+## DB seed changes
+After making changes to db/seeds.rb, repopulate database to avoid duplicates:
+ 1. run rake db:schema:load
+ 2. run rake db:seed
 
 ## Starting the application
 
