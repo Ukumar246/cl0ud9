@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <!-- NAVIGATION BAR STARTS -->
+    <!--NAVIGATION BAR STARTS-->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -55,7 +55,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    <!-- NAVIGATION CONTAINER ENDS -->
+    <!--NAVIGATION CONTAINER ENDS-->
 
     <!-- Alert Container -->
     <div class="container">
@@ -68,5 +68,39 @@
     <!-- Alert Container Ends -->
 
     <%= yield %>
+    <!--Footer-->
+    <div class="container text-center">
+    	<hr />
+		  <div class="row">
+		    <div class="col-lg-12">
+		      <div class="col-md-3">
+
+		  		<h4 class = "text-right">Social</h4>
+		        <ul class="nav nav-pills nav-stacked text-right">
+	      			<li><%= link_to image_tag("SocialMedia/logo-facebook.svg"), "https://www.facebook.com/Cl0ud9Golf/"%></li>
+	      			<li><%= link_to image_tag("SocialMedia/logo-instagram.svg"), "https://www.instagram.com/cl0ud9golfing/"%></li>
+	      			<li><%= link_to image_tag("SocialMedia/logo-twitter.svg"), "https://twitter.com/cl0ud9golf"%></li>
+	      			<li><%= link_to image_tag("SocialMedia/logo-linkedin.svg"), "https://www.linkedin.com/in/cloud9-golf/"%></li>
+				</ul>
+			  </div>
+			  <div class="col-md-3">
+			  	<h4 class="text-right">About Cl0ud9</h4>
+			  	<ul class="nav nav-pills nav-stacked text-right">
+			  	<li>Contact Us</li>
+			  	<li>Our Partners</li>
+			  	<li>Terms of Service</li>
+			  	<li>Privacy Policy</li>
+			  	<li>FAQ</li>
+
+			  	</ul>
+			  </div>
+			  <div class="col-md-3">
+			  	<h4 class="text-right">Site Map</h4>
+			  </div>
+			</div>
+		  </div>
+		</hr>
+    </div>
+    <!--Footer Ends-->
   </body>
 </html>
