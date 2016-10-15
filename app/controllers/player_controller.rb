@@ -1,5 +1,6 @@
 class PlayerController < ApplicationController
   def profiles
-  	puts "Requested player profiles page"
+    @global = Person.order(:fName).first(1)
+    puts @global
   end
 end
