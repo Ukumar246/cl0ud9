@@ -30,20 +30,9 @@
 	<tbody>
   	<% @tournaments.each do |tourney| %>
 			<tr>
-				<td><%= tourney.tournamentDate.strftime("%m/%d/%Y")%></td>
+				<td><%= tourney.tournamentDate.strftime("%m/%d/%Y") %></td>
 				<td><%= tourney.name%></td>
 				<td><%= link_to "Tournament Page", tourney%></td>
-			<!--</tr
-    	<tr>
-		    <td class="num-date">
-					<%= tourney.tournamentDate.strftime("%m/%d/%y")%>
-				</td>
-		    <td class="tournament-name">
-					<span><%= tourney.name %></span>
-					<br>
-						<%= tourney.shortDesc %>
-				</td>
-    	</tr>-->
   	<% end %>
 	</tbody>
 </table>
