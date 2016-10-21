@@ -17,6 +17,7 @@ class TournamentsController < ApplicationController
 		@golf_course_address = get_golf_course_address(@tournament)
     @golf_course_name = get_golf_course_name(@tournament)
     @golf_course_phone = get_golf_course_phone(@tournament)
+		@host_name = get_host_name(@tournament)
 	end
 
 	def new
@@ -64,6 +65,13 @@ class TournamentsController < ApplicationController
       golf_course = GolfCourse.find(tournament.golf_course_id)
       golf_course_phone = golf_course.phone
       return golf_course_phone
+  end
+
+	private
+  def get_host_name (tournament)
+      host = Host.find(tournament.host_id)
+      host_name = host.hostName
+      return host_name
   end
 
 
