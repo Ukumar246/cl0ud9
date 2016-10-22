@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: cl0ud9
+  api_key: '366523816991889'
+  api_secret: JHBnz5FaQGgaGazSpCYLAu69yjU
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: cl0ud9
+  api_key: '366523816991889'
+  api_secret: JHBnz5FaQGgaGazSpCYLAu69yjU
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: cl0ud9
+  api_key: '366523816991889'
+  api_secret: JHBnz5FaQGgaGazSpCYLAu69yjU
+  enhance_image_tag: true
+  static_image_support: false

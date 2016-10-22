@@ -47,8 +47,7 @@
 	    </div>
 	  </div>
 
-
-	  <img width="200px" src="<%= @tournament.logoLink %>">
+	  <%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
 
 	</div>
 </div>

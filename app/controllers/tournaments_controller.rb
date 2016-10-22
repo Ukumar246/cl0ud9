@@ -26,7 +26,6 @@ class TournamentsController < ApplicationController
 
 	def create
 		@tournament = Tournament.new(tournament_params)
-
 	if @tournament.save
 		flash[:notice] = "Successfully created Tournament"
 		redirect_to :action => 'show', :id => @tournament
@@ -43,7 +42,7 @@ class TournamentsController < ApplicationController
 
 	private
 		def tournament_params
-			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd)
+			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink)
 		end
 
 	private

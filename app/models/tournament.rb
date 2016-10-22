@@ -6,5 +6,5 @@ class Tournament < ApplicationRecord
   has_many :teams
   has_many :photos
   has_many :sponsorships
-
+  mount_uploader :logoLink, PhotoUploader
 end
