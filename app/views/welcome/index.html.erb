@@ -17,6 +17,148 @@
 
 <!--BANNER CONTAINER ENDS-------------------->
 
+<div id = "user-selection" class = "container">
+
+  <div class = "row">
+    <div class = "col-sm-4">
+      <a data-target="#myModal" role="button" data-toggle="modal" class="list-group-item list-group-item-action">
+        <div class = "row">
+          <div class ="col-sm-3">
+             <span class = "glyphicon glyphicon-pencil"></span>
+          </div>
+          <div class = "col-sm-9">
+            <h4 class="list-group-item-heading">Want to advertise your golf course?</h4>
+            <p class="list-group-item-text">Click here and have others organize tournaments at your golf course!</p>
+          </div>
+          
+        </div>
+      </a>
+    </div>
+    <div class = "col-sm-4">
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class = "row">
+          <div class ="col-sm-3">
+            <span class = "glyphicon glyphicon-calendar"></span>
+          </div>
+          <div class = "col-sm-9">
+            <h4 class="list-group-item-heading">Want to create your own tournament?</h4>
+            <p class="list-group-item-text">Click here and have us manage your tournament in minutes!</p>
+          </div>
+
+        </div>
+      </a>
+    </div>
+    <div class = "col-sm-4">
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class = "row">
+          <div class ="col-sm-3">
+            <span class = "glyphicon glyphicon-play"></span>
+          </div>
+          <div class = "col-sm-9">
+            <h4 class="list-group-item-heading">Want to play in a tournament?</h4>
+            <p class="list-group-item-text">Browse and join any of the tournaments happening around you!</p>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+<!--MODAL FORM FOR ADDING THE GOLF COURSE BEGINS----->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Golf Course Form</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <%= form_for(:session, url: login_path) do |f| %>
+
+                <%= f.label :'Golf Course Name' %>
+                <%= f.text_field :label, class: 'form-control' %>
+
+                <%= f.label :'Address' %>
+                <%= f.text_field :label, class: 'form-control' %>
+
+                <%= f.submit 'Add Golf Course', class: 'btn btn-primary', id: 'add_golf_course_btn' %>
+            <% end %>
+          </div>
+        </div>
+        <!--<form action="/create_golf_course" method="get">-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Full Name &ndash;&gt;-->
+            <!--<label for="full_name_id" class="control-label">Golf Course name:</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_name" name="golf_course[golf_course_name]" placeholder="E.g. John Smith">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Full Name &ndash;&gt;-->
+            <!--<label for="full_name_id" class="control-label">Phone:</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_phone" name="golf_course[phone]" placeholder="E.g. +123456789010">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Full Name &ndash;&gt;-->
+            <!--<label for="full_name_id" class="control-label">Contact email:</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_email" name="golf_course[email]" placeholder="E.g. john.smith@mail.utoronto.ca">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Street 1 &ndash;&gt;-->
+            <!--<label for="street1_id" class="control-label">Street Number:</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_street1" name="golf_course[street1]" placeholder="E.g.45">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Street 2 &ndash;&gt;-->
+            <!--<label for="street2_id" class="control-label">Street Name:</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_street2" name="golf_course[street2]" placeholder="King Street West">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; City&ndash;&gt;-->
+            <!--<label for="city_id" class="control-label">Country</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_country" name="golf_course[country]" placeholder="E.g. Canada">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Zip Code&ndash;&gt;-->
+            <!--<label for="zip_id" class="control-label">Zip Code</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_zip" name="golf_course[zip]" placeholder="M15 007">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Zip Code&ndash;&gt;-->
+            <!--<label for="zip_id" class="control-label">Capacity</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_capacity" name="golf_course[capacity]" placeholder="E.g. 100">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Zip Code&ndash;&gt;-->
+            <!--<label for="zip_id" class="control-label">Website URL</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_web_url" name="golf_course[web_url]" placeholder="E.g www.mygolfcourse.com">-->
+          <!--</div>-->
+
+          <!--<div class="form-group"> &lt;!&ndash; Zip Code&ndash;&gt;-->
+            <!--<label for="zip_id" class="control-label">Logo link</label>-->
+            <!--<input type="text" class="form-control" id="golf_course_logo_link" name="golf_course[logo_link]" placeholder="E.g. Image">-->
+          <!--</div>-->
+
+          <!--&lt;!&ndash;submit button also dismisses modal&ndash;&gt;-->
+          <!--<button type="submit" class="btn btn-default" data-dismiss="modal" >Add Golf Course</button>-->
+        <!--</form>-->
+      </div>
+      <div class="modal-footer">
+        <!--empty now for spacing purposes-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--MODAL FORM ENDS----------------------------------->
+
 <!--TOURNAMENTS CONTAINER STARTS------------->
 
 <!--TODO: needs font edits-->
@@ -24,6 +166,9 @@
   <div class="row">
     <div class="col-sm-4">
       <!--TODO:place the map or some other part here on the left-->
+      <div class="jumbotron" id = "google-maps-div">
+        <p>Google maps coming soon!</p>
+      </div>
     </div>
     <div class="col-sm-8">
       <h2>Upcoming Tournaments:</h2>
@@ -50,7 +195,7 @@
                   <div class = "col-sm-4">
                     <p class="list-group-item-text">Attending: <%= tournament.numGuests%> players</p>
                   </div>
-
+                  <!--TODO: missing dates and golf course due to data being omitted from the database -->
                 </div>
               </a>
           <% end %>

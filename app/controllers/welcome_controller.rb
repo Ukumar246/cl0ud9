@@ -8,4 +8,9 @@ class WelcomeController < ApplicationController
                        .order(:tournamentDate)
                        .first(3)
   end
+
+  def create_golf_course
+      @golf_course = GolfCourse.new(params[:golf_course])
+      puts (@golf_course)
+  end
 end
