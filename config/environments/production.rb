@@ -62,7 +62,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Add an action mailer for prod. Does this crash heroku???
-  config.action_mailer.default_url_options = { host: 'cl0ud9.herokuapp.com', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'cl0ud9.herokuapp.com', port: 25 }
 
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
