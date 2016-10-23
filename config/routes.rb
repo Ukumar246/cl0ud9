@@ -1,4 +1,6 @@
 Rails.application.routes.draw do 
+  get 'golf_courses/new'
+
   devise_for :people
   get 'player/profiles'
   get 'sessions/new'
@@ -20,9 +22,10 @@ Rails.application.routes.draw do
 
   # LT: Added people as a resource. Not sure how many of these we'll use, but yea.
   resources :people
-  
+
   root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/create_golf_course', to: 'welcome#create_golf_course'
+  # saves a golf course after model validation
+  post '/create_golf_course', to: 'golf_courses#create_golf_course'
 end

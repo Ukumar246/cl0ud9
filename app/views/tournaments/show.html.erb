@@ -21,8 +21,7 @@
 	      </div>
 
 	      <div class="well well-lg ">
-					<!-- ZS: TODO: add function to retrieve hostname -->
-	        <h4>Hosted by BLANK</h4>
+	        <h4>Hosted by <%= @host_name %></h4>
 	        <h4><%= @tournament.numGuests%> Players</h4>
 	      </div>
 
@@ -48,8 +47,7 @@
 	    </div>
 	  </div>
 
-
-	  <img width="200px" src="<%= @tournament.logoLink %>">
+	  <%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
 
 	</div>
 </div>

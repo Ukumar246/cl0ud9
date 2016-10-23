@@ -59,3 +59,9 @@ gem 'autoprefixer-rails'
 
 # Devise Gem
 gem 'devise', '4.1.1'
+
+#carrierwave gem
+gem 'carrierwave'
+
+#cloudinary gem
+gem 'cloudinary'

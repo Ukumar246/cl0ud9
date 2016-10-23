@@ -17,6 +17,7 @@ class TournamentsController < ApplicationController
 		@golf_course_address = get_golf_course_address(@tournament)
     @golf_course_name = get_golf_course_name(@tournament)
     @golf_course_phone = get_golf_course_phone(@tournament)
+		@host_name = get_host_name(@tournament)
 	end
 
 	def new
@@ -25,7 +26,6 @@ class TournamentsController < ApplicationController
 
 	def create
 		@tournament = Tournament.new(tournament_params)
-
 	if @tournament.save
 		flash[:notice] = "Successfully created Tournament"
 		redirect_to :action => 'show', :id => @tournament
@@ -42,7 +42,7 @@ class TournamentsController < ApplicationController
 
 	private
 		def tournament_params
-			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd)
+			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink)
 		end
 
 	private
@@ -66,6 +66,12 @@ class TournamentsController < ApplicationController
       return golf_course_phone
   end
 
+	private
+  def get_host_name (tournament)
+      host = Host.find(tournament.host_id)
+      host_name = host.hostName
+      return host_name
+  end
 
 
 end
