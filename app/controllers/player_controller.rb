@@ -1,14 +1,34 @@
 class PlayerController < ApplicationController
-  def profiles
-    @people = Person.order(:fName).first(10)
-
-	@person_id = params[:id].to_i
-	@global = @people[@person_id]
-	puts "Acessing Page: #@person_id"
-    # @people.each do |aPerson|
-    #   puts aPerson.inspect
-    #   puts "\n"
-   	#end
-
+  #show all the player's on our database
+  def list
+    @players = Person.all
   end
+
+  #show a single player's profile based on passed in id
+  def show
+    @player_id = params[:id].to_i
+
+    if @player_id == 0
+      @player = Person.find(1)
+      @player_id = 1
+    else
+      @player = Person.find(@player_id)
+    end
+  end
+
+  def new
+  end
+
+  def create
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def delete
+  end
+
 end

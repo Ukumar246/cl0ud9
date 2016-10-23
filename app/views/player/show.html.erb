@@ -203,18 +203,17 @@
     <div class="container">
         <!-- Second Featurette -->
         <div class="featurette" id="services">
-            <img class="featurette-image img-circle img-responsive pull-left" src="<%=@global.profilePicLink%>">
-            <h2 class="featurette-heading"><%= @global.fName %>
-                <span class="text-muted"><%= @global.lName %></span>
+            <img class="featurette-image img-circle img-responsive pull-left" src="<%=@player.profilePicLink%>">
+            <h2 class="featurette-heading"><%= @player.fName %>
+                <span class="text-muted"><%= @player.lName %></span>
             </h2>
 
-            <p><%= @global.email %></p>
-            <p><%= @global.birthDate %></p>
-            <p><%= @global.twitterLink %></p>
-            <p>ID: <%= @person_id %></p>
+            <p><%= @player.email %></p>
+            <p><%= @player.birthDate %></p>
+            <p><%= @player.twitterLink %></p>
+            <p>ID: <%= @player_id %></p>
 
         </div>
-
         <hr class="featurette-divider">
         <!-- Footer we will use the global settings-->
 

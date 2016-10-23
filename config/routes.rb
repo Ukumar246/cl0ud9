@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   get 'golf_courses/new'
 
   devise_for :people
-  get 'player/profiles'
+  get '/player/show/:id' => 'player#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+  #get 'player/show'
+  get 'player/list'
   get 'sessions/new'
   get 'welcome/index'
 
