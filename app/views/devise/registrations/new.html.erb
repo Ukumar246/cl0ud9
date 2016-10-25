@@ -31,6 +31,15 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
   </div>
 
+  <!--rabachi: added for TOS agreement checking, does not work yet -->
+  <div class="checkbox">
+    <%= f.label :terms_of_service do %>
+    <%= f.check_box :terms_of_service %>
+      I agree to the Terms of Service
+    <% end %>
+  </div>
+  <!-- -->
+
   <%= f.submit "Sign up", class: 'btn btn-primary' %>
 <% end %>
 
