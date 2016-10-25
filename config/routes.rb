@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'welcome/index'
 
+  #Rabachi: for the static pages
+  get "/misc_pages/:misc_page" => "misc_pages#show"
+
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)
   resources :tournaments do
