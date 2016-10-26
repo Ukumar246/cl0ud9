@@ -3,7 +3,7 @@
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
-    <form>
+
       <div class="form-group">
         <%= f.text_field :fName, placeholder: "First Name" %>
       </div>  
@@ -35,7 +35,7 @@
         <% end %>
       </div>
     <!-- -->
-    </form>
+  
     <%= f.submit "Sign up", class: 'btn btn-primary' %>
   <% end %>
 <div>

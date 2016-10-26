@@ -14,7 +14,7 @@ class GolfCourse < ApplicationRecord
   validates :addrStreetNum, numericality: { only_integer: true, message: 'Please enter a valid street number e.g. 45' }
 
   validates :addrStreetName, presence: true
-  validates :addrStreetName, format: { with: /^[0-9a-zA-Z. ]+$/, message: 'Please enter a valid street name E.g. St. George Street', multiline: true}
+  validates :addrStreetName, format: { with: /^[0-9a-zA-Z. \-]+$/, message: 'Please enter a valid street name E.g. St. George Street', multiline: true}
 
   # checks for canadian for now
   validates :addrPostalCode, presence: true

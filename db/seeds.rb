@@ -400,7 +400,7 @@ p.update_column(:profilePicLink,'puppy.jpg')
 
 g = GolfCourse.create!(name: 'Dancing Sheep Golf Club', phone: 1234567890, addrStreetNum: 20, addrUnitNum: nil, addrStreetName: 'Vanauley Street', addrPostalCode: 'M5T 2H4', addrCountry: 'Canada', logoLink: 'mango.jpg', websiteURL: 'xkcd.com', email: 'DancingSheep@golf.com', capacity:400 )
 g.update_column(:logoLink, 'mango.jpg')
-g = GolfCourse.create!(name: 'Walking Albatross Golf Club', phone: 1234567111, addrStreetNum: 5950, addrUnitNum: nil, addrStreetName: 'ON-540', addrPostalCode: 'P0P 1G0', addrCountry: 'Canada', logoLink: 'mango.jpg', websiteURL: 'xkcd.com', email: 'WalkingAlbatross@golf.com', capacity:400 )
+g = GolfCourse.create!(name: 'Walking Albatross Golf Club', phone: 1234567111, addrStreetNum: 5950, addrUnitNum: nil, addrStreetName: 'ON HWY 540', addrPostalCode: 'P0P 1G0', addrCountry: 'Canada', logoLink: 'mango.jpg', websiteURL: 'xkcd.com', email: 'WalkingAlbatross@golf.com', capacity:400 )
 g.update_column(:logoLink, 'mango.jpg')
 g = GolfCourse.create!(name: 'Sleeping Toad Golf Club', phone: 1244467890, addrStreetNum: 2329, addrUnitNum: nil, addrStreetName: 'West Mall', addrPostalCode: 'V6T 1Z4', addrCountry: 'Canada', logoLink: 'mango.jpg', websiteURL: 'xkcd.com', email: 'SleepingToad@golf.com', capacity:401 )
 g.update_column(:logoLink, 'mango.jpg')
