@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102014827) do
+ActiveRecord::Schema.define(version: 20161105064519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20161102014827) do
 
   create_table "scheduled_events", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.time     "time"
+    t.time     "startTime"
     t.text     "description"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -139,14 +139,14 @@ ActiveRecord::Schema.define(version: 20161102014827) do
   create_table "sponsors", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "tournament_id"
-    t.string   "type"
+    t.string   "sponsorshipType"
     t.string   "logoLink"
     t.string   "websiteURL"
     t.string   "twitterLink"
     t.string   "fbLink"
     t.string   "snapchatHandle"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["person_id"], name: "index_sponsors_on_person_id", using: :btree
     t.index ["tournament_id"], name: "index_sponsors_on_tournament_id", using: :btree
   end
