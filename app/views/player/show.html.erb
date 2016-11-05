@@ -203,7 +203,8 @@
     <div class="container">
         <!-- Second Featurette -->
         <div class="featurette" id="services">
-            <img class="featurette-image img-circle img-responsive pull-left" src="<%=@player.profilePicLink%>">
+            <%= cl_image_tag(@player.profilePicLink, :width => 200, :height => 200, :crop => :fill)%>
+
             <h2 class="featurette-heading"><%= @player.fName %>
                 <span class="text-muted"><%= @player.lName %></span>
             </h2>
