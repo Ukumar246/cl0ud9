@@ -1,4 +1,7 @@
 Rails.application.routes.draw do 
+  get 'sponsors/new'
+  post 'sponsors/create'
+
   get 'golf_courses/new'
 
   devise_for :people

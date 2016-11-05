@@ -4,9 +4,12 @@
 	    <h1><%= @tournament.name %></h1>
 	  </div>
 
+	  <%= render partial: 'sponsor/new'%>
 		<div class=" well well-sm pull-right">
 			<a class="btn btn-primary" href="#">Sign Up</a>
-			<a class="btn btn-primary" href="#">Sponsor</a>
+			<a href="#sponsorModal" role="button" class="btn btn-primary" data-toggle="modal">
+          Sponsor
+      </a>
 		</div>
 
 	  <div class="panel-group text-left">
