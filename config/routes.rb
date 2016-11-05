@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :people
 
-  get '/player/show/:id' => 'player#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+  get '/player/:id' => 'player#show'#, constraints: { id: /^[1-9][0-9]*$/ }
   #get 'player/show'
   get 'player/list'
   get 'welcome/index'
