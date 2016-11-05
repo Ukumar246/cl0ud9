@@ -211,7 +211,7 @@
             <p><%= @player.email %></p>
             <p><%= @player.birthDate %></p>
             <p><%= @player.twitterLink %></p>
-            <p>Facebook Link: <%= @player.fbLink %></p>
+            <p><%= link_to cl_image_tag("logo-facebook.svg"), @player.fbLink %></p>
             <p>ID: <%= @player_id %></p>
 
         </div>
