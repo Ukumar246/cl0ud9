@@ -5,11 +5,13 @@ one:
   tournament: one
   team: one
   checkedIn: false
-  ticket: one
+  QRCodeStr: one
+  ticket_type: one
 
 two:
   person: two
   tournament: two
   team: two
   checkedIn: false
-  ticket: two
+  QRCodeStr: two
+  ticket_type: two

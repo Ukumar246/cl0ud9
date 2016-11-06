@@ -2,10 +2,10 @@
 
 one:
   tournament: one
-  time: 2016-10-02 13:14:49
+  startTime: 2016-10-02 13:14:49
   description: MyText
 
 two:
   tournament: two
-  time: 2016-10-02 13:14:49
+  startTime: 2016-10-02 13:14:49
   description: MyText

@@ -6,9 +6,12 @@ Rails.application.routes.draw do
 
   devise_for :people
 
-  get '/player/:id' => 'player#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+  get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
   #get 'player/show'
-  get 'player/list'
+  get 'players/list'
+  get 'players/new'
+  post 'players/create'
+
   get 'welcome/index'
 
   #Rabachi: for the static pages

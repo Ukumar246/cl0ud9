@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161105064519) do
+ActiveRecord::Schema.define(version: 20161106183239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,18 +113,14 @@ ActiveRecord::Schema.define(version: 20161105064519) do
     t.integer  "tournament_id"
     t.integer  "team_id"
     t.boolean  "checkedIn"
-    t.integer  "ticket_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "QRCodeStr"
+    t.integer  "ticket_type_id"
     t.index ["person_id"], name: "index_players_on_person_id", using: :btree
     t.index ["team_id"], name: "index_players_on_team_id", using: :btree
-    t.index ["ticket_id"], name: "index_players_on_ticket_id", using: :btree
+    t.index ["ticket_type_id"], name: "index_players_on_ticket_type_id", using: :btree
     t.index ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
-  end
-
-  create_table "registrations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "scheduled_events", force: :cascade do |t|
@@ -170,14 +166,6 @@ ActiveRecord::Schema.define(version: 20161105064519) do
     t.index ["tournament_id"], name: "index_ticket_types_on_tournament_id", using: :btree
   end
 
-  create_table "tickets", force: :cascade do |t|
-    t.integer  "ticket_type_id"
-    t.string   "QRCodeLink"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["ticket_type_id"], name: "index_tickets_on_ticket_type_id", using: :btree
-  end
-
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.text     "shortDesc"
@@ -215,14 +203,12 @@ ActiveRecord::Schema.define(version: 20161105064519) do
   add_foreign_key "organizers", "tournaments"
   add_foreign_key "players", "people"
   add_foreign_key "players", "teams"
-  add_foreign_key "players", "tickets"
   add_foreign_key "players", "tournaments"
   add_foreign_key "scheduled_events", "tournaments"
   add_foreign_key "sponsors", "people"
   add_foreign_key "sponsors", "tournaments"
   add_foreign_key "teams", "tournaments"
   add_foreign_key "ticket_types", "tournaments"
-  add_foreign_key "tickets", "ticket_types"
   add_foreign_key "tournaments", "golf_courses"
   add_foreign_key "tournaments", "hosts"
   add_foreign_key "unscheduled_events", "tournaments"
