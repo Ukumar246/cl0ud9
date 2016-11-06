@@ -1,0 +1,8 @@
+# Stash untracked changes (i.e. non git added changes) before running tests
+git stash -q --keep-index
+
+#!/bin/sh
+rake
+
+# Get untracked stashed changes back
+git stash pop -q
