@@ -12,10 +12,10 @@ one:
   fbLink: MyString
 
 two:
-  fName: MyString
-  lName: MyString
+  fName: MyString2
+  lName: MyString2
   birthDate: 2016-10-02
-  email: MyString
+  email: MyString2
   allowUserEmails: false
   pword: MyString
   profilePicLink: MyString

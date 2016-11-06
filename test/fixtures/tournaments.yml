@@ -3,41 +3,31 @@
 one:
   name: MyString
   shortDesc: MyText
-  time: 2016-10-02 13:05:24
-  date: 2016-10-02
+  tournamentDate: 2016-10-02
   numGuests: 1
-  sponsored: false
   privateURL: false
   microSiteURL: MyString
   logoLink: MyString
   language: MyString
   currency: MyString
   timeZone: MyString
-  photoLink: MyString
-  numPhotos: 1
   ticketsLeft: 1
   registerStart: 2016-10-02 13:05:24
   registerEnd: 2016-10-02 13:05:24
-  host: one
-  golf_course: one
+  golf_course_id: one
 
 two:
   name: MyString
   shortDesc: MyText
-  time: 2016-10-02 13:05:24
-  date: 2016-10-02
+  tournamentDate: 2016-10-02
   numGuests: 1
-  sponsored: false
   privateURL: false
   microSiteURL: MyString
   logoLink: MyString
   language: MyString
   currency: MyString
   timeZone: MyString
-  photoLink: MyString
-  numPhotos: 1
   ticketsLeft: 1
   registerStart: 2016-10-02 13:05:24
   registerEnd: 2016-10-02 13:05:24
-  host: two
-  golf_course: two
+  golf_course_id: two
