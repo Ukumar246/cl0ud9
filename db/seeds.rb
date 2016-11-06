@@ -422,3 +422,10 @@ t = Tournament.create!(name: 'Golf Association of Hawaii', shortDesc: 'loremipsu
 t.update_column(:logoLink, 'puppy.jpg')
 t = Tournament.create!(name: 'Society for Overworked Golf Player', shortDesc: 'loremipsum', tournamentDate: DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M"), numGuests: 100, privateURL: false, microSiteURL: '', logoLink: "puppy.jpg", language: 'EN', currency: 'CAD', timeZone: 'EST', ticketsLeft: 100, registerStart: DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M"), registerEnd: DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M"), host_id: 3, golf_course_id: 3)
 t.update_column(:logoLink, 'puppy.jpg')
+
+t = TicketType.create!(tournament_id: 1, name: 'Single', description: 'Ticket for a single player', price: 50.00)
+t = TicketType.create!(tournament_id: 1, name: 'Foursome', description: '4 player team ticket', price: 175.00)
+t = TicketType.create!(tournament_id: 2, name: 'Single', description: 'Ticket for a single player', price: 50.00)
+t = TicketType.create!(tournament_id: 2, name: 'Foursome', description: '4 player team ticket', price: 175.00)
+t = TicketType.create!(tournament_id: 3, name: 'Single', description: 'Ticket for a single player', price: 50.00)
+t = TicketType.create!(tournament_id: 3, name: 'Foursome', description: '4 player team ticket', price: 175.00)
