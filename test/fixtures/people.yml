@@ -1,23 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  fName: MyString
-  lName: MyString
-  birthDate: 2016-10-02
-  email: MyString
-  allowUserEmails: false
-  pword: MyString
-  profilePicLink: MyString
-  twitterLink: MyString
-  fbLink: MyString
+  fName: 'Ozell'
+  lName: 'Snavely'
+  birthDate: 1917/6/1
+  email: 'Ozell.Snavely@gmail.com'
+  allowUserEmails: true
+  pword: '123abc'
+  profilePicLink: 'puppy.jpg'
+  twitterLink: '@ThatKevinSmith'
+  fbLink: 'https://www.facebook.com/ellentv/?fref=ts'
 
 two:
-  fName: MyString2
-  lName: MyString2
-  birthDate: 2016-10-02
-  email: MyString2
+  fName: 'Lawrence'
+  lName: 'Medford'
+  birthDate: '1979/2/22'
+  email: 'Lawrence.Medford@gmail.com'
   allowUserEmails: false
-  pword: MyString
-  profilePicLink: MyString
-  twitterLink: MyString
-  fbLink: MyString
+  pword: '123abc'
+  profilePicLink: 'puppy.jpg'
+  twitterLink: '@ThatKevinSmith'
+  fbLink: 'https://www.facebook.com/ellentv/?fref=ts'
