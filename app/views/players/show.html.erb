@@ -11,184 +11,7 @@
     <title>Profile page</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <style>
-        body {
-            /*margin-top: 50px;  //Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-        }
-
-        .header-image {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: url('http://placehold.it/1900x500') no-repeat center center scroll;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            background-size: cover;
-            -o-background-size: cover;
-        }
-
-        .headline {
-            padding: 120px 0;
-        }
-
-        .headline h1 {
-            font-size: 130px;
-            background: #fff;
-            background: rgba(255,255,255,0.9);
-        }
-
-        .headline h2 {
-            font-size: 77px;
-            background: #fff;
-            background: rgba(255,255,255,0.9);
-        }
-
-        .featurette-divider {
-            margin: 80px 0;
-        }
-
-        .featurette {
-            overflow: hidden;
-        }
-
-        .featurette-image.pull-left {
-            margin-right: 40px;
-        }
-
-        .featurette-image.pull-right {
-            margin-left: 40px;
-        }
-
-        .featurette-heading {
-            font-size: 50px;
-        }
-
-        footer {
-            margin: 50px 0;
-        }
-
-        @media(max-width:1200px) {
-            .headline h1 {
-                font-size: 140px;
-            }
-
-            .headline h2 {
-                font-size: 63px;
-            }
-
-            .featurette-divider {
-                margin: 50px 0;
-            }
-
-            .featurette-image.pull-left {
-                margin-right: 20px;
-            }
-
-            .featurette-image.pull-right {
-                margin-left: 20px;
-            }
-
-            .featurette-heading {
-                font-size: 35px;
-            }
-        }
-
-        @media(max-width:991px) {
-            .headline h1 {
-                font-size: 105px;
-            }
-
-            .headline h2 {
-                font-size: 50px;
-            }
-
-            .featurette-divider {
-                margin: 40px 0;
-            }
-
-            .featurette-image {
-                max-width: 50%;
-            }
-
-            .featurette-image.pull-left {
-                margin-right: 10px;
-            }
-
-            .featurette-image.pull-right {
-                margin-left: 10px;
-            }
-
-            .featurette-heading {
-                font-size: 30px;
-            }
-        }
-
-        @media(max-width:768px) {
-            .container {
-                margin: 0 15px;
-            }
-
-            .featurette-divider {
-                margin: 40px 0;
-            }
-
-            .featurette-heading {
-                font-size: 25px;
-            }
-        }
-
-        @media(max-width:668px) {
-            .headline h1 {
-                font-size: 70px;
-            }
-
-            .headline h2 {
-                font-size: 32px;
-            }
-
-            .featurette-divider {
-                margin: 30px 0;
-            }
-        }
-
-        @media(max-width:640px) {
-            .headline {
-                padding: 75px 0 25px 0;
-            }
-
-            .headline h1 {
-                font-size: 60px;
-            }
-
-            .headline h2 {
-                font-size: 30px;
-            }
-        }
-
-        @media(max-width:375px) {
-            .featurette-divider {
-                margin: 10px 0;
-            }
-
-            .featurette-image {
-                max-width: 100%;
-            }
-
-            .featurette-image.pull-left {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-
-            .featurette-image.pull-right {
-                margin-bottom: 10px;
-                margin-left: 0;
-            }
-        }
-    </style>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -203,7 +26,7 @@
     <div class="container">
         <!-- Second Featurette -->
         <div class="featurette" id="services">
-          <%= cl_image_tag(@player.profilePicLink, :width => 450, :height => 450, :crop => :fill, :class => "featurette-image img-circle img-responsive pull-left")%>
+          <%= cl_image_tag(@player.profilePicLink, :width => 450, :height => 450, :crop => :fill, :class => 'featurette-image img-circle img-responsive pull-left')%>
             <h2 class="featurette-heading"><%= @player.fName %>
                 <span class="text-muted"><%= @player.lName %></span>
             </h2>
@@ -211,13 +34,31 @@
             <p><%= @player.email %></p>
             <p><%= @player.birthDate %></p>
             <p><%= @player.twitterLink %></p>
-            <p><%= link_to cl_image_tag("logo-facebook.svg"), @player.fbLink %></p>
+            <p><%= link_to cl_image_tag('logo-facebook.svg'), @player.fbLink %></p>
             <p>ID: <%= @player_id %></p>
 
         </div>
         <hr class="featurette-divider">
         <!-- Footer we will use the global settings-->
-
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs float-xs-left">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Your Golf Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Hosted Tournaments</a>
+            </li>
+          </ul>
+        </div>
+        <!--loop through and display the golf courses-->
+        <div class="card-block">
+          <h4 class="card-title">Golf Course Name</h4>
+          <p class="card-text">Address</p>
+          <p class="card-text">Email</p>
+          <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+      </div>
     </div>
     <!-- /.container -->
     <!-- jQuery -->

@@ -1,60 +1,80 @@
 <!--this is a partial form view for the modal in the welcome page which shows the form for adding a golf course-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Golf Course Form</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            <!--by doing form_for @golf_course it is already checking if the object exists
-                if NOT then it goes to create else it goes to the update functions in the golf_C -->
-            <%= form_for :golf_course, url: {:controller =>'golf_courses', :action => 'create_golf_course'}, method:'post' do |f| %>
 
-                <!--change the fonts around-->
-                <%= f.label :'Golf Course Name:' %>
-                <%= f.text_field(:name, :placeholder => 'E.g. Country Club',class: 'form-control') %>
+    <% if person_signed_in? %>
+        <!--<%= debug current_person %>-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Golf Course Form</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <!--by doing form_for @golf_course it is already checking if the object exists
+                    if NOT then it goes to create else it goes to the update functions in the golf_C -->
+                <%= form_for golf_course, method:'post' do |f| %>
 
-                <%= f.label :'Phone:' %>
-                <%= f.text_field(:phone, :placeholder => 'E.g. +16472210980',class: 'form-control') %>
+                    <!--change the fonts around-->
+                    <%= f.label :'Golf Course Name:' %>
+                    <%= f.text_field(:name, :placeholder => 'E.g. Country Club',class: 'form-control') %>
 
-                <%= f.label :'Street Number:' %>
-                <%= f.text_field(:addrStreetNum, :placeholder => 'E.g. 244 or 244A', class: 'form-control') %>
+                    <%= f.label :'Phone:' %>
+                    <%= f.text_field(:phone, :placeholder => 'E.g. +16472210980',class: 'form-control') %>
 
-                <%= f.label :'Street Name:' %>
-                <%= f.text_field(:addrStreetName,  :placeholder => 'E.g. St. George Street',class: 'form-control') %>
+                    <%= f.label :'Street Number:' %>
+                    <%= f.text_field(:addrStreetNum, :placeholder => 'E.g. 244 or 244A', class: 'form-control') %>
 
-                <%= f.label :'Zip Code:' %>
-                <%= f.text_field(:addrPostalCode,  :placeholder => 'E.g. M2N 6N3',class: 'form-control') %>
+                    <%= f.label :'Street Name:' %>
+                    <%= f.text_field(:addrStreetName,  :placeholder => 'E.g. St. George Street',class: 'form-control') %>
 
-                <%= f.label :'Country:' %>
-                <%= f.text_field(:addrCountry,  :placeholder => 'E.g. Country Club',class: 'form-control') %>
+                    <%= f.label :'Zip Code:' %>
+                    <%= f.text_field(:addrPostalCode,  :placeholder => 'E.g. M2N 6N3',class: 'form-control') %>
 
-                <%= f.label :'Logo Link:' %>
-                <%= f.text_field(:logoLink,  :placeholder => 'E.g. www.logolink.com',class: 'form-control') %>
+                    <%= f.label :'Country:' %>
+                    <%= f.text_field(:addrCountry,  :placeholder => 'E.g. Country Club',class: 'form-control') %>
 
-                <%= f.label :'Website Url:' %>
-                <%= f.text_field(:websiteURL,  :placeholder => 'E.g. www.golfy.com',class: 'form-control') %>
+                    <%= f.label :'Logo Link:' %>
+                    <%= f.text_field(:logoLink,  :placeholder => 'E.g. www.logolink.com',class: 'form-control') %>
 
-                <%= f.label :'Contact Email:' %>
-                <%= f.email_field(:email,  :placeholder => 'E.g. john.smith@gmail.com',class: 'form-control') %>
+                    <%= f.label :'Website Url:' %>
+                    <%= f.text_field(:websiteURL,  :placeholder => 'E.g. www.golfy.com',class: 'form-control') %>
 
-                <%= f.label :'Capacity:' %>
-                <%= f.text_field(:capacity,  :placeholder => 'E.g. 100',class: 'form-control') %>
+                    <%= f.label :'Contact Email:' %>
+                    <%= f.email_field(:email,  :placeholder => 'E.g. john.smith@gmail.com',class: 'form-control') %>
 
+                    <%= f.label :'Capacity:' %>
+                    <%= f.text_field(:capacity,  :placeholder => 'E.g. 100',class: 'form-control') %>
 
+                    <!--because you want to save a golf course person as well-->
+                    <%= f.hidden_field :person_id, :value => current_person.id %>
 
-                <%= f.submit 'Create Golf Course', class: 'btn btn-primary', id: 'add_golf_course_btn'%>
-            <% end %>
+                    <%= f.submit 'Create Golf Course', class: 'btn btn-primary', id: 'add_golf_course_btn'%>
+                <% end %>
 
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!--empty now for spacing purposes-->
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <!--empty now for spacing purposes-->
-      </div>
-    </div>
+    <% else %>
+        <div class="modal-content panel-danger">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">ERROR</h4>
+          </div>
+          <div class="modal-body">
+            <h3>
+              You must be signed in to advertise your golf course
+            </h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+          </div>
+        </div>
+    <% end %>
   </div>
 </div>
