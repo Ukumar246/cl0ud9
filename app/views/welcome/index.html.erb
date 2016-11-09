@@ -3,6 +3,12 @@ LT: Notices mess with Alerts, how will we solve this?
 <p id="notice"><%= notice %></p>
 -->
 <!--BANNER CONTAINER STARTS---------->
+<!--<% if person_signed_in? %>-->
+    <!--<%= debug current_person %>-->
+<!--<% end %>-->
+
+<!--<%= debug @print_golf_courses %>-->
+<!--<%= debug @new_golf_course_person %>-->
 
 <div id = "main-container" class = "container">
   <div class = "row">
@@ -19,7 +25,7 @@ LT: Notices mess with Alerts, how will we solve this?
 <!--BANNER CONTAINER ENDS-------------------->
 
 <!--the modal is rendered here but toggled through the button for advertising golf course-->
-<%= render partial: 'golf_courses/new'%>
+<%= render partial: 'golf_courses/new', :locals => {golf_course:@golf_course}%>
 <div id = "user-selection" class = "container">
 
   <div class = "row">

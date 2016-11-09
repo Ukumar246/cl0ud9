@@ -1,4 +1,6 @@
 Rails.application.routes.draw do 
+  get 'check_in/show'
+
   get 'sponsors/new'
   post 'sponsors/create'
 
@@ -24,9 +26,10 @@ Rails.application.routes.draw do
 		resources :sponsorships
   end
 
+  resources :golf_courses
   root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # saves a golf course after model validation
-  post '/create_golf_course', to: 'golf_courses#create_golf_course'
+  # post '/create_golf_course', to: 'golf_courses#create_golf_course'
 end

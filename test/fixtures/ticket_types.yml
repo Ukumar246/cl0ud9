@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  tournament: one
-  name: MyString
-  description: MyString
-  price: 1.5
+  tournament: 1
+  name: 'Single'
+  description: 'Ticket for a single player'
+  price: 50
 
 two:
-  tournament: two
-  name: MyString
-  description: MyString
-  price: 1.5
+  tournament: 1
+  name: 'Foursome'
+  description: '4 player team ticket'
+  price: 175.00
