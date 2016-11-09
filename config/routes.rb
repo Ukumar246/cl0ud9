@@ -1,4 +1,6 @@
 Rails.application.routes.draw do 
+  get 'check_in/show'
+
   get 'sponsors/new'
   post 'sponsors/create'
 
