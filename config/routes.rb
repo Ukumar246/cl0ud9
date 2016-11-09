@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   post 'sponsors/create'
 
   get 'golf_courses/new'
+  
+  #for searching for golf courses
+  get 'tournaments/update_courses' => 'tournaments#update_courses'
 
   devise_for :people
 
