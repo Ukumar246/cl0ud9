@@ -8,4 +8,7 @@ class Tournament < ApplicationRecord
   has_many :sponsorships
   has_many :ticket_types
   mount_uploader :logoLink, PhotoUploader
+
+  validates :name, presence: true
+
 end
