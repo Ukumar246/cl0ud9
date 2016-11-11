@@ -20,6 +20,10 @@ class TournamentsController < ApplicationController
 		@host_name = get_host_name(@tournament)
 	end
 
+	def organize
+		@tournament = Tournament.find(params[:id])
+	end
+
 	def new
 		@tournament = Tournament.new
 	end

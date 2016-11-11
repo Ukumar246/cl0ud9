@@ -1,0 +1,15 @@
+<%= render partial: 'sponsor/new'%>
+<%= render partial: 'players/new'%>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<h1> Organizer Dashboard </h1>
+			<h4><%= @tournament.name %></h4>
+		</div>
+		<div class="col-md-3">
+			<div class="pull-right" style="padding-top: 25px;">
+				<%= link_to "Done", {action: "show"}, {role: 'button', class: 'btn btn-primary inline-block'} %>
+			</div>
+		</div>
+	</div>
+</div>
