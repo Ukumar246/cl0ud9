@@ -14,9 +14,7 @@ class TournamentsController < ApplicationController
 
 	def show
 		@tournament = Tournament.find(params[:id])
-		@golf_course_address = get_golf_course_address(@tournament)
-    @golf_course_name = get_golf_course_name(@tournament)
-    @golf_course_phone = get_golf_course_phone(@tournament)
+		@golf_course = get_golf_course_info(@tournament)
 		@host_name = get_host_name(@tournament)
 	end
 
@@ -42,45 +40,24 @@ class TournamentsController < ApplicationController
 		@tournament.errors.full_message
 		render :action =>'new'
 	end
-
 	end
+
 
 	def update
-
 	end
 
 	private
-		def tournament_params
-			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink)
-		end
-
-	private
-		def get_golf_course_address (tournament)
-			golf_course_address = GolfCourse.find(tournament.golf_course_id)
-			golf_course_address = golf_course_address.addrStreetNum.to_s + ' ' + 	golf_course_address.addrStreetName + ' ' + golf_course_address.addrPostalCode
-		return golf_course_address
+	def tournament_params
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink)
 	end
 
-  private
-  def get_golf_course_name (tournament)
-      golf_course = GolfCourse.find(tournament.golf_course_id)
-      golf_course_name = golf_course.name
-      return golf_course_name
-  end
+	def get_golf_course_info(tournament)
+		GolfCourse.find(tournament.golf_course_id)
+	end
 
-  private
-  def get_golf_course_phone (tournament)
-      golf_course = GolfCourse.find(tournament.golf_course_id)
-      golf_course_phone = golf_course.phone
-      return golf_course_phone
-  end
-
-	private
   def get_host_name (tournament)
       host = Host.find(tournament.host_id)
       host_name = host.hostName
       return host_name
   end
-
-
 end
