@@ -12,4 +12,36 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Players</strong>
+			</p>
+			<table class="table table-striped">
+		    	<% @people.each do |person| %>
+			  			<tr>
+			  				<td><%= person.fName + " " + person.lName %></td>
+								<td>
+									<span class="pull-right">
+									  <i class="btn btn-xs glyphicon glyphicon-search" data-toggle="collapse" href=<%= "#details" + person.id.to_s %> aria-expanded="false" aria-controls=<%= "details" + person.id.to_s %>></i>
+									  <i class="btn btn-xs glyphicon glyphicon-pencil"></i>
+									  <i class="btn btn-xs glyphicon glyphicon-trash"></i>
+									</span>
+								</td>
+							</tr>
+							<tr id=<%= "details" + person.id.to_s %> class="collapse">
+								<td>
+									<strong>Contact information:</strong><br>
+									<%= person.email %> <br>
+									<strong>Check-in status:</strong> <br>
+									Unknown
+								</td>
+								<td>
+								</td>
+							</tr>
+		    	<% end %>
+			</table>
+		</div>
+	</div>
 </div>
