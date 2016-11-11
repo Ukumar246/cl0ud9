@@ -21,6 +21,8 @@ class TournamentsController < ApplicationController
 
 	def organize
 		@tournament = Tournament.find(params[:id])
+		@golf_course = get_golf_course_info(@tournament)
+		@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		players = Player.where(tournament_id: @tournament.id)
 		player_ids = players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)
