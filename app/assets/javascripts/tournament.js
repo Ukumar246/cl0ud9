@@ -27,9 +27,7 @@ $(document).ready(function() {
 			"tournament[numGuests]":{required:true}
 			//"tournament[registerEnd]": { greaterThan: "tournament[registerStart]"}	
 			
-		},
-		messages: {
-		}		
+		}
 	});
 	
 	$('#search_button').click(function() {
