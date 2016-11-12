@@ -35,9 +35,15 @@ class TournamentsController < ApplicationController
 	end
 
 	def organize
+	
+		#Added checking for none golf_course_id referencing tournaments
+	
 		@tournament = Tournament.find(params[:id])
-		@golf_course = get_golf_course_info(@tournament)
-		@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
+			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		else
+			@golf_course_address = @tournament.course_name + @tournament.course_addr
+		end
 		players = Player.where(tournament_id: @tournament.id)
 		player_ids = players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)

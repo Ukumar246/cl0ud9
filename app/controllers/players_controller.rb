@@ -33,18 +33,22 @@ class PlayersController < ApplicationController
     else
         @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
         @allPlayersSaved = true
-        @newPlayers.each{
-          |nP| 
-          nP.QRCodeStr = @player.person.email + @player.ticket_type.name + @player.tournament.name + DateTime.now.to_s
-          if not nP.save 
+        @newPlayers.each do |nP| 
+          if not nP.save
             @allPlayersSaved = false
+            @errors = nP.errors.full_messages
+            break
           end
-        }
-        GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
-        # flash.now for to make the flash disappear after a while
-        flash[:success] = 'You have successfully joined this tournament.'
-        @tournament.ticketsLeft -= @numPlayers
-        @tournament.save
+        end
+        if not @allPlayersSaved
+          flash[:danger] = 'There was an error with your order: ' + @errors
+        else
+          GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
+          # flash.now for to make the flash disappear after a while
+          flash[:success] = 'You have successfully joined this tournament.'
+          @tournament.ticketsLeft -= @numPlayers
+          @tournament.save
+        end
       
     end
     redirect_to @tournament

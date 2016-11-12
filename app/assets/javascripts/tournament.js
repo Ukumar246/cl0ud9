@@ -29,8 +29,6 @@ $(document).ready(function() {
 			
 		},
 		messages: {
-			"tournament[name]": "Required",
-			"tournament[shortDesc]": "Required"
 		}		
 	});
 	

@@ -6,7 +6,7 @@
     <td><%= @host_name %></i></td>
   </tr>
   <tr>
-    <td><%= @tournament.numGuests%> Players</td>
+    <td><%= @tournament.numGuests - @tournament.ticketsLeft%> Players attending</td>
   </tr>
   <tr>
     <td><strong>Date:</strong> <%= @tournament.tournamentDate %></td>
