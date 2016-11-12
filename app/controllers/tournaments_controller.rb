@@ -4,8 +4,6 @@ class TournamentsController < ApplicationController
 		@addresses = Array.new
 
 		@tournaments = Tournament.all
-
-
 		@count = Tournament.count
 		#@tournaments.each do |t|
 		#	@addresses.push(get_golf_course_address(t))
@@ -14,8 +12,23 @@ class TournamentsController < ApplicationController
 
 	def show
 		@tournament = Tournament.find(params[:id])
-		@golf_course = get_golf_course_info(@tournament)
-		@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		
+		#use get_golf_course_address to fill the following three values
+		@course_name = nil
+		@course_address = nil
+		@course_phone = nil
+		
+		if(@tournament.golf_course_id)
+			@golf_course = GolfCourse.find(@tournament.golf_course_id)
+			@course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+			@course_name = @golf_course.name
+			@course_phone = @golf_course.phone
+		else 
+			@course_address = @tournament.course_addr
+			@course_name = @tournament.course_name
+			@course_phone = nil
+		end
+		
 		@host_name = get_host_name(@tournament)
 		@sold_out = @tournament.ticketsLeft == 0
 		@ticketsLeft = @tournament.ticketsLeft
@@ -35,6 +48,7 @@ class TournamentsController < ApplicationController
 	def new	
 		#originally index all golf_courses for the select field. The value is updated using ajax
 		@golf_course = GolfCourse.all
+		@host = Host.all
 		@tournament = Tournament.new
 	end
 
@@ -43,7 +57,8 @@ class TournamentsController < ApplicationController
 		if @tournament.ticketsLeft == nil
 			@tournament.ticketsLeft = @tournament.numGuests
 		end
-	if @tournament.save
+		
+		if @tournament.save
 		#Create the organizer entry for the tournament
 		
 		@organizer = Organizer.new
@@ -57,7 +72,7 @@ class TournamentsController < ApplicationController
 			render :action =>'new'
 		end
 	else
-		@tournament.errors.full_message
+		@tournament.errors.full_messages
 		render :action =>'new'
 	end
 	end
@@ -72,22 +87,31 @@ class TournamentsController < ApplicationController
 		respond_to do |format|
 			format.js
 		end
+	end
+	
+	def update_hosts 
+		@host = Host.where("LOWER(name) LIKE ?", "%#{params[:search_host_value].downcase}%")
 		
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	private
 	def tournament_params
-		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink)
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id)
 	end
 
-	def get_golf_course_info(tournament)
-		GolfCourse.find(tournament.golf_course_id)
-	end
 
-  def get_host_name (tournament)
-      host = Host.find(tournament.host_id)
-      host_name = host.hostName
-      return host_name
-  end
+	def get_host_name (tournament)
+		if(@tournament.host_id)
+			host = Host.find(tournament.host_id)
+			host_name = "Hosted By: " + host.hostName
+		else 
+			host_name = "There are no hosts for this tournament currently"
+		end
+		
+		return host_name
+	end
 end
 

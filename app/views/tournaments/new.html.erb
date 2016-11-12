@@ -28,19 +28,10 @@
 						</p>
 						
 						<p>
-							<%= t.label :numGuests, "Number of Guests:"%><br>
+							<%= t.label :numGuests, "Number of Participants:"%><br>
 							<%= t.text_field :numGuests %>
 						</p>
 						
-						<p>
-							<%= t.label :registerStart, "Registration Start Date:" %><br>
-							<%= t.datetime_select :registerStart%>
-						</p>
-						
-						<p>
-							<%= t.label :registerEnd, "Registration End Date:" %><br>
-							<%= t.datetime_select :registerEnd %>
-						</p>
 					</div>
 				</div>
 			</div>
@@ -103,6 +94,71 @@
 			</div>		
 		</div>
 		
+		<div id = "regDates">
+			<div class = "container" >
+				<div class = "jumbotron" >
+					<p>
+						<%= label_tag "Registration" %> <br>
+					<p>
+					
+					<button id = "reg_date_button" type = "button" class = "btn btn-primary btn_md">
+						Set Registration Dates
+					</button>
+					
+					<div id= "reg_date" style="display:none">
+						<p>
+							<%= t.label :registerStart, "Registration Start Date:" %><br>
+							<%= t.datetime_select :registerStart%>
+						</p>
+						
+						<p>
+							<%= t.label :registerEnd, "Registration End Date:" %><br>
+							<%= t.datetime_select :registerEnd %>
+						</p>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div id = "host">
+			<div class = "container">
+				<div class = "jumbotron" >
+					<p>
+						<%= label_tag "Host" %> <br>
+					</p>
+					
+					<button id = "host_button" type = "button" class = "btn btn-primary btn_md">
+						Add Host
+					</button> <br><br>
+					
+					
+					
+					<div id = "add_host" style="display:none">
+						<p>
+							<%= label_tag "Search for Host:" %> 
+						</p> 
+						
+						<p>
+							<%= text_field_tag id = "search_host_value" %>
+						</p>
+						
+						<button id = "host_search" type = "button" class = "btn btn-primary btn_md">
+							Search
+						</button>
+						
+						<p> Select: </p>
+							
+						<p>
+							<%= t.select :host_id, options_for_select(@host.collect { |host| [host.hostName, host.id] }.insert(0, ""), 0), {}, { id: "host_select"}%>
+						</p>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		<div id = "logo" >
 			<div class = "container" >
 				<div class = "jumbotron">
@@ -124,8 +180,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- Hidden field for person_id -->
 		
 		
 		
