@@ -1,4 +1,4 @@
-Rails.application.routes.draw do 
+Rails.application.routes.draw do
   get 'check_in/show'
 
   get 'sponsors/new'
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   #Rabachi: for the static pages
   get "/misc_pages/:misc_page" => "misc_pages#show"
+
+  get 'tournaments/:id/organize' => "tournaments#organize"
 
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)

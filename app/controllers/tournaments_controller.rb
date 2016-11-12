@@ -14,10 +14,22 @@ class TournamentsController < ApplicationController
 
 	def show
 		@tournament = Tournament.find(params[:id])
-		@golf_course_address = get_golf_course_address(@tournament)
-		@golf_course_name = get_golf_course_name(@tournament)
-		@golf_course_phone = get_golf_course_phone(@tournament)
-		#@host_name = get_host_name(@tournament)
+		@golf_course = get_golf_course_info(@tournament)
+		@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		@host_name = get_host_name(@tournament)
+		@sold_out = @tournament.ticketsLeft == 0
+		@ticketsLeft = @tournament.ticketsLeft
+	end
+
+	def organize
+		@tournament = Tournament.find(params[:id])
+		@golf_course = get_golf_course_info(@tournament)
+		@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		players = Player.where(tournament_id: @tournament.id)
+		player_ids = players.map { |player| player.person_id }
+		@people = Person.where(id: player_ids)
+
+		return @people
 	end
 
 	def new	
@@ -28,6 +40,9 @@ class TournamentsController < ApplicationController
 
 	def create
 		@tournament = Tournament.new(tournament_params)
+		if @tournament.ticketsLeft == nil
+			@tournament.ticketsLeft = @tournament.numGuests
+		end
 	if @tournament.save
 		#Create the organizer entry for the tournament
 		
@@ -45,11 +60,10 @@ class TournamentsController < ApplicationController
 		@tournament.errors.full_message
 		render :action =>'new'
 	end
-
 	end
 
-	def update
 
+	def update
 	end
 	
 	def update_courses
@@ -62,47 +76,18 @@ class TournamentsController < ApplicationController
 	end
 
 	private
-		def tournament_params
-			params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink, :golf_course_id, :course_name, :course_addr)
-		end
-
-	private
-		def get_golf_course_address (tournament)
-			if(tournament.golf_course_id)
-				golf_course_address = GolfCourse.find(tournament.golf_course_id)
-				golf_course_address = golf_course_address.addrStreetNum.to_s + ' ' + 	golf_course_address.addrStreetName + ' ' + golf_course_address.addrPostalCode
-			else 
-				golf_course_address = tournament.course_addr
-			end
-		return golf_course_address
+	def tournament_params
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink)
 	end
 
-  private
-  def get_golf_course_name (tournament)
-	if(tournament.golf_course_id)
-		golf_course = GolfCourse.find(tournament.golf_course_id)
-		golf_course_name = golf_course.name
-	else 
-		golf_course_name = tournament.course_name
+	def get_golf_course_info(tournament)
+		GolfCourse.find(tournament.golf_course_id)
 	end
-     return golf_course_name
-  end
 
-  private
-  def get_golf_course_phone (tournament)
-	if(tournament.golf_course_id)
-		golf_course = GolfCourse.find(tournament.golf_course_id)
-		golf_course_phone = golf_course.phone
-		return golf_course_phone
-	else 
-		return nil
-	end
-  end
-
-	private
   def get_host_name (tournament)
       host = Host.find(tournament.host_id)
       host_name = host.hostName
       return host_name
   end
 end
+

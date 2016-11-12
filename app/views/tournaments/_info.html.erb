@@ -1,0 +1,21 @@
+<table class="table">
+  <tr>
+    <td><%= @tournament.shortDesc %></td>
+  </tr>
+  <tr>
+    <td>Hosted by <i><%= @host_name %></i></td>
+  </tr>
+  <tr>
+    <td><%= @tournament.numGuests%> Players</td>
+  </tr>
+  <tr>
+    <td><strong>Date:</strong> <%= @tournament.tournamentDate %></td>
+  </tr>
+  <tr>
+    <td><strong>Location:</strong> <br>
+         <%= @golf_course.name %> <br>
+         <%= @golf_course_address %> <br>
+         <%= @golf_course.phone %> <br>
+    </td>
+  </tr>
+</table>

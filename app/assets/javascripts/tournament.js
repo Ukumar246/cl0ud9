@@ -17,7 +17,7 @@ $(document).ready(function() {
 			"tournament[name]": {required: true},
 			"tournament[shortDesc]":{required:true},
 			"tournament[tournamentDate]":{required:true}
-			
+			"register": { greaterThan: "registerStart"}	
 			
 		},
 		messages: {
