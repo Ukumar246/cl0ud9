@@ -10,5 +10,14 @@ class Tournament < ApplicationRecord
   mount_uploader :logoLink, PhotoUploader
 
   validates :name, presence: true
+  validates :numGuests, presence: true
+  validates :ticketsLeft, presence: true
+  validates :registerStart, presence: true
+  validates :registerEnd, presence: true
 
+  before_validation(on: :create) do |t|
+  	if self.ticketsLeft == nil or self.ticketsLeft == 0
+  		self.ticketsLeft = self.numGuests
+  	end
+  end
 end

@@ -14,10 +14,13 @@
           <%= form_for :player, url: {:controller =>'players', :action => 'create'}, method:'post' do |f| %>
 
             <%= f.label :'ticket_type_id' %><text class='text-danger'>*</text>
-            <select name="player[ticket_type_id]" id="player_ticket_id_ticket_type_id" class="form-control">
-                <option value="" >Select One          </option>
-                <%= options_from_collection_for_select(@tournament.ticket_types, 'id', :select_option)%>
-            </select>
+              <select name="player[ticket_type_id]" id="player_ticket_id_ticket_type_id" class="form-control">
+                  <option value="" >Select One          </option>
+                  <%= options_from_collection_for_select(@tournament.ticket_types, 'id', :select_option)%>
+              </select>
+
+            <%= f.label 'Quantity' %><text class='text-danger'>*</text><br>
+            <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1 %>
             <div>
             <br>
             <h3 class="text-danger">TODO: INSERT PAYPAL VIEW HERE</h3> 

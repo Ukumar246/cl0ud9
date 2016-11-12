@@ -17,6 +17,8 @@ class TournamentsController < ApplicationController
 		@golf_course = get_golf_course_info(@tournament)
 		@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		@host_name = get_host_name(@tournament)
+		@sold_out = @tournament.ticketsLeft == 0
+		@ticketsLeft = @tournament.ticketsLeft
 	end
 
 	def organize
@@ -36,6 +38,9 @@ class TournamentsController < ApplicationController
 
 	def create
 		@tournament = Tournament.new(tournament_params)
+		if @tournament.ticketsLeft == nil
+			@tournament.ticketsLeft = @tournament.numGuests
+		end
 	if @tournament.save
 		flash[:notice] = "Successfully created Tournament"
 		redirect_to :action => 'show', :id => @tournament

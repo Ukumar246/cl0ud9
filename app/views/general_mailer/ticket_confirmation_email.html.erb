@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <%= stylesheet_link_tag 'qrcode' %>
+  </head>
+  <body>
+    <h1>Your tickets for <%=@players.first.tournament.name%> are below. </h1>
+    <p>
+      Present this email, printed or on your mobile device, when you arrive.
+    </p>
+    <% @players.each do |p| %>
+    <p >
+      Ticket ID: <%= p.id %><br>
+      QRCode: 
+      <p>
+      <img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=<%= p.QRCodeStr%>" alt="QR code"/>
+      </p>
+    </p>
+    <% end %>
+    <p>Thanks for joining us and have a great day!</p>
+  </body>
+</html>
