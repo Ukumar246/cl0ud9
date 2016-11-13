@@ -35,6 +35,11 @@ Rails.application.routes.draw do
   root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # Mailer Stuff
+  get 'contact', to: 'messages#new', as: 'contact'
+  post 'contact', to: 'messages#create'
+
+
   # saves a golf course after model validation
   # post '/create_golf_course', to: 'golf_courses#create_golf_course'
 end
