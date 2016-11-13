@@ -32,16 +32,18 @@ class PlayersController < ApplicationController
       flash[:danger] = 'There are not enough tickets remaining to fill your order'
     else
         @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
-        @allPlayersSaved = true
-        @newPlayers.each do |nP| 
-          if not nP.save
-            @allPlayersSaved = false
-            @errors = nP.errors.full_messages
-            break
+        @allPlayersValid = true
+        Player.transaction do
+          @newPlayers.each do |nP| 
+            if not nP.save
+              @allPlayersValid = false
+              @errors = nP.errors.full_messages
+              break
+            end
           end
         end
-        if not @allPlayersSaved
-          flash[:danger] = 'There was an error with your order: ' + @errors
+        if not @allPlayersValid
+          flash[:danger] = 'There was an error with your order: ' + @errors.to_s
         else
           GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
           # flash.now for to make the flash disappear after a while
