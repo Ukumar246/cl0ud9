@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <%= javascript_include_tag ('player_show.js') %>
     <title>Profile page</title>
 
     <%= debug @tournaments_players%>
@@ -40,20 +40,29 @@
 
         </div>
         <hr class="featurette-divider">
-        <!-- Footer we will use the global settings-->
+
       <div class="card">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs float-xs-left">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Your Golf Courses</a>
+            <li class="nav-item" id = "nav-0">
+              <a class="nav-link active" >Your Golf Courses</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Hosted Tournaments</a>
+            <li class="nav-item" id = "nav-1">
+              <a class="nav-link" >Hosted Tournaments</a>
+            </li>
+            <li class="nav-item" id = "nav-2">
+              <a class="nav-link" >Sponsored Tournaments</a>
+            </li>
+            <li class="nav-item" id = "nav-3">
+              <a class="nav-link" >Playing Tournaments</a>
+            </li>
+            <li class="nav-item" id = "nav-4">
+              <a class="nav-link" >Organizing Tournaments</a>
             </li>
           </ul>
         </div>
         <!--loop through and display the golf courses-->
-        <div class="card-block">
+        <div class="card-block" id = "card-0">
           <h4 class="card-title">Golf Course Name</h4>
           <p class="card-text">Address</p>
           <p class="card-text">Email</p>
@@ -66,5 +75,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>
