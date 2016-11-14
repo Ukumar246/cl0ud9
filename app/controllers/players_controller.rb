@@ -14,6 +14,9 @@ class PlayersController < ApplicationController
     else
       @player = Person.find(@player_id)
     end
+
+    @golf_course_people = GolfCoursePerson.where(person_id:@player_id)
+    
   end
 
   def new
@@ -44,5 +47,26 @@ class PlayersController < ApplicationController
 
   def delete
   end
+
+  # private
+  #   def get_golf_courses
+  #     golf_course_ids = []
+  #     golf_course_people = GolfCoursePerson.find_by(person_id: @player_id)
+  #     if golf_course_people != nil
+  #       if golf_course_people.size > 1
+  #         golf_course_people.each do |golf_course_person|
+  #           golf_course_ids << golf_course_person.golf_course_id
+  #         end
+  #       else
+  #         golf_course_ids << golf_course_people.golf_course_id
+  #       end
+  #       golf_courses = GolfCourse.find_by(golf_course_id: golf_course_ids)
+  #
+  #       return golf_courses
+  #     end
+  #
+  #     return 0
+  #
+  #   end
 
 end
