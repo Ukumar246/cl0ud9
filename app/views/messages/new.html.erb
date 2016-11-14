@@ -1,0 +1,40 @@
+<%= form_for @message, url: contact_path do |message_form| %>
+  <div class="container">
+    <h2 class="col-xs-4"> Conact Us </h2>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <h5 class="col-xs-4"> Questions, Comments, Hate Mail? </h5>
+    <br>
+    <br>
+
+    <div class="form-group col-xs-4">
+      <%= message_form.text_field :name, placeholder: "Name", class: "form-control" %>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    <div class="form-group col-xs-4 ">
+      <%= message_form.email_field :email, placeholder: "Email", class: "form-control" %>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    <div class="form-group col-xs-6">
+      <%= message_form.text_area :content, placeholder: "Message", class: "form-control", rows: "3" %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="form-group col-xs-4">
+      <%= message_form.submit "Send", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,58 +1,48 @@
-<div class="container-fluid text-center">
-	<div class="jumbotron">
-	  <div class="well well-lg">
-	    <h1><%= @tournament.name %></h1>
-	  </div>
+<%= render partial: 'sponsor/new'%>
+<%= render partial: 'players/new'%>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<h1><%= @tournament.name %></h1>
+		</div>
+		<div class="col-md-3">
+			<div class="pull-right" style="padding-top: 25px;">
+				<% if @sold_out %>
+					<a class="btn btn-primary" href="#">Sold out!</a>
+				<% else %>
+					<a href="#playerModal" role="button" class="btn btn-primary" data-toggle="modal">Sign up</a>	
+				<% end %>
+				<a href="#sponsorModal" role="button" class="btn btn-primary" data-toggle="modal">Sponsor</a>
+				<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary inline-block'} %>
+			</div>
+		</div>
+	</div>
 
-	  <%= render partial: 'sponsor/new'%>
-	  <%= render partial: 'players/new'%>
-		<div class=" well well-sm pull-right">
-			<a href="#playerModal" role="button" class="btn btn-primary" data-toggle="modal">Sign up</a>	
-			<a href="#sponsorModal" role="button" class="btn btn-primary" data-toggle="modal">
-          Sponsor
-      </a>
+		<div class="row col-md-12">
+				<h3>Details:</h3>
 		</div>
 
-	  <div class="panel-group text-left">
-	    <div class="panel panel-info">
-	      <div class="panel-heading">
-	       <h2> Details: </h2>
-	      </div>
-	    <div class="panel-body">
-	      <div class="well well-lg ">
-	        <h3> Description:</h3>
-	        <h4><%= @tournament.shortDesc %></h4>
-	      </div>
+		<div class="row">
+			<!-- information table -->
+			<div class="col-md-4">
+				<%= render(:partial => "info" ,:controller=>"tournament") %>
+			</div>
 
-	      <div class="well well-lg ">
-	        <h4>Hosted by <%= @host_name %></h4>
-	        <h4><%= @tournament.numGuests%> Players</h4>
-	      </div>
+			<!-- Image -->
+			<div class="col-md-8">
+				<div class="pull-right">
+			  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
+				</div>
+			</div>
+		</div>
 
-	      <div class="well well-lg ">
-	        <h4>Date: <%= @tournament.tournamentDate %></h4>
-	      </div>
-
-	       <div class="well well-lg ">
-	         <h3>Location:</h3>
-	         <h4>Name: <%= @golf_course_name %> </h4>
-	         <h4>Address: <%= @golf_course_address %> </h4>
-	         <h4>Phone: <%= @golf_course_phone %></h4>
-	       </div>
-	     </div>
-	  </div>
-
+		<!-- Map -->
 	  <div id="map-container">
-	    <div class="well well-lg text-center ">
+	    <div class="text-center">
 	      <iframe width="800" height="300" frameborder="0" style="border:0"
-	          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= @golf_course_address %>"
+	          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= @course_address %>"
 	          allowfullscreen>
 	      </iframe>
 	    </div>
 	  </div>
-
-	  <%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
-
-	</div>
-</div>
 </div>

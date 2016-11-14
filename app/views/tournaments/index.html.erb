@@ -1,40 +1,41 @@
-<h1>Tournament Schedule</h1>
-<h2>There are <%= @count%> upcoming tournaments</h2>
-<div class="pull-right">
-  <a class="btn btn-primary" href="tournaments/new">Create New</a>
+<div class="container">
+  <h1>Tournament Schedule</h1>
+  <h2>There are <%= @count%> upcoming tournaments</h2>
+  <div class="pull-right">
+    <a class="btn btn-primary" href="tournaments/new">Create New</a>
+  </div>
+  <table class="table">
+  	<thead>
+    	<tr>
+  			<th class="dates">
+  				<div class="dates-container">
+  					Dates
+  					<span class="arrow-link arrow-link-down"></span>
+  				</div>
+  			</th>
+  			<th class="tournament">
+  				<div class="tournament-container">
+  					Tournament
+  					<span class="arrow-link arrow-link-down"></span>
+  				</div>
+  			</th>
+  			<th class="links">
+  				<div class="links-container">
+  					Links
+  					<span class="arrow-link arrow-link-down"></span>
+  				</div>
+  			</th>
+   		</tr>
+  	</thead>
+
+  	<tbody>
+    	<% @tournaments.each do |tourney| %>
+  			<tr>
+  				<td><%= tourney.tournamentDate.strftime("%m/%d/%Y") %></td>
+  				<td><%= tourney.name%></td>
+  				<td><%= link_to "Tournament Page", tourney%></td>
+    	<% end %>
+  	</tbody>
+  </table>
 </div>
-<table class="table">
-	<thead>
-  	<tr>
-			<th class="dates">
-				<div class="dates-container">
-					Dates
-					<span class="arrow-link arrow-link-down"></span>
-				</div>
-			</th>
-			<th class="tournament">
-				<div class="tournament-container">
-					Tournament
-					<span class="arrow-link arrow-link-down"></span>
-				</div>
-			</th>
-			<th class="links">
-				<div class="links-container">
-					Links
-					<span class="arrow-link arrow-link-down"></span>
-				</div>
-			</th>
- 		</tr>
-	</thead>
-
-	<tbody>
-  	<% @tournaments.each do |tourney| %>
-			<tr>
-				<td><%= tourney.tournamentDate.strftime("%m/%d/%Y") %></td>
-				<td><%= tourney.name%></td>
-				<td><%= link_to "Tournament Page", tourney%></td>
-  	<% end %>
-	</tbody>
-</table>
-
 <!-- Map embedding coming soon ... -->

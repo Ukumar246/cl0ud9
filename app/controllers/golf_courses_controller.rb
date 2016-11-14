@@ -1,4 +1,5 @@
 class GolfCoursesController < ApplicationController
+	
   def new
     print('Came into the new action!')
   # loads the partial view of the modal form for creating a golf course
@@ -54,5 +55,13 @@ class GolfCoursesController < ApplicationController
   def show
     print('Came into the show action!')
   end
+  
+	def get_courses
+		@golf_courses = GolfCourses.where(['name Like ?', "%#{search}%"])
+		respond_to do |format|
+			format.js
+		end
+	end
+	
 end
 

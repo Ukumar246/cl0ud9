@@ -23,5 +23,8 @@ class GolfCourse < ApplicationRecord
   validates :addrCountry, presence: true
   validates :addrCountry, format: { with: /^[a-zA-Z]+$/, message: 'Please enter a valid country name E.g. Canada', multiline: true }
 
+  def get_name
+	return this.name
+  end
 
-end
+  end

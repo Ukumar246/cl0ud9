@@ -3,7 +3,7 @@
 one:
   name: 'Make-A-Wish Foundation Fall Fundraiser'
   shortDesc: 'loremipsum'
-  tournamentDate: 2009-01-09 17:00:00
+  tournamentDate: <%= DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M") %>
   numGuests: 100
   privateURL: false
   microSiteURL: ''
@@ -12,10 +12,10 @@ one:
   currency: 'CA'
   timeZone: 'EST'
   ticketsLeft: 100
-  registerStart: 2009-01-09 17:00:00
-  registerEnd: 2009-01-09 17:00:00
+  registerStart: <%= DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M") %>
+  registerEnd: <%= DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M") %>
   golf_course_id: 1
-  host_id: 3
+  host_id: three
 
 two:
   name: 'Golf Association of Hawaii'
@@ -32,4 +32,4 @@ two:
   registerStart: 2009-01-09 17:00:00
   registerEnd: 2009-01-09 17:00:00
   golf_course_id: 2
-  host_id: 2
+  host_id: two

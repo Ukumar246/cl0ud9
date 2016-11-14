@@ -1,47 +1,192 @@
+<!--Change the javascript_include_tag later so it uses the jquery.validation gem instead-->
+
+<%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" %>
+
 <%= cloudinary_js_config %>
 <%= form_for @tournament do |t| %>
-	<div class="container">
-		<div class="jumbotron">
-			<h1>Create Tournaments</h1>
-			<p>
-				<%= t.label :name, "Tournament Name" %><br>
-				<%= t.text_field :name %>
-			</p>
-			
-			<p>
-				<%= t.label :shortDesc, "Description" %><br>
-				<%= t.text_area :shortDesc %>
-			</p>	
-			
-			<p>
-				<%= t.label :tournamentDate, "Tournament Date:"%><br>
-				<%= t.datetime_select :tournamentDate %>
-			<p>
-			
-			<p>
-				<%= t.label :numGuests, "Number of Guests:"%><br>
-				<%= t.text_field :numGuests %>
-			<p>
-			
-			<p>
-				<%= t.label :registerStart, "Registration Start Date:" %><br>
-				<%= t.datetime_select :registerStart%>
-			<p>
-			
-			<p>
-				<%= t.label :registerEnd, "Registration End Date:" %><br>
-				<%= t.datetime_select :registerEnd %>
-			<p>
-			
-			<p>
-				<%= t.label :logoLink, "Upload your logo:" %><br>
-				<%= t.file_field :logoLink %>
-			<p>
-
-			<p>
-				<%= t.submit %>
-			</p>
-			
+	
+	<div id = "new_tourn" >
+		
+		<div id = "details" >
+			<div class="container">
+				<div class="jumbotron">
+					
+					<div class = "container"> 
+						<p>
+							<%= t.label :name, "Tournament Name" %><br>
+							<%= t.text_field :name %>
+						</p>
+					
+						<p>
+							<%= t.label :shortDesc, "Description" %><br>
+							<%= t.text_area :shortDesc %>
+						</p>	
+						
+						<p>
+							<%= t.label :tournamentDate, "Tournament Date:"%><br>
+							<%= t.datetime_select :tournamentDate %>
+						</p>
+						
+						<p>
+							<%= t.label :numGuests, "Number of Participants:"%><br>
+							<%= t.text_field :numGuests %>
+						</p>
+						
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<div id = "golf_course" >
+			<div class = "container" >
+				<div class = "jumbotron" >
+					<p>
+						<%= t.label "Location" %> <br>
+					</p>
+					
+					<button id = "search_course" type = "button" class = "btn btn-primary btn-md">
+						Search for Golf Courses
+					</button>
+										
+					<button id = "enter_course" type = "button" class = "btn btn-primary btn-md">
+						Enter a location
+					</button>
+					
+					
+					<div id = "golf_search" style="display:none">
+							<br>							
+							
+							<p>
+								<%= label_tag "Enter the golf course name" %><br>
+							</p>
+							
+							<p>
+								<%= text_field_tag id = "search_value"%>
+							</p>
+							
+							<button id = "search_button" type = "button" class = "btn btn-primary btn-md">
+								Search
+							</button> <br><br>
+							
+							<p> Select: </p>
+							
+							<p>
+								<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
+							</p>
+					</div>
+					
+					
+					<div id = "golf_enter" style = "display:none">
+						<br>
+						<p>
+							<%= label_tag "Name" %> <br>
+							<%= t.text_field :course_name %>
+						</p>
+						
+						<p>
+							<%= label_tag "Address" %> <br>
+							<!--%= label_tag "(Format: Street#, Street, City, State/Province, Country)"-%><br>-->
+							<%= t.text_area :course_addr %>
+						</p>
+					</div>
+					
+				</div>
+			</div>		
+		</div>
+		
+		<!-- Hidden field for which course location method-->
+		<%= hidden_field_tag  :course_method, :id =>"course_method", :value => "1" %>
+		
+		
+		<div id = "regDates">
+			<div class = "container" >
+				<div class = "jumbotron" >
+					<p>
+						<%= label_tag "Registration" %> <br>
+					<p>
+					
+					<button id = "reg_date_button" type = "button" class = "btn btn-primary btn_md">
+						Set Registration Dates
+					</button>
+					
+					<div id= "reg_date" style="display:none">
+						<p>
+							<%= t.label :registerStart, "Registration Start Date:" %><br>
+							<%= t.datetime_select :registerStart%>
+						</p>
+						
+						<p>
+							<%= t.label :registerEnd, "Registration End Date:" %><br>
+							<%= t.datetime_select :registerEnd %>
+						</p>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div id = "host">
+			<div class = "container">
+				<div class = "jumbotron" >
+					<p>
+						<%= label_tag "Host" %> <br>
+					</p>
+					
+					<button id = "host_button" type = "button" class = "btn btn-primary btn_md">
+						Add Host
+					</button> <br><br>
+					
+					
+					
+					<div id = "add_host" style="display:none">
+						<p>
+							<%= label_tag "Search for Host:" %> 
+						</p> 
+						
+						<p>
+							<%= text_field_tag id = "search_host_value" %>
+						</p>
+						
+						<button id = "host_search" type = "button" class = "btn btn-primary btn_md">
+							Search
+						</button>
+						
+						<p> Select: </p>
+							
+						<p>
+							<%= t.select :host_id, options_for_select(@host.collect { |host| [host.hostName, host.id] }.insert(0, ""), 0), {}, { id: "host_select"}%>
+						</p>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id = "logo" >
+			<div class = "container" >
+				<div class = "jumbotron">
+					<p>
+						<%= t.label :logoLink, "Upload your logo:" %><br>
+						<%= t.file_field :logoLink %>
+					</p>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class = "container">
+			<div class = "jumbotron">
+				<div id = "submit"> 
+					<p>
+						<button type = "submit" class ='"btn btn-primary btn-md' %>Submit</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		
+		
 	</div>
 <% end %>
+

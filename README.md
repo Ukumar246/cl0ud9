@@ -15,7 +15,6 @@ On a Mac:
 5. Try out interactive ruby by executing  
 `irb`  
 
-
 ## Setting up the Project
 
 You need to have git installed on your machine, then in the terminal window and in your desired directory:  
@@ -29,6 +28,7 @@ Once the project is checked out, you need to get the required project dependenci
 Mac comes with PostGres, you just need to create a user with username'postgres' pword 'postgres' to work with the existing database.yml settings and continue from step 2.
 
 How to set up your dev db (windows):
+
 1. Download postgreSQL -> in the installer, leave the port as 5432, make password 'postgres'
 2. Download pgAdmin (GUI for postgres)
 3. run rake db:create:all in your app folder
@@ -47,4 +47,11 @@ After making changes to db/seeds.rb, repopulate database to avoid duplicates:
 1. In the directory where the project is cloned:
 ` rails server `
 
- 
+
+## Running tests
+
+To run end-to-end Cucumber tests:
+` rake cucumber `
+
+To run unit tests:
+` rake test `
