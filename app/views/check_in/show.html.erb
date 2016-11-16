@@ -1,31 +1,152 @@
-<form method="post">
-  <fieldset>
-    <legend>Check in the players</legend>
-    <input type="checkbox" name="animal" value="Tiger Woods" />Woods <br />
-    <input type="checkbox" name="animal" value="Olga Ojha" />Ojha<br />
-    <input type="checkbox" name="animal" value="Arun Ojha" />Haque<br />
-    <p><%= @tplayers =%></p>
-    <input type="submit" value="Submit now" />
-  </fieldset>
-</form>
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
+<!-- Custom Checkbox CSS -->
+<style>
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Advanced Table</div>
-      <div class="panel-body">
-        <table data-toggle="table" data-url="data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
-          <thead>
-          <tr>
-            <th data-field="state" data-checkbox="true" >Item ID</th>
-            <th data-field="id" data-sortable="true">Item ID</th>
-            <th data-field="name"  data-sortable="true">Item Name</th>
-            <th data-field="price" data-sortable="true">Item Price</th>
-          </tr>
-          </thead>
-        </table>
-      </div>
-    </div>
+  /* end .slideThree */
+  /* .roundedOne */
+  .roundedOne {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    margin: 20px auto;
+    background: #fcfff4;
+    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .roundedOne label {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
+    background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+  }
+  .roundedOne label:after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: #27ae60;
+    background: -webkit-linear-gradient(top, #27ae60 0%, #145b32 100%);
+    background: linear-gradient(to bottom, #27ae60 0%, #145b32 100%);
+    opacity: 0;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .roundedOne label:hover::after {
+    opacity: 0.3;
+  }
+  .roundedOne input[type=checkbox] {
+    visibility: hidden;
+  }
+  .roundedOne input[type=checkbox]:checked + label:after {
+    opacity: 1;
+  }
+
+  /* end .roundedOne */
+  /* .roundedTwo */
+  .roundedTwo {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    margin: 20px auto;
+    background: #fcfff4;
+    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .roundedTwo label {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    cursor: pointer;
+    background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
+    background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+  }
+  .roundedTwo label:after {
+    content: '';
+    width: 9px;
+    height: 5px;
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    border: 3px solid #fcfff4;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+  }
+  .roundedTwo label:hover::after {
+    opacity: 0.3;
+  }
+  .roundedTwo input[type=checkbox] {
+    visibility: hidden;
+  }
+  .roundedTwo input[type=checkbox]:checked + label:after {
+    opacity: 1;
+  }
+</style>
+
+<!-- Main Frame -->
+<div style="padding:5%">
+  
+  <!-- Lists  -->
+  <ul class="w3-ul w3-card-4">
+    <% @players.each do |something|%>
+      <li class="w3-padding-16">
+        <div class="roundedTwo w3-closebtn w3-padding" style ="margin:2%">
+          <input type="checkbox" value="None" id="roundedTwo" name="check" checked />
+          <label for="roundedTwo"></label>
+        </div>
+        <img src=<%= @avatar_link %> class="w3-left w3-circle" style="width:60px">
+        <span class="w3-xlarge" style="padding-left: 10px;">Mike</span><br>
+        <span style="padding-left: 10px;">Web Designer</span>
+      </li>
+    <% end %>
+  </ul>
+  <!-- Done Button -->
+  <div style="padding-top:2%">
+    <button class="w3-btn w3-padding-xxlarge w3-right" >Done</button>
   </div>
-</div><!--/.row-->
+
+</div>
+
+
+  <section title=".roundedOne">
+    <!-- .roundedOne -->
+    <div class="roundedOne">
+      <input type="checkbox" value="None" id="roundedOne" name="check" checked />
+      <label for="roundedOne"></label>
+    </div>
+    <!-- end .roundedOne -->
+  </section>
+  
+  <section title=".roundedTwo">
+    <!-- .roundedTwo -->
+    <div class="roundedTwo">
+      <input type="checkbox" value="None" id="roundedTwo" name="check" checked />
+      <label for="roundedTwo"></label>
+    </div>
+    <!-- end .roundedTwo -->
+  </section>
+  
+
