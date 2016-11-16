@@ -17,14 +17,14 @@ class TournamentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create tournament" do
     assert_difference('Tournament.count') do
-      post tournaments_url, params: { tournament: { name:'Name', shortDesc: 'DEscription', tournamentDate:'2009-01-09 17:00:00', numGuests:50, registerStart:'2009-01-09 17:00:00', registerEnd:'2009-01-09 17:00:00', logoLink:"puppy.jpg" } }
+      post tournaments_url, params: { tournament: { name:'Name', shortDesc: 'Description', tournamentDate:'2009-01-09 17:00:00', numGuests:50, registerStart:'2009-01-09 17:00:00', registerEnd:'2009-01-09 17:00:00', logoLink:"puppy.jpg" } }
     end
 
     assert_redirected_to tournament_url(Tournament.last)
   end
 
   test "should show tournament" do
-    get @tournament.microSiteURL
+    get tournament_url(@tournament)
     assert_response :success
   end
 

@@ -14,8 +14,8 @@ one:
   ticketsLeft: 100
   registerStart: <%= DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M") %>
   registerEnd: <%= DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M") %>
-  golf_course_id: 1
-  host_id: three
+  golf_course: one
+  host: two
 
 two:
   name: 'Golf Association of Hawaii'
@@ -31,5 +31,5 @@ two:
   ticketsLeft: 100
   registerStart: 2009-01-09 17:00:00
   registerEnd: 2009-01-09 17:00:00
-  golf_course_id: 2
-  host_id: two
+  golf_course: two
+  host: one
