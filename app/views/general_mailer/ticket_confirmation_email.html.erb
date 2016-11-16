@@ -13,6 +13,7 @@
     <% @players.each do |p| %>
     <p >
       Ticket ID: <%= p.id %><br>
+      Team ID: <%= p.team_id %><br>
       QRCode: 
       <p>
       <img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=<%= p.QRCodeStr%>" alt="QR code"/>

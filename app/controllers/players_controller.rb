@@ -94,6 +94,7 @@ class PlayersController < ApplicationController
         if not @allPlayersValid
           flash[:danger] = 'There was an error with your order: ' + @errors.to_s
         else
+          assign_to_teams(@newPlayers, @tournament.id)
           GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
           # flash.now for to make the flash disappear after a while
           flash[:success] = 'You have successfully joined this tournament.'
@@ -112,6 +113,51 @@ class PlayersController < ApplicationController
   end
 
   def delete
+  end
+
+  private 
+  def assign_to_teams(newPlayers, tournament_id)
+    numFullTeams = newPlayers.length / 4
+    puts {"#numFullTeams"}
+    newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}   
+    Team.transaction do
+      if newTeams
+        newTeams.each do |nt|
+          nt.save
+        end
+      end
+    end
+    i = 0
+    newTeams.each do |t|
+      newPlayers[i..i+3].each do |p|
+        p.team_id = t.id
+        p.save
+      end
+      i+=4
+    end
+
+    i -= 3
+    teams = Team.all
+    remainingPlayers = newPlayers[i..(newPlayers.size - 1)]
+    if not remainingPlayers.nil?
+      newPlayers[i..(newPlayers.size - 1)].each do |p|
+        team = teams.select {|t| t.numPlayers < 4}.first
+        if team.nil?
+          team = Team.new(tournament_id: tournament_id, numPlayers: 1)
+          team.save
+          teams = Team.all
+        else
+          team.numPlayers += 1
+        end
+
+        p.team_id = team.id
+        p.save
+      end
+      Team.transaction do
+        teams.each(&:save!)
+      end
+    end
+   
   end
 
   # private
