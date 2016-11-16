@@ -13,12 +13,12 @@
     <%= debug @tournaments_players%>
     <!-- Bootstrap Core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -44,20 +44,20 @@
       <div class="card">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs float-xs-left">
-            <li class="nav-item" id = "nav-0">
-              <a class="nav-link active" >Your Golf Courses</a>
+            <li class="nav-item">
+              <a class="nav-link active" id = "nav-0">Your Golf Courses</a>
             </li>
-            <li class="nav-item" id = "nav-1">
-              <a class="nav-link" >Hosted Tournaments</a>
+            <li class="nav-item" >
+              <a class="nav-link" id = "nav-1" >Hosted Tournaments</a>
             </li>
-            <li class="nav-item" id = "nav-2">
-              <a class="nav-link" >Sponsored Tournaments</a>
+            <li class="nav-item" >
+              <a class="nav-link" id = "nav-2">Sponsored Tournaments</a>
             </li>
-            <li class="nav-item" id = "nav-3">
-              <a class="nav-link" >Playing Tournaments</a>
+            <li class="nav-item" >
+              <a class="nav-link" id = "nav-3">Playing Tournaments</a>
             </li>
-            <li class="nav-item" id = "nav-4">
-              <a class="nav-link" >Organizing Tournaments</a>
+            <li class="nav-item" >
+              <a class="nav-link" id = "nav-4">Organizing Tournaments</a>
             </li>
           </ul>
         </div>
@@ -68,13 +68,37 @@
           <p class="card-text">Email</p>
           <a href="#" class="btn btn-primary">Edit</a>
         </div>
+
+        <div class="card-block" id = "card-1">
+          <h4 class="card-title">Hosted Tournament</h4>
+          <p class="card-text">Address</p>
+          <p class="card-text">Email</p>
+          <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+
+        <div class="card-block" id = "card-2">
+          <h4 class="card-title">Sponsored Tournament</h4>
+          <p class="card-text">Address</p>
+          <p class="card-text">Email</p>
+          <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+
+        <div class="card-block" id = "card-3">
+          <h4 class="card-title">Playing Tournament</h4>
+          <p class="card-text">Address</p>
+          <p class="card-text">Email</p>
+          <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+
+        <div class="card-block" id = "card-4">
+          <h4 class="card-title">Organizing Tournament</h4>
+          <p class="card-text">Address</p>
+          <p class="card-text">Email</p>
+          <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+
       </div>
     </div>
-    <!-- /.container -->
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 </html>

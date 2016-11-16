@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20161112214438) do
 
   create_table "players", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "tournament_id
+    t.integer  "tournament_id"
     t.integer  "team_id"
     t.boolean  "checkedIn"
     t.datetime "created_at",     null: false
