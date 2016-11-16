@@ -1,0 +1,80 @@
+<div class="modal fade" id="sponsorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+  <% if person_signed_in? %>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Become a Sponsor</h4>
+      </div>
+      <div class="modal-body text-justify">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+          <%= form_for :sponsor, url: {:controller =>'sponsors', :action => 'create'}, method:'post' do |f| %>
+
+            <%= f.label :'Type' %><text class='text-danger'>*</text>
+            <select name="sponsor[sponsorshipType]" id="sponsor_sponsorshipType" class="form-control">
+                <option value="" >Select One          </option>
+                <option value="one"  >Gold          $100</option>
+                <option value="two"  >Platinum      $1,000</option>
+                <option value="three">Double Gold   $10,000</option>
+                <option value="four" >Diamond       $100,000</option>
+                <option value="five" >Stumm         $100,000,000,000,000</option>
+            </select>
+
+            <%= f.label :'Website URL', class: 'text-justify'%>
+            <%= f.text_field(:websiteURL, :placeholder => 'www.GOLF.com',class: 'form-control') %>
+
+
+            <%= f.label :'@Twitter' %>
+            <%= f.text_field(:twitterLink, :placeholder => '@cl0ud9Twitter',class: 'form-control') %>
+
+            <%= f.label :'Facebook' %>
+            <%= f.text_field(:fbLink, :placeholder => 'facebook.com/cl0ud9',class: 'form-control') %>
+
+            <%= f.label :'Snapchat' %>
+            <%= f.text_field(:snapchatHandle, :placeholder => 'cl0ud9Snapchat',class: 'form-control') %>
+
+            <div>
+            <br>
+            <h3 class="text-danger">TODO: INSERT PAYPAL VIEW HERE</h3>
+            <br>
+            </div>
+
+            <%= f.hidden_field :person_id, :value => current_person.id %>
+            <%= f.hidden_field :tournament_id, :value => @tournament.id %>
+
+            <!-- TODO: Gotta also not allow this continue if not paid-->
+
+            <%= f.submit 'Submit Sponsor Info', class: 'btn btn-primary', id: 'add_sponsor_btn'%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--empty now for spacing purposes-->
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="modal-content panel-danger">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">ERROR</h4>
+        </div>
+        <div class="modal-body">
+          <h3>
+          You must be signed in to become a Sponsor of this tournament
+          </h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+        </div>
+      </div>
+
+  <% end %>
+
+  </div>
+</div>
