@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  person: one
-  tournament: one
-  team: one
+  person: 'Ozell Snavely'
+  tournament: 'tournament '
+  team: 'team1'
   checkedIn: false
-  QRCodeStr: one
-  ticket_type: one
+  QRCodeStr: '1234567'
+  ticket_type: 'single'
 
 two:
-  person: two
-  tournament: two
-  team: two
+  person: 'player2'
+  tournament: 'tournament2'
+  team: 'team2'
   checkedIn: false
-  QRCodeStr: two
-  ticket_type: two
+  QRCodeStr: '1234589'
+  ticket_type: 'family'

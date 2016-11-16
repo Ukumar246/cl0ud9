@@ -18,5 +18,4 @@ class GolfCoursesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to welcome_index_url
   end
 
-
 end
