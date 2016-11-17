@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
   get 'check_in/show'
 
-  #ZS: added the sponsors resources
-  resources :sponsors
+  get 'sponsors/new'
+  post 'sponsors/create'
 
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
 
   devise_for :people
 
-  #get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+  get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
   get 'players/list'
+  get 'player/show'
+  get 'players/new'
+  post 'players/create'
 
-  #ZS: added players resources
-  resources :players
 
   get 'welcome/index'
 
