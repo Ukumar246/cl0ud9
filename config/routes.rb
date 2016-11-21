@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   devise_for :people
 
-  get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
-  get 'players/list'
+  get '/people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+  get 'people/list'
   get 'player/show'
-  get 'players/new'
-  post 'players/create'
+  get 'people/new'
+  post 'people/create'
 
 
   get 'welcome/index'

@@ -1,4 +1,4 @@
-class PlayersController < ApplicationController
+class PeopleController < ApplicationController
   #show all the player's on our database
   def list
     @players = Person.all
@@ -45,7 +45,7 @@ class PlayersController < ApplicationController
     if  @players.size > 0
 
       tournaments_players = []
-      print('@players  EXISTS!');
+      print('@people  EXISTS!');
       @players.each do |player|
         tournaments_players << player.tournament_id
       end

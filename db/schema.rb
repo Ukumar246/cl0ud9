@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20161114144730) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "players", force: :cascade do |t|
+  create_table "people", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "tournament_id"
     t.integer  "team_id"
@@ -204,9 +204,9 @@ ActiveRecord::Schema.define(version: 20161114144730) do
   add_foreign_key "golf_course_people", "people"
   add_foreign_key "organizers", "people"
   add_foreign_key "organizers", "tournaments"
-  add_foreign_key "players", "people"
-  add_foreign_key "players", "teams"
-  add_foreign_key "players", "tournaments"
+  add_foreign_key "people", "people"
+  add_foreign_key "people", "teams"
+  add_foreign_key "people", "tournaments"
   add_foreign_key "scheduled_events", "tournaments"
   add_foreign_key "sponsors", "people"
   add_foreign_key "sponsors", "tournaments"
