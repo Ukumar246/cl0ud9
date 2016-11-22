@@ -10,7 +10,7 @@
     <%= javascript_include_tag ('player_show.js') %>
     <title>Profile page</title>
 
-    <%= debug @tournaments_players%>
+    <!--<%= debug @golf_course_people%>-->
     <!-- Bootstrap Core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
@@ -44,59 +44,72 @@
       <div class="card">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs float-xs-left">
-            <li class="nav-item">
-              <a class="nav-link active" id = "nav-0">Your Golf Courses</a>
-            </li>
-            <li class="nav-item" >
-              <a class="nav-link" id = "nav-1" >Hosted Tournaments</a>
-            </li>
-            <li class="nav-item" >
-              <a class="nav-link" id = "nav-2">Sponsored Tournaments</a>
-            </li>
-            <li class="nav-item" >
-              <a class="nav-link" id = "nav-3">Playing Tournaments</a>
-            </li>
-            <li class="nav-item" >
-              <a class="nav-link" id = "nav-4">Organizing Tournaments</a>
-            </li>
+            <% if @golf_courses != nil %>
+                <li class="nav-item">
+                  <a class="nav-link" id = "nav-0">Your Golf Courses</a>
+                </li>
+            <%end%>
+            <% if @tournaments_golf_courses != nil %>
+                <li class="nav-item">
+                  <a class="nav-link" id = "nav-1" >Hosted Tournaments</a>
+                </li>
+            <%end%>
+            <% if @tournaments_sponsors != nil %>
+                <li class="nav-item">
+                  <a class="nav-link" id = "nav-2">Sponsored Tournaments</a>
+                </li>
+            <%end%>
+            <% if @tournaments_players != nil %>
+                <li class="nav-item" >
+                  <a class="nav-link" id = "nav-3">Playing Tournaments</a>
+                </li>
+            <%end%>
+            <% if @tournaments_organizers != nil%>
+                <li class="nav-item" >
+                  <a class="nav-link" id = "nav-4">Organizing Tournaments</a>
+                </li>
+            <%end%>
           </ul>
         </div>
         <!--loop through and display the golf courses-->
-        <div class="card-block" id = "card-0">
-          <h4 class="card-title">Golf Course Name</h4>
-          <p class="card-text">Address</p>
-          <p class="card-text">Email</p>
-          <a href="#" class="btn btn-primary">Edit</a>
-        </div>
 
-        <div class="card-block" id = "card-1">
-          <h4 class="card-title">Hosted Tournament</h4>
-          <p class="card-text">Address</p>
-          <p class="card-text">Email</p>
-          <a href="#" class="btn btn-primary">Edit</a>
-        </div>
+            <div class="card-block" id = "card-0">
+              <h4 class="card-title">Golf Course Name</h4>
+              <p class="card-text">Address</p>
+              <p class="card-text">Email</p>
+              <a href="#" class="btn btn-primary">Edit</a>
+            </div>
 
-        <div class="card-block" id = "card-2">
-          <h4 class="card-title">Sponsored Tournament</h4>
-          <p class="card-text">Address</p>
-          <p class="card-text">Email</p>
-          <a href="#" class="btn btn-primary">Edit</a>
-        </div>
+            <div class="card-block" id = "card-1">
+              <h4 class="card-title">Hosted Tournament</h4>
+              <p class="card-text">Address</p>
+              <p class="card-text">Email</p>
+              <a href="#" class="btn btn-primary">Edit</a>
+            </div>
+            <div class="card-block" id = "card-2">
+              <h4 class="card-title">Sponsored Tournament</h4>
+              <p class="card-text">Address</p>
+              <p class="card-text">Email</p>
+              <a href="#" class="btn btn-primary">Edit</a>
+            </div>
+            <div class="card-block" id = "card-3">
+              <h4 class="card-title">Playing Tournament</h4>
+              <p class="card-text">Address</p>
+              <p class="card-text">Email</p>
+              <a href="#" class="btn btn-primary">Edit</a>
+            </div>
 
-        <div class="card-block" id = "card-3">
-          <h4 class="card-title">Playing Tournament</h4>
-          <p class="card-text">Address</p>
-          <p class="card-text">Email</p>
-          <a href="#" class="btn btn-primary">Edit</a>
-        </div>
+            <div class="card-block" id = "card-4">
+              <h4 class="card-title">Organizing Tournament</h4>
+              <p class="card-text">Address</p>
+              <p class="card-text">Email</p>
+              <a href="#" class="btn btn-primary">Edit</a>
+            </div>
 
-        <div class="card-block" id = "card-4">
-          <h4 class="card-title">Organizing Tournament</h4>
-          <p class="card-text">Address</p>
-          <p class="card-text">Email</p>
-          <a href="#" class="btn btn-primary">Edit</a>
-        </div>
 
+      </div>
+      <div class="jumbotron" id = "no-data">
+        <p>You are not playing, sponsoring, organizing or hosting a tournament!</p>
       </div>
     </div>
 
