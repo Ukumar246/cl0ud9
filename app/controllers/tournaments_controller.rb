@@ -59,17 +59,20 @@ class TournamentsController < ApplicationController
 	end
 
 	def create
+	    params.permit!
+	    
 		@tournament = Tournament.new(tournament_params)
 		if @tournament.ticketsLeft == nil
 			@tournament.ticketsLeft = @tournament.numGuests
 		end
 		
-		if @tournament.save
+      if @tournament.save
 		#Create the organizer entry for the tournament
 		
-		@organizer = Organizer.new
-		@organizer.person_id = params[:tournament][:person_id]
-		@organizer.permissions = ""
+		  @organizer = Organizer.new
+		  @organizer.tournament_id = @tournament.id
+		  @organizer.person_id = params[:tournament][:person_id]
+		  @organizer.permissions = 'FULL'
 		
 		if(@organizer.save)
 			flash[:notice] = "Successfully created Tournament"
@@ -77,10 +80,10 @@ class TournamentsController < ApplicationController
 		else 
 			render :action =>'new'
 		end
-	else
+	  else
 		@tournament.errors.full_messages
 		render :action =>'new'
-	end
+	  end
 	end
 
 
