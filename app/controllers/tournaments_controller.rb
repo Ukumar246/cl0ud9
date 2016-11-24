@@ -37,19 +37,26 @@ class TournamentsController < ApplicationController
 	def organize
 	
 		#Added checking for none golf_course_id referencing tournaments
-	
 		@tournament = Tournament.find(params[:id])
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		else
 			@golf_course_address = @tournament.course_name + @tournament.course_addr
 		end
+		
+		#Get the players in the tournaments
 		players = Player.where(tournament_id: @tournament.id)
 		player_ids = players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)
+		
 		@host_name = get_host_name(@tournament)
-
-		return @people
+		
+		#Get the hosts for the tournament
+		@admins = Organizer.where(tournament_id: @tournament.id)
+		#organizer_ids = organizer.map { |organizer| organizer.person_id}
+		#@admins = Person.where(id: organizer_ids)	
+		@person = Person.all
+		#return @people
 	end
 
 	def new	
@@ -97,7 +104,6 @@ class TournamentsController < ApplicationController
 					organizer.save
 					
 					redirect_to :action => 'organize', :id=>@tournament.id
-					
 				else
 					flash[:notice] = "Error creating tournament"
 					render :action => 'new'

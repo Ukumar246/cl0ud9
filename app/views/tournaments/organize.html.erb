@@ -1,5 +1,6 @@
 <%= render partial: 'sponsor/new'%>
 <%= render partial: 'people/new'%>
+<%= render partial: 'organizer/new'%>
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -50,4 +51,27 @@
 			</table>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Organizers</strong>
+			</p>
+			<div class="pull-left" >
+				<a href="#adminModal" role="button" class="btn btn-primary" data-toggle="modal">Add Admin</a>
+			</div>
+			<table class="table table-striped">
+				<% @admins.each do |admin| %>
+					<tr>
+						<td> <%= admin.person.fName + " " + admin.person.lName%></td>
+						<td> <%= admin.person.email %></td>
+						<td> <%= admin.permissions %></td>
+						<a href 
+					</tr>	
+				<% end %>
+			</table>
+		</div>
+		<div class="
+	</div>
+
 </div>

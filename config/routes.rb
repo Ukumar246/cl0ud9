@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'organizer/new'
+  post 'organizer/create'
+
   get 'check_in/show'
 
   get 'sponsors/new'
