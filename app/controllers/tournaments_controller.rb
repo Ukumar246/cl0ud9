@@ -47,6 +47,7 @@ class TournamentsController < ApplicationController
 		players = Player.where(tournament_id: @tournament.id)
 		player_ids = players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)
+		@host_name = get_host_name(@tournament)
 
 		return @people
 	end
@@ -59,31 +60,57 @@ class TournamentsController < ApplicationController
 	end
 
 	def create
-	    params.permit!
+	
+		#Add permissions check
+		if(true)
 	    
-		@tournament = Tournament.new(tournament_params)
-		if @tournament.ticketsLeft == nil
-			@tournament.ticketsLeft = @tournament.numGuests
-		end
+			#Create the organizer for the tournament first
+			organizer = Organizer.new
+			organizer.person_id = params[:tournament][:person_id]
+			organizer.permissions = 'FULL'
 		
-      if @tournament.save
-		#Create the organizer entry for the tournament
+			if(organizer.save)
+				#Create the host entry if needed 
+				if(params[:tournament][:hostName].present?)
+					host = Host.new
+					host.hostName = params[:tournament][:hostName]
+					host.email = params[:tournament][:hostEmail]
+					host.phone = params[:tournament][:hostPhone]
+			
+					host.save
+				end
 		
-		  @organizer = Organizer.new
-		  @organizer.tournament_id = @tournament.id
-		  @organizer.person_id = params[:tournament][:person_id]
-		  @organizer.permissions = 'FULL'
-		
-		if(@organizer.save)
-			flash[:notice] = "Successfully created Tournament"
-			redirect_to :action => 'show', :id => @tournament
+				#create the tournament
+				@tournament = Tournament.new(tournament_params)
+				if @tournament.ticketsLeft == nil
+					@tournament.ticketsLeft = @tournament.numGuests
+				end
+				
+				#set the host_id if it was typed in
+				if(params[:tournament][:hostName].present?)
+					@tournament.host_id = host.id
+				end
+				
+				if(@tournament.save)
+					#Update the organizer entry to reflect the tournament entry
+					organizer.tournament_id = @tournament.id
+					organizer.save
+					
+					redirect_to :action => 'organize', :id=>@tournament.id
+					
+				else
+					flash[:notice] = "Error creating tournament"
+					render :action => 'new'
+				end
+			else 
+				flash[:notice] = "Error setting up tournament Organizer"
+				redirect_to :action =>'index'
+			end
+			
 		else 
-			render :action =>'new'
+			flash[:notice] = "Currently not logged in"
+			redirect_to:action =>'index'
 		end
-	  else
-		@tournament.errors.full_messages
-		render :action =>'new'
-	  end
 	end
 
 
@@ -116,7 +143,7 @@ class TournamentsController < ApplicationController
 		if(@tournament.host_id)
 			host = Host.find(tournament.host_id)
 			host_name = "Hosted By: " + host.hostName
-		else 
+		else
 			host_name = "There are no hosts for this tournament currently"
 		end
 		

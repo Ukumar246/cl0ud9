@@ -15,6 +15,15 @@ $(document).ready(function() {
 	
 	$('#host_button').click(function() {
 		$('#add_host').toggle('slow');
+		$('#create_host').toggle(false);
+		$('#host_field').value('value', false);
+	});
+	
+	$('#create_host_button').click(function() {
+		
+		$('#create_host').toggle('slow');
+		$('#add_host').toggle(false);
+		$('#host_field').value('value', true);
 	});
 	
 	$("#new_tournament").validate({
