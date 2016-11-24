@@ -20,7 +20,7 @@ class TournamentsControllerTest < ActionDispatch::IntegrationTest
       post tournaments_url, params: { tournament: { name:'Name', shortDesc: 'Description', tournamentDate:'2009-01-09 17:00:00', numGuests:50, registerStart:'2009-01-09 17:00:00', registerEnd:'2009-01-09 17:00:00', logoLink:"puppy.jpg" } }
     end
 
-    assert_redirected_to tournament_url(Tournament.last)
+    assert_redirected_to :action => 'organize', id: Tournament.last.id
   end
 
   test "should show tournament" do

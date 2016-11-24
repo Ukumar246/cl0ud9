@@ -106,7 +106,6 @@ class TournamentsController < ApplicationController
 				flash[:notice] = "Error setting up tournament Organizer"
 				redirect_to :action =>'index'
 			end
-			
 		else 
 			flash[:notice] = "Currently not logged in"
 			redirect_to:action =>'index'
