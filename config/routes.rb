@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'check_in/show'
+  resources :check_in
 
   get 'sponsors/new'
   post 'sponsors/create'

@@ -55,72 +55,43 @@
     opacity: 1;
   }
 
-  /* end .roundedOne */
-  /* .roundedTwo */
-  .roundedTwo {
-    width: 28px;
-    height: 28px;
-    position: relative;
-    margin: 20px auto;
-    background: #fcfff4;
-    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    border-radius: 50px;
-    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
-  }
-  .roundedTwo label {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    cursor: pointer;
-    background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
-    background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
-    border-radius: 50px;
-    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
-  }
-  .roundedTwo label:after {
-    content: '';
-    width: 9px;
-    height: 5px;
-    position: absolute;
-    top: 5px;
-    left: 4px;
-    border: 3px solid #fcfff4;
-    border-top: none;
-    border-right: none;
-    background: transparent;
-    opacity: 0;
-    -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-  }
-  .roundedTwo label:hover::after {
-    opacity: 0.3;
-  }
-  .roundedTwo input[type=checkbox] {
-    visibility: hidden;
-  }
-  .roundedTwo input[type=checkbox]:checked + label:after {
-    opacity: 1;
-  }
+  input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 110%;
+  display: inline;
+}
 </style>
 
 <!-- Main Frame -->
-<div style="padding:5%">
+<div style="padding-left:15%;padding-right:15%;padding-top:5%;padding-bottom:5%">
   
   <!-- Lists  -->
   <ul class="w3-ul w3-card-4">
-    <% @players.each do |something|%>
+    <% i = 1 %>
+    <% @tourPlayers.each do |player|%>
       <li class="w3-padding-16">
-        <div class="roundedTwo w3-closebtn w3-padding" style ="margin:2%">
-          <input type="checkbox" value="None" id="roundedTwo" name="check" checked />
-          <label for="roundedTwo"></label>
+        <div class="w3-closebtn" style ="margin:2%">
+          <!-- <input type="checkbox" value="None" id=<%="checkbox#{i}"%> name=<%="check#{i}"%> checked <br /> -->
+          <input name="your_name" value="your_value" type="checkbox">
+          <!-- <label for="roundedTwo"></label> -->
         </div>
         <img src=<%= @avatar_link %> class="w3-left w3-circle" style="width:60px">
-        <span class="w3-xlarge" style="padding-left: 10px;">Mike</span><br>
+        <span class="w3-xlarge" style="padding-left: 10px;"><%= player.person_id %></span><br>
         <span style="padding-left: 10px;">Web Designer</span>
       </li>
+      <% i+= 1; %>
     <% end %>
   </ul>
   <!-- Done Button -->
@@ -129,24 +100,3 @@
   </div>
 
 </div>
-
-
-  <section title=".roundedOne">
-    <!-- .roundedOne -->
-    <div class="roundedOne">
-      <input type="checkbox" value="None" id="roundedOne" name="check" checked />
-      <label for="roundedOne"></label>
-    </div>
-    <!-- end .roundedOne -->
-  </section>
-  
-  <section title=".roundedTwo">
-    <!-- .roundedTwo -->
-    <div class="roundedTwo">
-      <input type="checkbox" value="None" id="roundedTwo" name="check" checked />
-      <label for="roundedTwo"></label>
-    </div>
-    <!-- end .roundedTwo -->
-  </section>
-  
-
