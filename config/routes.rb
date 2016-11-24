@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'organizer/new'
   post 'organizer/create'
 
-  get 'check_in/show'
+  resources :check_in
+
 
   get 'sponsors/new'
   post 'sponsors/create'

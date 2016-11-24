@@ -4,14 +4,19 @@ class CheckInController < ApplicationController
 
   #show all the player's on our database
   def list
-    @tplayers = Player.all
+    @tplayers = Person.all
     @pass_str = 'Pass this str'
   end
 
   def show
   	puts "Check In Controller..."
-    @tourPlayer = Player.where(tournament_id:1)
+    
+    @tourPlayers = Player.where(tournament_id:params[:id])
+    #an_id = @tourPlayers[0].person_id;
+    #@specificPlayer = Person.where(person_id:an_id)
+    puts "Players who can sign up: #{@tourPlayers.length} & #{@tourPlayers}"
+
+    puts @tourPlayer
     @avatar_link = "http://www.w3schools.com/w3css/img_avatar2.png"
-    @players = Array[1, 2, 3, 4,5];
   end
 end
