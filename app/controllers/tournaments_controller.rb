@@ -73,7 +73,7 @@ class TournamentsController < ApplicationController
 		
 		if(@organizer.save)
 			flash[:notice] = "Successfully created Tournament"
-			redirect_to :action => 'show', :id => @tournament
+			redirect_to :action => 'organize', :id => @tournament
 		else 
 			render :action =>'new'
 		end
