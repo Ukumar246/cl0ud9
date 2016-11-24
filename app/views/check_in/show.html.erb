@@ -79,6 +79,8 @@
   
   <!-- Lists  -->
   <ul class="w3-ul w3-card-4">
+    <!-- Form Start -->
+  <%= form_tag("/check_in", method: "post") do %>
     <% i = 1 %>
     <% @tourPlayers.each do |player|%>
       <li class="w3-padding-16">
@@ -93,10 +95,12 @@
       </li>
       <% i+= 1; %>
     <% end %>
-  </ul>
+    </ul>
   <!-- Done Button -->
   <div style="padding-top:2%">
     <button class="w3-btn w3-padding-xxlarge w3-right" >Done</button>
   </div>
+    <% end %>
+  
 
 </div>
