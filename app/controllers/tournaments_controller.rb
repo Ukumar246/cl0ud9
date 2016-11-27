@@ -10,6 +10,17 @@ class TournamentsController < ApplicationController
 		#end
 	end
 
+	def destroy
+		@players = Player.where(tournament_id: params[:id])
+		@players.destroy_all
+		@ticket_types = TicketType.where(tournament_id: params[:id])
+		@ticket_types.destroy_all
+
+		@tournament = Tournament.find(params[:id])
+		@tournament.destroy
+		redirect_to :action => 'index'
+	end
+
 	def show
 		@tournament = Tournament.find(params[:id])
 
