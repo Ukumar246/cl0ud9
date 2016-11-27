@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-	
+
 	def index
 		@addresses = Array.new
 
@@ -12,46 +12,42 @@ class TournamentsController < ApplicationController
 
 	def show
 		@tournament = Tournament.find(params[:id])
-		
+
 		#use get_golf_course_address to fill the following three values
 		@course_name = nil
 		@course_address = nil
 		@course_phone = nil
-		
-		if(@tournament.golf_course_id)
-			@golf_course = GolfCourse.find(@tournament.golf_course_id)
-			@course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
-			@course_name = @golf_course.name
-			@course_phone = @golf_course.phone
-		else 
-			@course_address = @tournament.course_addr
-			@course_name = @tournament.course_name
-			@course_phone = nil
-		end
-		
+
+		get_golf_course_info(@tournament)
+
 		@host_name = get_host_name(@tournament)
 		@sold_out = @tournament.ticketsLeft == 0
 		@ticketsLeft = @tournament.ticketsLeft
+		@tournament_organizer = current_user_is_organizer(@tournament)
 	end
 
 	def organize
-	
+
 		#Added checking for none golf_course_id referencing tournaments
-	
+
 		@tournament = Tournament.find(params[:id])
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		else
 			@golf_course_address = @tournament.course_name + @tournament.course_addr
 		end
+
+
+		get_golf_course_info(@tournament)
 		players = Player.where(tournament_id: @tournament.id)
 		player_ids = players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)
+		@host_name = get_host_name(@tournament)
 
 		return @people
 	end
 
-	def new	
+	def new
 		#originally index all golf_courses for the select field. The value is updated using ajax
 		@golf_course = GolfCourse.all
 		@host = Host.all
@@ -63,18 +59,18 @@ class TournamentsController < ApplicationController
 		if @tournament.ticketsLeft == nil
 			@tournament.ticketsLeft = @tournament.numGuests
 		end
-		
+
 		if @tournament.save
 		#Create the organizer entry for the tournament
-		
+
 		@organizer = Organizer.new
 		@organizer.person_id = params[:tournament][:person_id]
 		@organizer.permissions = ""
-		
+
 		if(@organizer.save)
 			flash[:notice] = "Successfully created Tournament"
 			redirect_to :action => 'organize', :id => @tournament
-		else 
+		else
 			render :action =>'new'
 		end
 	else
@@ -86,18 +82,18 @@ class TournamentsController < ApplicationController
 
 	def update
 	end
-	
+
 	def update_courses
 		@golf_course = GolfCourse.where("LOWER(name) LIKE ?", "%#{params[:search_value].downcase}%")
-		
+
 		respond_to do |format|
 			format.js
 		end
 	end
-	
-	def update_hosts 
+
+	def update_hosts
 		@host = Host.where("LOWER(name) LIKE ?", "%#{params[:search_host_value].downcase}%")
-		
+
 		respond_to do |format|
 			format.js
 		end
@@ -113,11 +109,28 @@ class TournamentsController < ApplicationController
 		if(@tournament.host_id)
 			host = Host.find(tournament.host_id)
 			host_name = "Hosted By: " + host.hostName
-		else 
+		else
 			host_name = "There are no hosts for this tournament currently"
 		end
-		
+
 		return host_name
 	end
-end
 
+	def current_user_is_organizer (tournament)
+		is_organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
+		return !is_organizer.nil?
+	end
+
+	def get_golf_course_info (tournament)
+		if(tournament.golf_course_id)
+			@golf_course = GolfCourse.find(tournament.golf_course_id)
+			@course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+			@course_name = @golf_course.name
+			@course_phone = @golf_course.phone
+		else
+			@course_address = tournament.course_addr
+			@course_name = tournament.course_name
+			@course_phone = nil
+		end
+	end
+end

@@ -13,7 +13,9 @@
 					<a href="#playerModal" role="button" class="btn btn-primary" data-toggle="modal">Sign up</a>
 				<% end %>
 				<a href="#sponsorModal" role="button" class="btn btn-primary" data-toggle="modal">Sponsor</a>
-				<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary inline-block'} %>
+				<% if @tournament_organizer %>
+					<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary inline-block'} %>
+				<% end %>
 			</div>
 		</div>
 	</div>
