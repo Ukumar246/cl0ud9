@@ -11,6 +11,8 @@ class TournamentsController < ApplicationController
 	end
 
 	def destroy
+		assert_user_can_organize(@tournament)
+
 		@players = Player.where(tournament_id: params[:id])
 		@players.destroy_all
 		@ticket_types = TicketType.where(tournament_id: params[:id])
@@ -39,11 +41,7 @@ class TournamentsController < ApplicationController
 
 	def organize
 		@tournament = Tournament.find(params[:id])
-
-		if !current_user_is_organizer(@tournament)
-			flash[:danger] = 'You do not have access to organize this tournament!'
-			redirect_to :action => 'show'
-		end
+		assert_user_can_organize(@tournament)
 
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
@@ -136,6 +134,13 @@ class TournamentsController < ApplicationController
 			return !is_organizer.nil?
 		else
 			return false
+		end
+	end
+
+	def assert_user_can_organize (tournament)
+		if !current_user_is_organizer(@tournament)
+			flash[:danger] = 'You do not have access to organize this tournament!'
+			redirect_to :action => 'show'
 		end
 	end
 

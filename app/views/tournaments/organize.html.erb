@@ -46,7 +46,11 @@
 									<strong>Contact information:</strong><br>
 									<%= person.email %> <br>
 									<strong>Check-in status:</strong> <br>
-									Unknown
+									Unknown <br>
+									<strong>Tools: </strong><br>
+									<span class="btn-group btn-group-sm" role="group">
+										<%= link_to "Resend Confirmation", {action: "resend_confirmation", controller: "people", id: person.id, tournament_id: @tournament.id}, {role: 'button', class: 'btn btn-default'} %>
+									</span>
 								</td>
 								<td>
 								</td>

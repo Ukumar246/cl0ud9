@@ -83,7 +83,7 @@ class PeopleController < ApplicationController
         @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
         @allPlayersValid = true
         Player.transaction do
-          @newPlayers.each do |nP| 
+          @newPlayers.each do |nP|
             if not nP.save
               @allPlayersValid = false
               @errors = nP.errors.full_messages
@@ -101,10 +101,18 @@ class PeopleController < ApplicationController
           @tournament.ticketsLeft -= @numPlayers
           @tournament.save
         end
-      
+
     end
     redirect_to @tournament
   end
+
+	def resend_confirmation
+      @player = Player.find_by_person_id(params[:id])
+      @players = Array.new(1){|i| i=@player};
+			GeneralMailer.ticket_confirmation_email(@players).deliver!
+      flash[:success] = 'Confirmation email has been resent to player.'
+      redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:tournament_id]
+	end
 
   def edit
   end
@@ -115,11 +123,11 @@ class PeopleController < ApplicationController
   def delete
   end
 
-  private 
+  private
   def assign_to_teams(newPlayers, tournament_id)
     numFullTeams = newPlayers.length / 4
     puts {"#numFullTeams"}
-    newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}   
+    newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}
     Team.transaction do
       if newTeams
         newTeams.each do |nt|
@@ -157,7 +165,7 @@ class PeopleController < ApplicationController
         teams.each(&:save!)
       end
     end
-   
+
   end
 
   # private
