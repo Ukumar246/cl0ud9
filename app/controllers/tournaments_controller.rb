@@ -38,10 +38,13 @@ class TournamentsController < ApplicationController
 	end
 
 	def organize
-
-		#Added checking for none golf_course_id referencing tournaments
-
 		@tournament = Tournament.find(params[:id])
+
+		if !current_user_is_organizer(@tournament)
+			flash[:danger] = 'You do not have access to organize this tournament!'
+			redirect_to :action => 'show'
+		end
+
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		else
@@ -72,22 +75,22 @@ class TournamentsController < ApplicationController
 		end
 
 		if @tournament.save
-		#Create the organizer entry for the tournament
+			#Create the organizer entry for the tournament
 
-		@organizer = Organizer.new
-		@organizer.person_id = params[:tournament][:person_id]
-		@organizer.permissions = ""
+			@organizer = Organizer.new
+			@organizer.person_id = params[:tournament][:person_id]
+			@organizer.permissions = ""
 
-		if(@organizer.save)
-			flash[:notice] = "Successfully created Tournament"
-			redirect_to :action => 'organize', :id => @tournament
+			if(@organizer.save)
+				flash[:notice] = "Successfully created Tournament"
+				redirect_to :action => 'organize', :id => @tournament
+			else
+				render :action =>'new'
+			end
 		else
+			@tournament.errors.full_messages
 			render :action =>'new'
 		end
-	else
-		@tournament.errors.full_messages
-		render :action =>'new'
-	end
 	end
 
 
@@ -128,8 +131,12 @@ class TournamentsController < ApplicationController
 	end
 
 	def current_user_is_organizer (tournament)
-		is_organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
-		return !is_organizer.nil?
+		if person_signed_in?
+			is_organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
+			return !is_organizer.nil?
+		else
+			return false
+		end
 	end
 
 	def get_golf_course_info (tournament)
