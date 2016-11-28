@@ -91,6 +91,31 @@ class TournamentsController < ApplicationController
 		end
 	end
 
+	def resend_confirmation
+    @player = Player.find_by_person_id(params[:person_id])
+    @players = Array.new(1){|i| i=@player};
+		GeneralMailer.ticket_confirmation_email(@players).deliver!
+		@curr_person = Person.find(params[:person_id])
+    flash[:success] = 'Confirmation email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+	end
+
+  def refund
+		@tournament = Tournament.find(params[:id])
+		@tournament.ticketsLeft += 1
+		@tournament.save
+
+    @player = Player.where(person_id: params[:person_id])
+		@player.destroy_all
+
+		@curr_person = Person.find(params[:person_id])
+
+		# TODO: Logic to actually refund payment
+
+    flash[:success] = @curr_person.fName + ' ' + @curr_person.lName + ' has been removed from this tournament.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+  end
+
 
 	def update
 	end

@@ -6,11 +6,12 @@ Rails.application.routes.draw do
 
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
+  get 'tournaments/:id/refund' => 'tournaments#refund'
+  get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
 
   devise_for :people
 
   get '/people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }
-  get '/people/:id/resend_confirmation' => 'people#resend_confirmation'
   get 'people/list'
   get 'player/show'
   get 'people/new'

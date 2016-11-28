@@ -106,14 +106,6 @@ class PeopleController < ApplicationController
     redirect_to @tournament
   end
 
-	def resend_confirmation
-      @player = Player.find_by_person_id(params[:id])
-      @players = Array.new(1){|i| i=@player};
-			GeneralMailer.ticket_confirmation_email(@players).deliver!
-      flash[:success] = 'Confirmation email has been resent to player.'
-      redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:tournament_id]
-	end
-
   def edit
   end
 

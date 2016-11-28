@@ -49,7 +49,8 @@
 									Unknown <br>
 									<strong>Tools: </strong><br>
 									<span class="btn-group btn-group-sm" role="group">
-										<%= link_to "Resend Confirmation", {action: "resend_confirmation", controller: "people", id: person.id, tournament_id: @tournament.id}, {role: 'button', class: 'btn btn-default'} %>
+										<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
+										<%= link_to "Refund Player", {action: "refund", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
 									</span>
 								</td>
 								<td>
