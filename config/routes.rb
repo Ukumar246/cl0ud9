@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
+  get 'tournaments/:id/refund' => 'tournaments#refund'
+  get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
 
   devise_for :people
 

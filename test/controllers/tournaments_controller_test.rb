@@ -23,9 +23,4 @@ class TournamentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to :action => 'organize', id: Tournament.last.id
   end
 
-  test "should show tournament" do
-    get tournament_url(@tournament)
-    assert_response :success
-  end
-
 end

@@ -56,22 +56,22 @@
   }
 
   input[type=checkbox]
-{
-  /* Double-sized Checkboxes */
-  -ms-transform: scale(2); /* IE */
-  -moz-transform: scale(2); /* FF */
-  -webkit-transform: scale(2); /* Safari and Chrome */
-  -o-transform: scale(2); /* Opera */
-  padding: 10px;
-}
+  {
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 10px;
+  }
 
-/* Might want to wrap a span around your checkbox text */
-.checkboxtext
-{
+  /* Might want to wrap a span around your checkbox text */
+  .checkboxtext
+  {
   /* Checkbox text */
   font-size: 110%;
   display: inline;
-}
+  }
 </style>
 
 <!-- Main Frame -->
@@ -79,28 +79,36 @@
   
   <!-- Lists  -->
   <ul class="w3-ul w3-card-4">
-    <!-- Form Start -->
+  
+  <!-- Form Start -->
   <%= form_tag("/check_in", method: "post") do %>
     <% i = 1 %>
     <% @tourPlayers.each do |player|%>
       <li class="w3-padding-16">
+        <!-- Check Box -->
         <div class="w3-closebtn" style ="margin:2%">
-          <!-- <input type="checkbox" value="None" id=<%="checkbox#{i}"%> name=<%="check#{i}"%> checked <br /> -->
           <input name="your_name" value="your_value" type="checkbox">
-          <!-- <label for="roundedTwo"></label> -->
         </div>
-        <img src=<%= @avatar_link %> class="w3-left w3-circle" style="width:60px">
-        <span class="w3-xlarge" style="padding-left: 10px;"><%= player.person_id %></span><br>
-        <span style="padding-left: 10px;">Web Designer</span>
+        
+        <!-- Avatar Image -->
+        <img src=<%= @avatar_img %> class="w3-left w3-circle" style="width:60px">
+        <%#cl_image_tag(player.person.profilePicLink, :width => 60, :class => 'w3-left w3-circle')%>
+        
+        <!-- Name Label -->
+        <span class="w3-xlarge" style="padding-left: 10px;"> <%="#{player.person.fName} #{player.person.lName}"%> 
+        </span>
+        <br>
+        <!-- Detail Label -->
+        <span style="padding-left: 10px;"> <%= player.person.email%> </span>
       </li>
       <% i+= 1; %>
     <% end %>
     </ul>
-  <!-- Done Button -->
-  <div style="padding-top:2%">
-    <button class="w3-btn w3-padding-xxlarge w3-right" >Done</button>
-  </div>
-    <% end %>
+    <!-- Done Button -->
+    <div style="padding-top:2%">
+      <button class="w3-btn w3-padding-xxlarge w3-right" >Done</button>
+    </div>
+  <% end %>
   
 
 </div>

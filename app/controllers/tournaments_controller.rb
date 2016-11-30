@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-	
+
 	def index
 		@addresses = Array.new
 
@@ -10,37 +10,41 @@ class TournamentsController < ApplicationController
 		#end
 	end
 
+	def destroy
+		assert_user_can_organize(@tournament)
+
+		@players = Player.where(tournament_id: params[:id])
+		@players.destroy_all
+		@ticket_types = TicketType.where(tournament_id: params[:id])
+		@ticket_types.destroy_all
+
+		@tournament = Tournament.find(params[:id])
+		@tournament.destroy
+		redirect_to :action => 'index'
+	end
+
 	def show
 		@tournament = Tournament.find(params[:id])
-		
+
 		#use get_golf_course_address to fill the following three values
 		@course_name = nil
 		@course_address = nil
 		@course_phone = nil
-		
-		if(@tournament.golf_course_id)
-			@golf_course = GolfCourse.find(@tournament.golf_course_id)
-			@course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
-			@course_name = @golf_course.name
-			@course_phone = @golf_course.phone
-		else 
-			@course_address = @tournament.course_addr
-			@course_name = @tournament.course_name
-			@course_phone = nil
-		end
-		
+
+		get_golf_course_info(@tournament)
+
 		@host_name = get_host_name(@tournament)
 		@sold_out = @tournament.ticketsLeft == 0
 		@ticketsLeft = @tournament.ticketsLeft
+		@tournament_organizer = current_user_is_organizer(@tournament)
 	end
 
 	def organize
-		
-		#Added checking for none golf_course_id referencing tournaments
 		@tournament = Tournament.find(params[:id])
-		
-		if (false)#!check_organizer_permissions(@tournament))
-			flash[:notice] = "You do not have permission"
+		assert_user_can_organize(@tournament)
+
+		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
+			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		else
 			if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 				@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
@@ -62,6 +66,7 @@ class TournamentsController < ApplicationController
 			@person = Person.all
 			#return @people
 		end
+<<<<<<< HEAD
 	end
 
 	def new	
@@ -80,27 +85,24 @@ class TournamentsController < ApplicationController
 
 	def create
 	
-		#Add log in check
-		if(current_person)
-	    
-			#Create the organizer for the tournament first
-			organizer = Organizer.new
-			organizer.person_id = params[:tournament][:person_id]
-			organizer.permissions = 'FULL'
+		#Create the organizer for the tournament first
+		organizer = Organizer.new
+		organizer.person_id = params[:tournament][:person_id]
+		organizer.permissions = 'FULL'
 		
-			if(organizer.save)
-				#Create the host entry if needed 
-				if(params[:tournament][:hostName].present?)
-					host = Host.new
-					host.hostName = params[:tournament][:hostName]
-					host.email = params[:tournament][:hostEmail]
-					host.phone = params[:tournament][:hostPhone]
-			
-					host.save
-				end
+		if(organizer.save)
+			#Create the host entry if needed 
+			if(params[:tournament][:hostName].present?)
+				host = Host.new
+				host.hostName = params[:tournament][:hostName]
+				host.email = params[:tournament][:hostEmail]
+				host.phone = params[:tournament][:hostPhone]
 		
-				#create the tournament
-				@tournament = Tournament.new(tournament_params)
+				host.save
+			end
+		
+			#create the tournament
+			@tournament = Tournament.new(tournament_params)
 				if @tournament.ticketsLeft == nil
 					@tournament.ticketsLeft = @tournament.numGuests
 				end
@@ -124,27 +126,48 @@ class TournamentsController < ApplicationController
 				flash[:notice] = "Error setting up tournament Organizer"
 				redirect_to :action =>'index'
 			end
-		else 
-			flash[:notice] = "Currently not logged in"
-			redirect_to:action =>'index'
-		end
+
+	def resend_confirmation
+    @player = Player.find_by_person_id(params[:person_id])
+    @players = Array.new(1){|i| i=@player};
+		GeneralMailer.ticket_confirmation_email(@players).deliver!
+		@curr_person = Person.find(params[:person_id])
+    flash[:success] = 'Confirmation email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+
 	end
+
+  def refund
+		@tournament = Tournament.find(params[:id])
+		@tournament.ticketsLeft += 1
+		@tournament.save
+
+    @player = Player.where(person_id: params[:person_id])
+		@player.destroy_all
+
+		@curr_person = Person.find(params[:person_id])
+
+		# TODO: Logic to actually refund payment
+
+    flash[:success] = @curr_person.fName + ' ' + @curr_person.lName + ' has been removed from this tournament.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+  end
 
 
 	def update
 	end
-	
+
 	def update_courses
 		@golf_course = GolfCourse.where("LOWER(name) LIKE ?", "%#{params[:search_value].downcase}%")
-		
+
 		respond_to do |format|
 			format.js
 		end
 	end
-	
-	def update_hosts 
+
+	def update_hosts
 		@host = Host.where("LOWER(name) LIKE ?", "%#{params[:search_host_value].downcase}%")
-		
+
 		respond_to do |format|
 			format.js
 		end
@@ -163,21 +186,36 @@ class TournamentsController < ApplicationController
 		else
 			host_name = "There are no hosts for this tournament currently"
 		end
-		
+
 		return host_name
 	end
-	
-	def check_organizer_permissions(tournament)
-		user = current_person
-		
-		#grab the organizer table from tournaments
-		tourn_organizer = tournament.organizers
-		
-		if tourn_organizer.where(person_id:user.person_id)
-			return true
+
+	def current_user_is_organizer (tournament)
+		if person_signed_in?
+			is_organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
+			return !is_organizer.nil?
 		else
 			return false
 		end
 	end
-end
 
+	def assert_user_can_organize (tournament)
+		if !current_user_is_organizer(@tournament)
+			flash[:danger] = 'You do not have access to organize this tournament!'
+			redirect_to :action => 'show'
+		end
+	end
+
+	def get_golf_course_info (tournament)
+		if(tournament.golf_course_id)
+			@golf_course = GolfCourse.find(tournament.golf_course_id)
+			@course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+			@course_name = @golf_course.name
+			@course_phone = @golf_course.phone
+		else
+			@course_address = tournament.course_addr
+			@course_name = tournament.course_name
+			@course_phone = nil
+		end
+	end
+end
