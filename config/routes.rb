@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post 'organizer/create'
 
   resources :check_in
-
+  post 'check_in/submit'
 
   get 'sponsors/new'
   post 'sponsors/create'
