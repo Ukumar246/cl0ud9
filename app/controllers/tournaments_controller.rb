@@ -35,41 +35,53 @@ class TournamentsController < ApplicationController
 	end
 
 	def organize
-	
+		
 		#Added checking for none golf_course_id referencing tournaments
 		@tournament = Tournament.find(params[:id])
-		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
-			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		
+		if (false)#!check_organizer_permissions(@tournament))
+			flash[:notice] = "You do not have permission"
 		else
-			@golf_course_address = @tournament.course_name + @tournament.course_addr
+			if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
+				@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+			else
+				@golf_course_address = @tournament.course_name + @tournament.course_addr
+			end
+			
+			#Get the players in the tournaments
+			players = Player.where(tournament_id: @tournament.id)
+			player_ids = players.map { |player| player.person_id }
+			@people = Person.where(id: player_ids)
+			
+			@host_name = get_host_name(@tournament)
+			
+			#Get the hosts for the tournament
+			@admins = Organizer.where(tournament_id: @tournament.id)
+			#organizer_ids = organizer.map { |organizer| organizer.person_id}
+			#@admins = Person.where(id: organizer_ids)	
+			@person = Person.all
+			#return @people
 		end
-		
-		#Get the players in the tournaments
-		players = Player.where(tournament_id: @tournament.id)
-		player_ids = players.map { |player| player.person_id }
-		@people = Person.where(id: player_ids)
-		
-		@host_name = get_host_name(@tournament)
-		
-		#Get the hosts for the tournament
-		@admins = Organizer.where(tournament_id: @tournament.id)
-		#organizer_ids = organizer.map { |organizer| organizer.person_id}
-		#@admins = Person.where(id: organizer_ids)	
-		@person = Person.all
-		#return @people
 	end
 
 	def new	
-		#originally index all golf_courses for the select field. The value is updated using ajax
-		@golf_course = GolfCourse.all
-		@host = Host.all
-		@tournament = Tournament.new
+		
+		#Add log in check
+		if(current_person)
+			#originally index all golf_courses for the select field. The value is updated using ajax
+			@golf_course = GolfCourse.all
+			@host = Host.all
+			@tournament = Tournament.new
+		else 
+			flash[:notice] = "Need to be logged in to create tournaments"
+			redirect_to :action =>"index"
+		end
 	end
 
 	def create
 	
-		#Add permissions check
-		if(true)
+		#Add log in check
+		if(current_person)
 	    
 			#Create the organizer for the tournament first
 			organizer = Organizer.new
@@ -153,6 +165,19 @@ class TournamentsController < ApplicationController
 		end
 		
 		return host_name
+	end
+	
+	def check_organizer_permissions(tournament)
+		user = current_person
+		
+		#grab the organizer table from tournaments
+		tourn_organizer = tournament.organizers
+		
+		if tourn_organizer.where(person_id:user.person_id)
+			return true
+		else
+			return false
+		end
 	end
 end
 
