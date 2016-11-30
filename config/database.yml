@@ -1,11 +1,9 @@
 default: &default
-  host: localhost
   adapter: postgresql
   pool: 5
   timeout: 5000
 
 development:  
-  host: localhost
   adapter: postgresql
   encoding: unicode
   database: cl0ud9_dev
@@ -14,7 +12,6 @@ development:
   password: postgres
 
 test: &test
-  host: localhost
   adapter: postgresql
   encoding: unicode
   database: cl0ud9_test
