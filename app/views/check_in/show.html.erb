@@ -81,13 +81,13 @@
   <ul class="w3-ul w3-card-4">
   
   <!-- Form Start -->
-  <%= form_tag("/check_in", method: "post") do %>
+  <%= form_tag("/check_in/submit", method: "post") do %>
     <% i = 1 %>
     <% @tourPlayers.each do |player|%>
       <li class="w3-padding-16">
         <!-- Check Box -->
         <div class="w3-closebtn" style ="margin:2%">
-          <input name="your_name" value="your_value" type="checkbox">
+          <input name="player_id" value=<%= player.id %> type="checkbox">
         </div>
         
         <!-- Avatar Image -->
@@ -99,7 +99,7 @@
         </span>
         <br>
         <!-- Detail Label -->
-        <span style="padding-left: 10px;"> <%= player.person.email%> </span>
+        <span style="padding-left: 10px;"> <%= "#{player.person.email} | status:#{player.checkedIn}"%> </span>
       </li>
       <% i+= 1; %>
     <% end %>

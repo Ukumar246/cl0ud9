@@ -1,6 +1,9 @@
 <%= render partial: 'tournaments/edit'%>
 <%= render partial: 'tournaments/delete'%>
 <%= render partial: 'tournaments/email'%>
+<%= render partial: 'sponsor/new'%>
+<%= render partial: 'people/new'%>
+<%= render partial: 'organizer/new'%>
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -60,4 +63,32 @@
 			</table>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Organizers</strong>
+			</p>
+			<% if @organizer_permissions %>
+				<i class="btn btn-xs glyphicon glyphicon-plus" href="#adminModal"  data-toggle="modal"></i>
+			<% end %>
+			<table class="table table-striped">
+				<% @admins.each do |admin| %>
+					<tr>
+						<td> <%= admin.person.fName + " " + admin.person.lName%></td>
+						<td> <%= admin.permissions %></td>
+						<td>
+							<% if @organizer_permissions %>
+							<span class="pull-right">
+							  <i class="btn btn-xs glyphicon glyphicon-pencil" ></i>
+							  <i class="btn btn-xs glyphicon glyphicon-trash" ></i>
+							</span>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+
 </div>

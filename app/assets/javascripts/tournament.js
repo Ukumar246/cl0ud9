@@ -1,5 +1,5 @@
-$(document).ready(function() {
-	$('#search_course').click(function() {
+$(document).on('turbolinks:load', function() {
+  $('#search_course').click(function() {
 		$('#golf_search').toggle('show');
 		$('#golf_enter').toggle(false);
 	});
@@ -15,6 +15,15 @@ $(document).ready(function() {
 	
 	$('#host_button').click(function() {
 		$('#add_host').toggle('slow');
+		$('#create_host').toggle(false);
+		$('#host_field').value('value', false);
+	});
+	
+	$('#create_host_button').click(function() {
+		
+		$('#create_host').toggle('slow');
+		$('#add_host').toggle(false);
+		$('#host_field').value('value', true);
 	});
 	
 	$("#new_tournament").validate({
@@ -26,7 +35,6 @@ $(document).ready(function() {
 			"tournament[tournamentDate]":{required:true},
 			"tournament[numGuests]":{required:true}
 			//"tournament[registerEnd]": { greaterThan: "tournament[registerStart]"}	
-			
 		}
 	});
 	
@@ -46,4 +54,3 @@ $(document).ready(function() {
 		})
 	});*/
 });
-

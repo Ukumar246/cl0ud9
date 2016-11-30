@@ -12,4 +12,10 @@ default from: 'cl0ud9golfing@gmail.com'
 		@message = message
 		mail(to: player.person.email, subject: subject)
 	end
+
+	def tournament_confirmation_email (tournament, organizer_email)
+		@tourney = tournament
+		@subject = 'Your tournament confirmation'
+		mail(to: organizer_email, subject: @subject)
+	end
 end
