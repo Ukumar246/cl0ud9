@@ -122,14 +122,8 @@ class TournamentsController < ApplicationController
 				host.save
 			end
 		end
-		#Create the organizer entry for the tournament
-
-		@organizer = Organizer.new
-		@organizer.person_id = params[:tournament][:person_id]
-		@organizer.permissions = ""
 
 		if(@organizer.save)
-		
 		
 			#create the tournament
 			@tournament = Tournament.new(tournament_params)
