@@ -1,6 +1,8 @@
 <% if tournaments_passed_in != nil%>
     <% tournaments_passed_in.each do |tournament|%>
-        <a href="#" class="list-group-item list-group-item-action">
+        <!-- TODO: BAD. HASH? NO -->
+        <a href="tournaments/<%= tournament.id %>" class="list-group-item list-group-item-action">
+        
           <!--sample item in the list-->
           <div class="row">
 
