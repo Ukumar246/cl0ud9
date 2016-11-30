@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
+  get 'tournaments/update_hosts' => 'tournaments#update_hosts'
   get 'tournaments/:id/refund' => 'tournaments#refund'
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
 
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
   get "/misc_pages/:misc_page" => "misc_pages#show"
 
   get 'tournaments/:id/organize' => "tournaments#organize"
-
+  
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)
   resources :tournaments do

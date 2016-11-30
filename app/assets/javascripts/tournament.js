@@ -1,5 +1,5 @@
-$(document).ready(function() {
-	$('#search_course').click(function() {
+$(document).on('turbolinks:load', function() {
+  $('#search_course').click(function() {
 		$('#golf_search').toggle('show');
 		$('#golf_enter').toggle(false);
 	});
@@ -35,7 +35,6 @@ $(document).ready(function() {
 			"tournament[tournamentDate]":{required:true},
 			"tournament[numGuests]":{required:true}
 			//"tournament[registerEnd]": { greaterThan: "tournament[registerStart]"}	
-			
 		}
 	});
 	
@@ -55,4 +54,3 @@ $(document).ready(function() {
 		})
 	});*/
 });
-

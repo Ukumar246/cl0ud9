@@ -5,25 +5,27 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Add Admin Form</h4>
+				<h4 class="modal-title">Add Admin</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<%= form_for :organizer, url: {:controller =>'organizer', :action => 'create'}, method:'post' do |f| %>
 						
+						<% if false %>
 						<%= f.label "Entire Email:"%>
 						<%= text_field_tag id = "email_value"%>
 						
 						<button id = "search_button" type = "button" class = "btn btn-primary btn-mid">
 							Search
 						</button>
+						<%end%>
 						
 						<br>
-						
 						<%= f.label "Select an person" %>
-						<%= f.select :person_id, options_for_select(@person.collect { |person| [person.email, person.id] }.insert(0,""), 0), {}, {id: "admin_select"}%>
+						<%= f.select :person_id, options_for_select(@person.collect { |person| [person.email, person.id] }.sort.insert(0,""), 0), {}, {id: "admin_select"}%>
 						<br>
+						
 						<%= f.label "Select Permission Level" %>
 						<%= f.select :permission, [["Edit", "EDIT"], ["Full", "FULL"]] %>
 						

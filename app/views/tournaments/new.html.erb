@@ -71,7 +71,7 @@
 							<p> Select: </p>
 							
 							<p>
-								<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
+								<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.sort.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
 							</p>
 					</div>
 					
@@ -143,6 +143,8 @@
 					<br><br>
 					
 					<div id = "add_host" style="display:none">
+					
+						<% if false %>
 						<p>
 							<%= label_tag "Search for Host:" %> 
 						</p> 
@@ -154,11 +156,12 @@
 						<button id = "host_search" type = "button" class = "btn btn-primary btn_md">
 							Search
 						</button>
+						<% end %>
 						
 						<p> Select: </p>
 							
 						<p>
-							<%= t.select :host_id, options_for_select(@host.collect { |host| [host.hostName, host.id] }.insert(0, ""), 0), {}, { id: "host_select"}%>
+							<%= t.select :host_id, options_for_select(@host.collect { |host| [host.hostName, host.id] }.sort.insert(0, ""), 0), {}, { id: "host_select"}%>
 						</p>
 					
 					</div>

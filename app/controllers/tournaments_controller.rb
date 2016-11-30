@@ -43,9 +43,6 @@ class TournamentsController < ApplicationController
 		@tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
 
-		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
-			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
-		else
 			if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 				@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 			else
@@ -65,16 +62,16 @@ class TournamentsController < ApplicationController
 			#@admins = Person.where(id: organizer_ids)	
 			@person = Person.all
 			#return @people
-		end
-<<<<<<< HEAD
+			
+			@organizer_permissions = current_user_permission_level(@tournament)
 	end
 
 	def new	
 		
 		#Add log in check
 		if(current_person)
-			#originally index all golf_courses for the select field. The value is updated using ajax
-			@golf_course = GolfCourse.all
+			#originally index none of the golf_course and hosts. The value is updated using ajax
+			@golf_course = GolfCourse.none
 			@host = Host.all
 			@tournament = Tournament.new
 		else 
@@ -84,16 +81,17 @@ class TournamentsController < ApplicationController
 	end
 
 	def create
-	
 		#Create the organizer for the tournament first
 		organizer = Organizer.new
 		organizer.person_id = params[:tournament][:person_id]
 		organizer.permissions = 'FULL'
 		
+		#create the host
+		host = Host.new
+		
 		if(organizer.save)
 			#Create the host entry if needed 
 			if(params[:tournament][:hostName].present?)
-				host = Host.new
 				host.hostName = params[:tournament][:hostName]
 				host.email = params[:tournament][:hostEmail]
 				host.phone = params[:tournament][:hostPhone]
@@ -119,39 +117,44 @@ class TournamentsController < ApplicationController
 					
 					redirect_to :action => 'organize', :id=>@tournament.id
 				else
+					#delete the table entries for host and organizer if tournament fails
+					organizer.destroy
+					host.destroy
+					
 					flash[:notice] = "Error creating tournament"
 					render :action => 'new'
 				end
-			else 
-				flash[:notice] = "Error setting up tournament Organizer"
-				redirect_to :action =>'index'
-			end
-
+		else 
+			flash[:notice] = "Error setting up tournament Organizer"
+			redirect_to :action =>'index'
+		end
+	end
+	
 	def resend_confirmation
-    @player = Player.find_by_person_id(params[:person_id])
-    @players = Array.new(1){|i| i=@player};
-		GeneralMailer.ticket_confirmation_email(@players).deliver!
+		@player = Player.find_by_person_id(params[:person_id])
+		@players = Array.new(1){|i| i=@player};
+			GeneralMailer.ticket_confirmation_email(@players).deliver!
 		@curr_person = Person.find(params[:person_id])
-    flash[:success] = 'Confirmation email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
-    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+		flash[:success] = 'Confirmation email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
+		redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
 
 	end
 
-  def refund
-		@tournament = Tournament.find(params[:id])
-		@tournament.ticketsLeft += 1
-		@tournament.save
+   def refund
+		 @tournament = Tournament.find(params[:id])
+		 @tournament.ticketsLeft += 1
+		 @tournament.save
 
-    @player = Player.where(person_id: params[:person_id])
-		@player.destroy_all
+     @player = Player.where(person_id: params[:person_id])
+		 @player.destroy_all
 
-		@curr_person = Person.find(params[:person_id])
+		 @curr_person = Person.find(params[:person_id])
 
-		# TODO: Logic to actually refund payment
+		 # TODO: Logic to actually refund payment
 
-    flash[:success] = @curr_person.fName + ' ' + @curr_person.lName + ' has been removed from this tournament.'
-    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
-  end
+     flash[:success] = @curr_person.fName + ' ' + @curr_person.lName + ' has been removed from this tournament.'
+     redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+   end
 
 
 	def update
@@ -217,5 +220,15 @@ class TournamentsController < ApplicationController
 			@course_name = tournament.course_name
 			@course_phone = nil
 		end
+	end
+
+	def current_user_permission_level(tournament)
+		organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
+		if(organizer.permissions == "EDIT")
+			return false
+		elsif (organizer.permissions == "FULL")
+			return true
+		end
+		return false
 	end
 end

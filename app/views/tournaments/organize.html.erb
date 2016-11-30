@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 <%= render partial: 'sponsor/new'%>
 <%= render partial: 'people/new'%>
 <%= render partial: 'organizer/new'%>
-=======
-<%= render partial: 'tournaments/edit'%>
-<%= render partial: 'tournaments/delete'%>
->>>>>>> df1b64ad24ef0167a752c9dbb4a203f5805a0c98
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -72,21 +67,26 @@
 			<p class="text-center">
 				<strong>Organizers</strong>
 			</p>
-			<div class="pull-left" >
-				<a href="#adminModal" role="button" class="btn btn-primary" data-toggle="modal">Add Admin</a>
-			</div>
+			<% if @organizer_permissions %>
+				<i class="btn btn-xs glyphicon glyphicon-plus" href="#adminModal"  data-toggle="modal"></i>
+			<% end %>
 			<table class="table table-striped">
 				<% @admins.each do |admin| %>
 					<tr>
 						<td> <%= admin.person.fName + " " + admin.person.lName%></td>
-						<td> <%= admin.person.email %></td>
 						<td> <%= admin.permissions %></td>
-						<a href 
+						<td>
+							<% if @organizer_permissions %>
+							<span class="pull-right">
+							  <i class="btn btn-xs glyphicon glyphicon-pencil" ></i>
+							  <i class="btn btn-xs glyphicon glyphicon-trash" ></i>
+							</span>
+							<% end %>
+						</td>
 					</tr>	
 				<% end %>
 			</table>
 		</div>
-		<div class="
 	</div>
 
 </div>
