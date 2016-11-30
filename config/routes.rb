@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   delete 'organizer/:id/' => 'organizer#destroy' 
 
   resources :check_in
-  
+  post 'check_in/submit'
+
   get 'sponsors/new'
+  #post 'charges/create'
   post 'sponsors/create'
 
   #for searching for golf courses
@@ -30,6 +32,11 @@ Rails.application.routes.draw do
 
   get 'tournaments/:id/organize' => "tournaments#organize"
   
+  #for private tournaments
+  controller :tournaments do
+    get 'tournaments/:id/private/:key'     => :private_url
+  end
+
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)
   resources :tournaments do
@@ -44,6 +51,9 @@ Rails.application.routes.draw do
   # Mailer Stuff
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
+  
+  #payments
+  resources :charges
 
 
   # saves a golf course after model validation

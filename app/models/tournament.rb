@@ -8,6 +8,7 @@ class Tournament < ApplicationRecord
   has_many :sponsorships
   has_many :ticket_types
   has_many :organizers
+  has_one :private_url
   mount_uploader :logoLink, PhotoUploader
 
   #validate name max length 250, only space, numbers and letters

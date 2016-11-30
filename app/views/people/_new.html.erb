@@ -22,7 +22,6 @@
             <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1, value: 1 %>
             <div>
             <br>
-            <h3 class="text-danger">TODO: INSERT PAYPAL VIEW HERE</h3>
             <br>
             </div>
 
@@ -31,7 +30,7 @@
 
             <!-- TODO: Gotta also not allow this continue if not paid-->
 
-            <%= f.submit 'Submit Player Info', class: 'btn btn-primary', id: 'add_player_btn'%>
+            <%= f.submit 'Proceed to Payment', class: 'btn btn-primary', id: 'add_player_btn'%>
             <% end %>
           </div>
         </div>

@@ -1,0 +1,24 @@
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info tournaments # provided by will_paginate %>
+  </div>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Golf Course</th>
+      <th>Registered at</th>
+    </tr>
+    <% tournaments.each do |tourney| %>
+      <tr>
+        <td><%= tourney.name %></td>
+        <td><%= tourney.golf_course_id %></td>
+        <td><%= tourney.tournamentDate.strftime("%m/%d/%Y") %></td>
+        <td><%= link_to "Tournament Page" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate tournaments # provided by will_paginate %>
