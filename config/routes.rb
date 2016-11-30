@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'tournaments/update_hosts' => 'tournaments#update_hosts'
   get 'tournaments/:id/refund' => 'tournaments#refund'
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
+  post 'tournaments/:id/email' => 'tournaments#email'
 
   devise_for :people
 

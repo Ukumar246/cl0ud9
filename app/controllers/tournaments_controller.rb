@@ -59,6 +59,7 @@ class TournamentsController < ApplicationController
 		@tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
 
+<<<<<<< HEAD
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		else
@@ -87,17 +88,40 @@ class TournamentsController < ApplicationController
 
 		get_golf_course_info(@tournament)
 
+=======
+			if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
+				@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+			else
+				@golf_course_address = @tournament.course_name + @tournament.course_addr
+			end
+
+			#Get the players in the tournaments
+			players = Player.where(tournament_id: @tournament.id)
+			player_ids = players.map { |player| player.person_id }
+			@people = Person.where(id: player_ids)
+
+			@host_name = get_host_name(@tournament)
+
+			#Get the hosts for the tournament
+			@admins = Organizer.where(tournament_id: @tournament.id)
+			#organizer_ids = organizer.map { |organizer| organizer.person_id}
+			#@admins = Person.where(id: organizer_ids)
+			@person = Person.all
+			#return @people
+
+			@organizer_permissions = current_user_permission_level(@tournament)
+>>>>>>> 5608edf053fa9ce030f0cbe45b8eaabf3414acd2
 	end
 
-	def new	
-		
+	def new
+
 		#Add log in check
 		if(current_person)
 			#originally index none of the golf_course and hosts. The value is updated using ajax
 			@golf_course = GolfCourse.none
 			@host = Host.all
 			@tournament = Tournament.new
-		else 
+		else
 			flash[:notice] = "Need to be logged in to create tournaments"
 			redirect_to :action =>"index"
 		end
@@ -108,29 +132,30 @@ class TournamentsController < ApplicationController
 		organizer = Organizer.new
 		organizer.person_id = params[:tournament][:person_id]
 		organizer.permissions = 'FULL'
-		
+
 		#create the host
 		host = Host.new
-		
+
 		if(organizer.save)
-			#Create the host entry if needed 
+			#Create the host entry if needed
 			if(params[:tournament][:hostName].present?)
 				host.hostName = params[:tournament][:hostName]
 				host.email = params[:tournament][:hostEmail]
 				host.phone = params[:tournament][:hostPhone]
-		
+
 				host.save
 			end
 		end
 
 		if(@organizer.save)
-		
+
+
 			#create the tournament
 			@tournament = Tournament.new(tournament_params)
 			if @tournament.ticketsLeft == nil
 				@tournament.ticketsLeft = @tournament.numGuests
 			end
-			
+
 			#set the host_id if it was typed in
 			if(params[:tournament][:hostName].present?)
 				@tournament.host_id = host.id
@@ -146,6 +171,7 @@ class TournamentsController < ApplicationController
 					@privacyObject = PrivateUrl.new(tournament_id: @tournament.id)
 					@privacyObject.save
 				end
+
 				GeneralMailer.tournament_confirmation_email(@tournament, Person.find(params[:tournament][:person_id]).email).deliver!
 				flash[:notice] = "Successfully created Tournament"
 				redirect_to :action => 'organize', :id => @tournament
@@ -154,16 +180,25 @@ class TournamentsController < ApplicationController
 				#delete the table entries for host and organizer if tournament fails
 				organizer.destroy
 				host.destroy
+
 				flash[:notice] = "Error creating tournament"
 				render :action => 'new'
 			end
-		else 
+		else
 			flash[:notice] = "Error setting up tournament Organizer"
 			@tournament = Tournament.all
 			redirect_to :action =>'index'
 		end
 	end
-	
+
+	def email
+    @player = Player.find_by_person_id(request['player']['id'])
+		GeneralMailer.custom_email(@player, request['email_subject'], request['email_body'])
+		@curr_person = Person.find(request['player']['id'])
+    flash[:success] = 'Email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => request['id']
+	end
+
 	def resend_confirmation
 		@player = Player.find_by_person_id(params[:person_id])
 		@players = Array.new(1){|i| i=@player};
@@ -277,7 +312,7 @@ class TournamentsController < ApplicationController
   def sort_column
     Tournament.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
