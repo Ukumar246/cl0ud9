@@ -43,27 +43,34 @@ class TournamentsController < ApplicationController
 		@tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
 
-			if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
-				@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
-			else
-				@golf_course_address = @tournament.course_name + @tournament.course_addr
-			end
+		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
+			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
+		else
+			@golf_course_address = @tournament.course_name + @tournament.course_addr
+		end
 			
-			#Get the players in the tournaments
-			players = Player.where(tournament_id: @tournament.id)
-			player_ids = players.map { |player| player.person_id }
-			@people = Person.where(id: player_ids)
+		#Get the players in the tournaments
+		players = Player.where(tournament_id: @tournament.id)
+		player_ids = players.map { |player| player.person_id }
+		@people = Person.where(id: player_ids)
 			
-			@host_name = get_host_name(@tournament)
+		@host_name = get_host_name(@tournament)
+		
+		#Get the hosts for the tournament
+		@admins = Organizer.where(tournament_id: @tournament.id)
+		#organizer_ids = organizer.map { |organizer| organizer.person_id}
+		#@admins = Person.where(id: organizer_ids)	
+		@person = Person.all
+		#return @people
 			
-			#Get the hosts for the tournament
-			@admins = Organizer.where(tournament_id: @tournament.id)
-			#organizer_ids = organizer.map { |organizer| organizer.person_id}
-			#@admins = Person.where(id: organizer_ids)	
-			@person = Person.all
-			#return @people
-			
-			@organizer_permissions = current_user_permission_level(@tournament)
+		@organizer_permissions = current_user_permission_level(@tournament)
+		
+		@course_name = nil
+		@course_address = nil
+		@course_phone = nil
+
+		get_golf_course_info(@tournament)
+
 	end
 
 	def new	
@@ -122,10 +129,13 @@ class TournamentsController < ApplicationController
 					host.destroy
 					
 					flash[:notice] = "Error creating tournament"
+					@golf_course = GolfCourse.none
+					@host = Host.all
 					render :action => 'new'
 				end
 		else 
 			flash[:notice] = "Error setting up tournament Organizer"
+			@tournament = Tournament.all
 			redirect_to :action =>'index'
 		end
 	end

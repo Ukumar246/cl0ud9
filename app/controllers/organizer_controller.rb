@@ -20,13 +20,18 @@ class OrganizerController < ApplicationController
 	end
   
   def update
-    @organizer = Organizer.find(params[:id])
-    
+    @organizer = Organizer.find(params[:organizer][:id])
+    @organizer.permissions = params[:organizer][:permission]
+	organizer.save
+	
+	redirect_to :controller=>'tournaments', :action =>'organize', :id=>params[:tournament_id]
   end
   
   def destroy 
-    @organizer = Organizer.find(params[:id])
+    @organizer = Organizer.find(params[:organizer][:id])
 	@organizer.destroy
+	
+	redirect_to :controller=>'tournaments', :action =>'organize', :id=>params[:tournament_id]
   end
   
   def update_admin_option_selection

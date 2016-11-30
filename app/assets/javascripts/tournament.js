@@ -26,18 +26,6 @@ $(document).on('turbolinks:load', function() {
 		$('#host_field').value('value', true);
 	});
 	
-	$("#new_tournament").validate({
-		debug: false,
-		
-		rules: {
-			"tournament[name]": {required: true},
-			"tournament[shortDesc]":{required:true},
-			"tournament[tournamentDate]":{required:true},
-			"tournament[numGuests]":{required:true}
-			//"tournament[registerEnd]": { greaterThan: "tournament[registerStart]"}	
-		}
-	});
-	
 	$('#search_button').click(function() {
 		$.ajax({
 			url: '/tournaments/update_courses',
@@ -46,11 +34,4 @@ $(document).on('turbolinks:load', function() {
 		})
 	});
 	
-	/*$('host_search').clock(function() {
-		$.ajax({
-			url: '/tournaments/update_hosts',
-			data: { search_host_value: $('#search_host_value').val() },
-			dataType: 'script'
-		})
-	});*/
 });

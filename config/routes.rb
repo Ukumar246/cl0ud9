@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   get 'organizer/new'
   post 'organizer/create'
+  delete 'organizer/:id/' => 'organizer#destroy' 
 
   resources :check_in
-
-
+  
   get 'sponsors/new'
   post 'sponsors/create'
 
