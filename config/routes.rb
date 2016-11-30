@@ -30,6 +30,11 @@ Rails.application.routes.draw do
 
   get 'tournaments/:id/organize' => "tournaments#organize"
   
+  #for private tournaments
+  controller :tournaments do
+    get 'tournaments/:id/private/:key'     => :private_url
+  end
+
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)
   resources :tournaments do

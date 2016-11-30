@@ -25,6 +25,23 @@ class TournamentsController < ApplicationController
 
 	def show
 		@tournament = Tournament.find(params[:id])
+		private_required()
+		#use get_golf_course_address to fill the following three values
+		@course_name = nil
+		@course_address = nil
+		@course_phone = nil
+
+		get_golf_course_info(@tournament)
+
+		@host_name = get_host_name(@tournament)
+		@sold_out = @tournament.ticketsLeft == 0
+		@ticketsLeft = @tournament.ticketsLeft
+		@tournament_organizer = current_user_is_organizer(@tournament)
+	end
+
+	def private_url
+
+		@tournament = Tournament.find(params[:id])
 
 		#use get_golf_course_address to fill the following three values
 		@course_name = nil
@@ -98,32 +115,50 @@ class TournamentsController < ApplicationController
 		
 				host.save
 			end
+		end
+		#Create the organizer entry for the tournament
+
+		@organizer = Organizer.new
+		@organizer.person_id = params[:tournament][:person_id]
+		@organizer.permissions = ""
+
+		if(@organizer.save)
+		
 		
 			#create the tournament
 			@tournament = Tournament.new(tournament_params)
-				if @tournament.ticketsLeft == nil
-					@tournament.ticketsLeft = @tournament.numGuests
+			if @tournament.ticketsLeft == nil
+				@tournament.ticketsLeft = @tournament.numGuests
+			end
+			
+			#set the host_id if it was typed in
+			if(params[:tournament][:hostName].present?)
+				@tournament.host_id = host.id
+			end
+			@tournament.privateURL = params[:tournament][:privateURL] == 1 ? false : true
+
+			if(@tournament.save)
+				#Update the organizer entry to reflect the tournament entry
+				organizer.tournament_id = @tournament.id
+				organizer.save
+
+				if @tournament.privateURL
+					@privacyObject = PrivateUrl.new(tournament_id: @tournament.id)
+					@privacyObject.save
 				end
 				
-				#set the host_id if it was typed in
-				if(params[:tournament][:hostName].present?)
-					@tournament.host_id = host.id
-				end
+				GeneralMailer.tournament_confirmation_email(@tournament, Person.find(params[:tournament][:person_id]).email).deliver!
+				flash[:notice] = "Successfully created Tournament"
+				redirect_to :action => 'organize', :id => @tournament
+
+			else
+				#delete the table entries for host and organizer if tournament fails
+				organizer.destroy
+				host.destroy
 				
-				if(@tournament.save)
-					#Update the organizer entry to reflect the tournament entry
-					organizer.tournament_id = @tournament.id
-					organizer.save
-					
-					redirect_to :action => 'organize', :id=>@tournament.id
-				else
-					#delete the table entries for host and organizer if tournament fails
-					organizer.destroy
-					host.destroy
-					
-					flash[:notice] = "Error creating tournament"
-					render :action => 'new'
-				end
+				flash[:notice] = "Error creating tournament"
+				render :action => 'new'
+			end
 		else 
 			flash[:notice] = "Error setting up tournament Organizer"
 			redirect_to :action =>'index'
@@ -157,9 +192,6 @@ class TournamentsController < ApplicationController
    end
 
 
-	def update
-	end
-
 	def update_courses
 		@golf_course = GolfCourse.where("LOWER(name) LIKE ?", "%#{params[:search_value].downcase}%")
 
@@ -173,6 +205,18 @@ class TournamentsController < ApplicationController
 
 		respond_to do |format|
 			format.js
+		end
+	end
+
+	def private_required()
+		tourney = Tournament.find(params[:id])
+		if tourney
+			if tourney.privateURL
+			    if not PrivateUrl.where('tournament_id = ? AND key = ?', params[:id], params[:key] ).exists?
+			      flash[:error] = 'You do not have permission to view the page you entered'
+			      redirect_to '/'
+			    end
+			end
 		end
 	end
 
