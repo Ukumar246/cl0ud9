@@ -3,11 +3,9 @@
 one:
   tournament: 1
   name: 'Single'
-  description: 'Ticket for a single player'
   price: 50
 
 two:
   tournament: 1
   name: 'Foursome'
-  description: '4 player team ticket'
   price: 175.00
