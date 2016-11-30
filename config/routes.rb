@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'check_in/show'
 
   get 'sponsors/new'
+  #post 'charges/create'
   post 'sponsors/create'
 
   get 'golf_courses/new'
@@ -38,6 +39,9 @@ Rails.application.routes.draw do
   # Mailer Stuff
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
+  
+  #payments
+  resources :charges
 
 
   # saves a golf course after model validation

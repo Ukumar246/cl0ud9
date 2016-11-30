@@ -103,6 +103,7 @@ class PlayersController < ApplicationController
       
     end
     redirect_to @tournament
+    #redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorshipType => @sponsor.sponsorshipType) and return
   end
 
   def edit
@@ -136,3 +137,4 @@ class PlayersController < ApplicationController
   #   end
 
 end
+

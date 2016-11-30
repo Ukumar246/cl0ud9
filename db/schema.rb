@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161112214438) do
+ActiveRecord::Schema.define(version: 20161122013720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20161112214438) do
 
   create_table "players", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "tournament_id
+    t.integer  "tournament_id"
     t.integer  "team_id"
     t.boolean  "checkedIn"
     t.datetime "created_at",     null: false
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20161112214438) do
     t.string   "snapchatHandle"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "paid"
     t.index ["person_id"], name: "index_sponsors_on_person_id", using: :btree
     t.index ["tournament_id"], name: "index_sponsors_on_tournament_id", using: :btree
   end

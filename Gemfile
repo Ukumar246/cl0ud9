@@ -74,4 +74,9 @@ gem 'carrierwave'
 #cloudinary gem
 gem 'cloudinary'
 
+#stripe
+gem 'stripe'
+
+#filter and sorting
+gem 'filterrific'
 
