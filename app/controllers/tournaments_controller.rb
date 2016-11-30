@@ -131,6 +131,7 @@ class TournamentsController < ApplicationController
 			if(params[:tournament][:hostName].present?)
 				@tournament.host_id = host.id
 			end
+			
 			@tournament.privateURL = params[:tournament][:privateURL] == 1 ? false : true
 
 			if(@tournament.save)
