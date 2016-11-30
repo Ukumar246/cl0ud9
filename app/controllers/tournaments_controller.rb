@@ -91,6 +91,14 @@ class TournamentsController < ApplicationController
 		end
 	end
 
+	def email
+    @player = Player.find_by_person_id(request['player']['id'])
+		GeneralMailer.custom_email(@player, request['email_subject'], request['email_body'])
+		@curr_person = Person.find(request['player']['id'])
+    flash[:success] = 'Email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => request['id']
+	end
+
 	def resend_confirmation
     @player = Player.find_by_person_id(params[:person_id])
     @players = Array.new(1){|i| i=@player};

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'tournaments/update_courses' => 'tournaments#update_courses'
   get 'tournaments/:id/refund' => 'tournaments#refund'
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
+  post 'tournaments/:id/email' => 'tournaments#email'
 
   devise_for :people
 
