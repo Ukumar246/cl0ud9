@@ -130,44 +130,7 @@
 					</div>
 				</div>
 			</div>
-			
-			<div id = "host">
-				<div class = "container">
-					<div class = "jumbotron" >
-						<p>
-							<%= label_tag "Host" %> <br>
-						</p>
-						
-						<button id = "host_button" type = "button" class = "btn btn-primary btn_md">
-							Add Host
-						</button> <br><br>
-						
-						
-						
-						<div id = "add_host" style="display:none">
-							<p>
-								<%= label_tag "Search for Host:" %> 
-							</p> 
-							
-							<p>
-								<%= text_field_tag id = "search_host_value" %>
-							</p>
-							
-							<button id = "host_search" type = "button" class = "btn btn-primary btn_md">
-								Search
-							</button>
-							
-							<p> Select: </p>
-								
-							<p>
-								<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.sort.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
-							</p>
-						
-						</div>
-					</div>
-				</div>
-			</div>
-			
+				
 			
 			<div id = "logo" >
 				<div class = "container" >
