@@ -1,9 +1,8 @@
 class TournamentsController < ApplicationController
-
+ 	helper_method :sort_column, :sort_direction
 	def index
 		@addresses = Array.new
-
-		@tournaments = Tournament.all
+		@tournaments = Tournament.order(sort_column + ' ' + sort_direction)
 		@count = Tournament.count
 		#@tournaments.each do |t|
 		#	@addresses.push(get_golf_course_address(t))
@@ -275,4 +274,11 @@ class TournamentsController < ApplicationController
 		end
 		return false
 	end
+  def sort_column
+    Tournament.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
 end
