@@ -81,7 +81,7 @@
   <ul class="w3-ul w3-card-4">
   
   <!-- Form Start -->
-  <%= form_tag("/check_in", method: "post") do %>
+  <%= form_tag("/check_in/submit", method: "post") do %>
     <% i = 1 %>
     <% @tourPlayers.each do |player|%>
       <li class="w3-padding-16">

@@ -17,4 +17,9 @@ class CheckInController < ApplicationController
     puts "Players who can sign up: #{@tourPlayers.length} & #{@tourPlayers[0].person.profilePicLink}"
     @avatar_img = 'http://www.w3schools.com/w3css/img_avatar6.png'
   end
+
+
+  def submit
+    
+  end
 end
