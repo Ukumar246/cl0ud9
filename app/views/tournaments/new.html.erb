@@ -71,7 +71,7 @@
 							<p> Select: </p>
 							
 							<p>
-								<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
+								<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.sort.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
 							</p>
 					</div>
 					
@@ -134,11 +134,17 @@
 					
 					<button id = "host_button" type = "button" class = "btn btn-primary btn_md">
 						Add Host
-					</button> <br><br>
+					</button>
 					
+					<button id = "create_host_button" type = "button" class = "btn btn-primary btn-md">
+						Create Host
+					</button>
 					
+					<br><br>
 					
 					<div id = "add_host" style="display:none">
+					
+						<% if false %>
 						<p>
 							<%= label_tag "Search for Host:" %> 
 						</p> 
@@ -150,14 +156,43 @@
 						<button id = "host_search" type = "button" class = "btn btn-primary btn_md">
 							Search
 						</button>
+						<% end %>
 						
 						<p> Select: </p>
 							
 						<p>
-							<%= t.select :host_id, options_for_select(@host.collect { |host| [host.hostName, host.id] }.insert(0, ""), 0), {}, { id: "host_select"}%>
+							<%= t.select :host_id, options_for_select(@host.collect { |host| [host.hostName, host.id] }.sort.insert(0, ""), 0), {}, { id: "host_select"}%>
 						</p>
 					
 					</div>
+					
+					<div id = "create_host" style = "display:none">
+						<p>
+							<%= label_tag "Host Name:" %>
+						</p>
+						
+						<p>
+							<%= t.text_field :hostName %>
+						</p>
+						
+						<p>
+							<%= label_tag "Phone Number:" %>
+						</p>
+						
+						<p>
+							<%= t.text_field :hostPhone %>
+						</p>
+						
+						<p>
+							<%= label_tag "Email:" %>
+						</p>
+						
+						<p>
+							<%= t.text_field :hostEmail %>
+						</p>
+						
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -185,6 +220,11 @@
 			</div>
 		</div>
 		
+		<!--Hidden field to grab the person id-->
+		<%= t.hidden_field :person_id, :value => current_person.id %>
+		
+		<!--Hidden field for whether to search for host or add-->
+		<%= t.hidden_field :host_field, :value => false %>
 		
 		
 	</div>

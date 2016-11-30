@@ -1,0 +1,33 @@
+<% if golf_courses_passed_in != nil%>
+    <% golf_courses_passed_in.each do |golf_course|%>
+        <a href="#" class="list-group-item list-group-item-action">
+          <!--sample item in the list-->
+          <div class="row">
+            <!--forst column of info-->
+            <div class = "col-sm-6">
+              <!--TODO: add timer for showing when registration ends-->
+              <% if golf_course.name %>
+                  <h4 class="list-group-item-heading"><%= golf_course.name %></h4>
+                  <% if golf_course.email && golf_course.addrStreetNum && golf_course.addrStreetName && golf_course.addrPostalCode && golf_course.addrCountry%>
+                      <p style="margin: 0"><%= golf_course.addrStreetNum %> <%= golf_course.addrStreetName %></p>
+                      <p style="margin: 0"><%= golf_course.addrCountry %></p>
+                      <p style="margin: 0"><%= golf_course.addrPostalCode %></p>
+                  <% end %>
+              <% end %>
+            </div>
+            <!--second column-->
+            <div class = "col-sm-4">
+              <% if golf_course.capacity && golf_course.email%>
+                  <p style="margin: 0" class="list-group-item-text">Capacity: <%= golf_course.capacity%> players</p>
+                  <p style="margin: 0" class="list-group-item-text">Email: <%= golf_course.email%></p>
+              <% end %>
+            </div>
+            <!--TODO: missing dates and golf course due to data being omitted from the database -->
+          </div>
+        </a>
+    <% end %>
+<% else %>
+    <div class="jumbotron" id = "google-maps-div">
+      <p>No Tournaments in within the next Month. Please come back again!</p>
+    </div>
+<% end %>

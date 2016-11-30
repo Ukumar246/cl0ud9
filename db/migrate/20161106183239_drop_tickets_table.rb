@@ -1,11 +1,11 @@
 class DropTicketsTable < ActiveRecord::Migration[5.0]
- #merge players and tickets columns, they represent the same thing.
+ #merge people and tickets columns, they represent the same thing.
   def change
-  	remove_reference :players, :ticket, index:true
+  	remove_reference :people, :ticket, index:true
   	drop_table :tickets
   	
-  	add_column :players, :QRCodeStr, :string
-  	add_reference :players, :ticket_type, index: true
+  	add_column :people, :QRCodeStr, :string
+  	add_reference :people, :ticket_type, index: true
 
   end
 end

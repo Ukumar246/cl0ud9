@@ -1,5 +1,6 @@
 <%= render partial: 'sponsor/new'%>
-<%= render partial: 'players/new'%>
+<%= render partial: 'people/new'%>
+<%= render partial: 'organizer/new'%>
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -8,6 +9,7 @@
 		</div>
 		<div class="col-md-3">
 			<div class="pull-right" style="padding-top: 25px;">
+				<a href="#editModal" role="button" class="btn btn-primary" data-toggle="modal">Edit</a>
 				<%= link_to "Done", {action: "show"}, {role: 'button', class: 'btn btn-primary inline-block'} %>
 			</div>
 		</div>
@@ -17,6 +19,10 @@
 		<div class="col-md-4">
 			<p class="text-center">
 					<strong>Details:</strong>
+					<span class="pull-right">
+						<i class="btn btn-xs glyphicon glyphicon-pencil" href="#editModal" data-toggle="modal"></i>
+						<i class="btn btn-xs glyphicon glyphicon-trash" href="#deleteModal" data-toggle="modal"></i>
+					</span>
 			</p>
 			<%= render(:partial => "info" ,:controller=>"tournament") %>
 		</div>
@@ -41,7 +47,12 @@
 									<strong>Contact information:</strong><br>
 									<%= person.email %> <br>
 									<strong>Check-in status:</strong> <br>
-									Unknown
+									Unknown <br>
+									<strong>Tools: </strong><br>
+									<span class="btn-group btn-group-sm" role="group">
+										<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
+										<%= link_to "Refund Player", {action: "refund", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
+									</span>
 								</td>
 								<td>
 								</td>
@@ -50,4 +61,32 @@
 			</table>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Organizers</strong>
+			</p>
+			<% if @organizer_permissions %>
+				<i class="btn btn-xs glyphicon glyphicon-plus" href="#adminModal"  data-toggle="modal"></i>
+			<% end %>
+			<table class="table table-striped">
+				<% @admins.each do |admin| %>
+					<tr>
+						<td> <%= admin.person.fName + " " + admin.person.lName%></td>
+						<td> <%= admin.permissions %></td>
+						<td>
+							<% if @organizer_permissions %>
+							<span class="pull-right">
+							  <i class="btn btn-xs glyphicon glyphicon-pencil" ></i>
+							  <i class="btn btn-xs glyphicon glyphicon-trash" ></i>
+							</span>
+							<% end %>
+						</td>
+					</tr>	
+				<% end %>
+			</table>
+		</div>
+	</div>
+
 </div>

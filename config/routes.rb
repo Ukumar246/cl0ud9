@@ -1,22 +1,28 @@
 Rails.application.routes.draw do
-  get 'check_in/show'
+  get 'organizer/new'
+  post 'organizer/create'
+
+  resources :check_in
+
 
   get 'sponsors/new'
   #post 'charges/create'
   post 'sponsors/create'
 
-  get 'golf_courses/new'
-  
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
+  get 'tournaments/update_hosts' => 'tournaments#update_hosts'
+  get 'tournaments/:id/refund' => 'tournaments#refund'
+  get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
 
   devise_for :people
 
-  get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
-  #get 'player/show'
-  get 'players/list'
-  get 'players/new'
-  post 'players/create'
+  get '/people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+  get 'people/list'
+  get 'player/show'
+  get 'people/new'
+  post 'people/create'
+
 
   get 'welcome/index'
 
@@ -24,7 +30,7 @@ Rails.application.routes.draw do
   get "/misc_pages/:misc_page" => "misc_pages#show"
 
   get 'tournaments/:id/organize' => "tournaments#organize"
-
+  
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)
   resources :tournaments do

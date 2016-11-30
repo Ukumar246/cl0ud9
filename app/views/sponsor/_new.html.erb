@@ -27,21 +27,18 @@
 
             <%= f.label :'Website URL', class: 'text-justify'%>
             <%= f.text_field(:websiteURL, :placeholder => 'www.GOLF.com',class: 'form-control') %>
-            
+
 
             <%= f.label :'@Twitter' %>
             <%= f.text_field(:twitterLink, :placeholder => '@cl0ud9Twitter',class: 'form-control') %>
-   
+
             <%= f.label :'Facebook' %>
             <%= f.text_field(:fbLink, :placeholder => 'facebook.com/cl0ud9',class: 'form-control') %>
-   
+
             <%= f.label :'Snapchat' %>
             <%= f.text_field(:snapchatHandle, :placeholder => 'cl0ud9Snapchat',class: 'form-control') %>
-   
+
             <div>
-            <br>              
-              <!-- <h3 class="text-danger">TODO: INSERT PAYPAL VIEW HERE</h3> -->
-            </br>
             </div>
 
             <%= f.hidden_field :person_id, :value => current_person.id %>
