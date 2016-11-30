@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123165237) do
+ActiveRecord::Schema.define(version: 20161130002309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,14 @@ ActiveRecord::Schema.define(version: 20161123165237) do
     t.index ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
   end
 
+  create_table "private_urls", force: :cascade do |t|
+    t.text     "key"
+    t.integer  "tournament_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tournament_id"], name: "index_private_urls_on_tournament_id", using: :btree
+  end
+
   create_table "registrations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -213,6 +221,7 @@ ActiveRecord::Schema.define(version: 20161123165237) do
   add_foreign_key "players", "people"
   add_foreign_key "players", "teams"
   add_foreign_key "players", "tournaments"
+  add_foreign_key "private_urls", "tournaments"
   add_foreign_key "scheduled_events", "tournaments"
   add_foreign_key "sponsors", "people"
   add_foreign_key "sponsors", "tournaments"
