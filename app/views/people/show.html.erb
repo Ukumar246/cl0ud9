@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <%= javascript_include_tag ('player_show.js') %>
+    <title>Profile page</title>
+
+    <!--<%= debug @tournaments_golf_courses%>-->
+    <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Second Featurette -->
+        <div class="featurette" id="services">
+          <%= cl_image_tag(@player.profilePicLink, :width => 250, :height => 250, :crop => :fill, :class => 'featurette-image img-circle img-responsive pull-left')%>
+            <h2 class="featurette-heading"><%= @player.fName %>
+                <span class="text-muted"><%= @player.lName %></span>
+            </h2>
+
+            <p>Email: <span class="text-muted"><%= @player.email %></span> </p>
+            <% if @player.birthDate %>
+              <p>Your Birthday: <span class="text-muted"><%= @player.birthDate %></span></p>
+            <%end%>
+            <% if @player.twitterLink %>
+              <p>Your Twitter Link: <span class="text-muted"><%= @player.twitterLink %></span></p>
+            <%end%>
+
+            <p><%= link_to cl_image_tag('logo-facebook.svg'), @player.fbLink %></p>
+
+        </div>
+        <hr class="featurette-divider">
+
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs float-xs-left">
+            <% if @golf_courses != nil && @golf_courses.size>0%>
+                <li class="nav-item">
+                  <a class="nav-link" id = "nav-0">Your Golf Courses</a>
+                </li>
+            <%end%>
+            <% if @tournaments_golf_courses != nil  && @tournaments_golf_courses.size > 0%>
+                <li class="nav-item">
+                  <a class="nav-link" id = "nav-1" >Hosted Tournaments</a>
+                </li>
+            <%end%>
+            <% if @tournaments_sponsors != nil && @tournaments_sponsors.size > 0%>
+                <li class="nav-item">
+                  <a class="nav-link" id = "nav-2">Sponsored Tournaments</a>
+                </li>
+            <%end%>
+            <% if @tournaments_players != nil && @tournaments_players.size >0%>
+                <li class="nav-item" >
+                  <a class="nav-link" id = "nav-3">Playing Tournaments</a>
+                </li>
+            <%end%>
+            <% if @tournaments_organizers != nil && @tournaments_organizers.size > 0%>
+                <li class="nav-item" >
+                  <a class="nav-link" id = "nav-4">Organizing Tournaments</a>
+                </li>
+            <%end%>
+          </ul>
+        </div>
+        <!--loop through and display the golf courses-->
+
+            <div class="card-block" id = "card-0">
+              <% if @golf_courses != nil && @golf_courses.size>0%>
+                  <%= render partial: 'people/golf_courses_tabs', :locals => {golf_courses_passed_in:@golf_courses}%>
+            <%end%>
+            </div>
+
+            <div class="card-block" id = "card-1">
+              <% if @tournaments_golf_courses != nil  && @tournaments_golf_courses.size > 0%>
+                  <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_golf_courses}%>
+            <%end%>
+            </div>
+            <div class="card-block" id = "card-2">
+              <% if @tournaments_sponsors != nil && @tournaments_sponsors.size > 0%>
+                  <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_sponsors}%>
+            <%end%>
+            </div>
+            <div class="card-block" id = "card-3">
+              <% if @tournaments_players != nil && @tournaments_players.size >0%>
+                  <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_players}%>
+            <%end%>
+            </div>
+
+            <div class="card-block" id = "card-4">
+              <% if @tournaments_organizers != nil && @tournaments_organizers.size > 0%>
+                  <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_organizers}%>
+            <%end%>
+
+            </div>
+
+
+      </div>
+      <div class="jumbotron" id = "no-data">
+        <p>You are not playing, sponsoring, organizing or hosting a tournament!</p>
+      </div>
+    </div>
+
+</body>
+</html>

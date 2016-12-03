@@ -4,20 +4,12 @@
   
   <a class="btn btn-primary" href="tournaments/new">Host a Tournament with us</a>
  
-  <table class="table">
+  <table class="table thead-invese table-hover">
   	<thead>
     	<tr>
   			
         <th>
         </th>
-
-        <th class="dates">
-  				<div class="dates-container">
-            <%= sortable "tournamentDate", "Date" %>
-
-  					<span class="arrow-link arrow-link-down"></span>
-  				</div>
-  			</th>
 
   			<th class="tournament">
   				<div class="tournament-container">
@@ -27,7 +19,15 @@
   					<span class="arrow-link arrow-link-down"></span>
   				</div>
   			</th>
-        
+
+        <th class="dates">
+          <div class="dates-container">
+            <%= sortable "tournamentDate", "Date" %>
+
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+
         <th class="course">
           <div class="course-container">
             <%= sortable "course_name", "Golf Course" %>

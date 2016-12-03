@@ -23,10 +23,13 @@ Rails.application.routes.draw do
   devise_for :people
 
   get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
-  get 'players/list'
   get 'player/show'
   get 'players/new'
   post 'players/create'
+
+  #ME FIX
+  get 'people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }
+
 
 
   get 'welcome/index'
@@ -59,6 +62,9 @@ Rails.application.routes.draw do
   #payments
   resources :charges
 
+  %w( 404 422 500 503 ).each do |code|
+    get code, :to => "errors#show", :code => code
+  end
   #ZS: added sponsorship resources to create the default routes
 #  resources :sponsorships
 
