@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
 //= require cloudinary
+//= require cocoon
 //= require tournament
+//= require_tree .

@@ -1,5 +1,5 @@
-$(document).ready(function() {
-	$('#search_course').click(function() {
+$(document).on('turbolinks:load', function() {
+  $('#search_course').click(function() {
 		$('#golf_search').toggle('show');
 		$('#golf_enter').toggle(false);
 	});
@@ -15,19 +15,15 @@ $(document).ready(function() {
 	
 	$('#host_button').click(function() {
 		$('#add_host').toggle('slow');
+		$('#create_host').toggle(false);
+		$('#host_field').value('value', false);
 	});
 	
-	$("#new_tournament").validate({
-		debug: false,
+	$('#create_host_button').click(function() {
 		
-		rules: {
-			"tournament[name]": {required: true},
-			"tournament[shortDesc]":{required:true},
-			"tournament[tournamentDate]":{required:true},
-			"tournament[numGuests]":{required:true}
-			//"tournament[registerEnd]": { greaterThan: "tournament[registerStart]"}	
-			
-		}
+		$('#create_host').toggle('slow');
+		$('#add_host').toggle(false);
+		$('#host_field').value('value', true);
 	});
 	
 	$('#search_button').click(function() {
@@ -38,12 +34,4 @@ $(document).ready(function() {
 		})
 	});
 	
-	/*$('host_search').clock(function() {
-		$.ajax({
-			url: '/tournaments/update_hosts',
-			data: { search_host_value: $('#search_host_value').val() },
-			dataType: 'script'
-		})
-	});*/
 });
-

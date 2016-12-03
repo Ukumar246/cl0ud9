@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123004129) do
+ActiveRecord::Schema.define(version: 20161203014601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(version: 20161123004129) do
 
   create_table "hosts", force: :cascade do |t|
     t.string   "hostName"
-    t.integer  "phone"
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint   "phone"
   end
 
   create_table "organizers", force: :cascade do |t|
@@ -96,9 +96,12 @@ ActiveRecord::Schema.define(version: 20161123004129) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "QRCodeStr"
+    t.integer  "ticket_type_id"
     t.index ["confirmation_token"], name: "index_people_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
+    t.index ["ticket_type_id"], name: "index_people_on_ticket_type_id", using: :btree
     t.index ["unlock_token"], name: "index_people_on_unlock_token", unique: true, using: :btree
   end
 
@@ -108,24 +111,12 @@ ActiveRecord::Schema.define(version: 20161123004129) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "players", force: :cascade do |t|
-    t.integer  "person_id"
+  create_table "private_urls", force: :cascade do |t|
+    t.text     "key"
     t.integer  "tournament_id"
-    t.integer  "team_id"
-    t.boolean  "checkedIn"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "QRCodeStr"
-    t.integer  "ticket_type_id"
-    t.index ["person_id"], name: "index_players_on_person_id", using: :btree
-    t.index ["team_id"], name: "index_players_on_team_id", using: :btree
-    t.index ["ticket_type_id"], name: "index_players_on_ticket_type_id", using: :btree
-    t.index ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
-  end
-
-  create_table "registrations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tournament_id"], name: "index_private_urls_on_tournament_id", using: :btree
   end
 
   create_table "scheduled_events", force: :cascade do |t|
@@ -148,6 +139,7 @@ ActiveRecord::Schema.define(version: 20161123004129) do
     t.string   "snapchatHandle"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "paid"
     t.index ["person_id"], name: "index_sponsors_on_person_id", using: :btree
     t.index ["tournament_id"], name: "index_sponsors_on_tournament_id", using: :btree
   end
@@ -186,7 +178,7 @@ ActiveRecord::Schema.define(version: 20161123004129) do
     t.string   "name"
     t.text     "shortDesc"
     t.integer  "numGuests"
-    t.boolean  "privateURL"
+    t.boolean  "privateURL",     default: false
     t.string   "microSiteURL"
     t.string   "logoLink"
     t.string   "language"
@@ -197,8 +189,8 @@ ActiveRecord::Schema.define(version: 20161123004129) do
     t.datetime "registerEnd"
     t.integer  "host_id"
     t.integer  "golf_course_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.datetime "tournamentDate"
     t.string   "course_name"
     t.string   "course_addr"
@@ -219,9 +211,7 @@ ActiveRecord::Schema.define(version: 20161123004129) do
   add_foreign_key "golf_course_people", "people"
   add_foreign_key "organizers", "people"
   add_foreign_key "organizers", "tournaments"
-  add_foreign_key "players", "people"
-  add_foreign_key "players", "teams"
-  add_foreign_key "players", "tournaments"
+  add_foreign_key "private_urls", "tournaments"
   add_foreign_key "scheduled_events", "tournaments"
   add_foreign_key "sponsors", "people"
   add_foreign_key "sponsors", "tournaments"

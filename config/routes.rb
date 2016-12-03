@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  get 'organizer/new'
+  post 'organizer/create'
+  delete 'organizer/:id/' => 'organizer#destroy' 
+
   resources :check_in
+  post 'check_in/submit'
 
   get 'sponsors/new'
+  #post 'charges/create'
   post 'sponsors/create'
 
   get 'sponsorships/new'
@@ -9,8 +15,10 @@ Rails.application.routes.draw do
 
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
+  get 'tournaments/update_hosts' => 'tournaments#update_hosts'
   get 'tournaments/:id/refund' => 'tournaments#refund'
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
+  post 'tournaments/:id/email' => 'tournaments#email'
 
   devise_for :people
 
@@ -27,6 +35,11 @@ Rails.application.routes.draw do
   get "/misc_pages/:misc_page" => "misc_pages#show"
 
   get 'tournaments/:id/organize' => "tournaments#organize"
+  
+  #for private tournaments
+  controller :tournaments do
+    get 'tournaments/:id/private/:key'     => :private_url
+  end
 
   # RA: Added tournaments as a resource, this provides us with useful endpoints
   # that we'll probably use in the project (run: rails routes)
@@ -42,6 +55,9 @@ Rails.application.routes.draw do
   # Mailer Stuff
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
+  
+  #payments
+  resources :charges
 
   #ZS: added sponsorship resources to create the default routes
 #  resources :sponsorships

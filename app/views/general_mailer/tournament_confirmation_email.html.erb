@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Your tournament has been created</h1>
+    <% if @tourney.privateURL %>
+      <p>You designated your tournament as private. Share this URL to invite people to your tournament: <br>
+      <%= url_for(
+            controller: 'tournaments',
+            action: 'show',
+            id: @tourney.id) + '/private/' + @tourney.private_url.key%>
+    <% else %>
+      <p>Here's the link for your tournament:
+      <%= url_for(
+            controller: 'tournaments',
+            action: 'show',
+            id: @tourney.id) %>
+    <% end %>
+    <p> </p> 
+    <p>Thanks for joining us and have a great day!</p>
+  </body>
+</html>

@@ -15,10 +15,26 @@
   			</th>
   			<th class="tournament">
   				<div class="tournament-container">
-  					Tournament
+  					<%= sortable "name", "Tournament" %>
+
+            <!--<%= link_to "Tournament", :sort => "name" %>-->
   					<span class="arrow-link arrow-link-down"></span>
   				</div>
   			</th>
+        <th class="course">
+          <div class="course-container">
+            <%= sortable "course_name", "Golf Course" %>
+            <!--<%= link_to "Golf Course", :sort => "course_name" %> -->
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+        <th class="host_id">
+          <div class="host_id-container">
+            <%= sortable "host_id" %>
+            <!--<%= link_to "host_id", :sort => "host_id" %>-->
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
   			<th class="links">
   				<div class="links-container">
   					Links
@@ -29,10 +45,12 @@
   	</thead>
 
   	<tbody>
-    	<% @tournaments.each do |tourney| %>
+    	<% for tourney in @tournaments.where(privateURL: false) %>
   			<tr>
   				<td><%= tourney.tournamentDate.strftime("%m/%d/%Y") %></td>
   				<td><%= tourney.name%></td>
+          <td><%= tourney.course_name%></td>
+          <td><%= tourney.host_id%></td>
   				<td><%= link_to "Tournament Page", tourney%></td>
     	<% end %>
   	</tbody>

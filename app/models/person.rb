@@ -7,7 +7,8 @@ class Person < ApplicationRecord
          # Might need these later
          # ,:confirmable, :lockable
 
-  has_many :people
+  has_many :players
+  has_many :organizers
 
   #Rabachi: for TOS agreement checking
   validates :terms_of_service, acceptance: true
