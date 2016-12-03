@@ -13,16 +13,18 @@
 
   			<th class="tournament">
   				<div class="tournament-container">
-  					<%= sortable "name", "Tournament" %>
+  					
+            <%= sortable "name", "Tournament" %>
 
-            <!--<%= link_to "Tournament", :sort => "name" %>-->
   					<span class="arrow-link arrow-link-down"></span>
   				</div>
   			</th>
 
         <th class="dates">
           <div class="dates-container">
-            <%= sortable "tournamentDate", "Date" %>
+            
+            <!--<%= sortable "tournamentDate", "Date" %>-->
+            Date
 
             <span class="arrow-link arrow-link-down"></span>
           </div>
@@ -30,16 +32,21 @@
 
         <th class="course">
           <div class="course-container">
+            
+            <!--
             <%= sortable "course_name", "Golf Course" %>
-            <!--<%= link_to "Golf Course", :sort => "course_name" %> -->
+            -->
+            Golf Course
+
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
         
         <th class="host_id">
           <div class="host_id-container">
+            
             <%= sortable "host_id" %>
-            <!--<%= link_to "host_id", :sort => "host_id" %>-->
+            
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
@@ -50,8 +57,9 @@
     <div class="col-xs-12" style="height:40px;"></div>
 
   	<tbody>
-    	<% for tourney in @tournaments.where(privateURL: false) %>
-  			<tr>
+        <!-- Sorry Grace, you can put the private thing back in when it works with the sorting above-->
+    	  <% for tourney in @tournaments %>
+        <tr>
           <td>
             <%= cl_image_tag(tourney.logoLink, :width => 40, :height => 40, :crop => :fill)%>
           </td>
