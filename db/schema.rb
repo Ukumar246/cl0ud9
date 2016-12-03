@@ -96,12 +96,9 @@ ActiveRecord::Schema.define(version: 20161203014601) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "QRCodeStr"
-    t.integer  "ticket_type_id"
     t.index ["confirmation_token"], name: "index_people_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
-    t.index ["ticket_type_id"], name: "index_people_on_ticket_type_id", using: :btree
     t.index ["unlock_token"], name: "index_people_on_unlock_token", unique: true, using: :btree
   end
 
@@ -109,6 +106,21 @@ ActiveRecord::Schema.define(version: 20161203014601) do
     t.string   "photoLink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "tournament_id"
+    t.integer  "team_id"
+    t.boolean  "checkedIn"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "QRCodeStr"
+    t.integer  "ticket_type_id"
+    t.index ["person_id"], name: "index_players_on_person_id", using: :btree
+    t.index ["team_id"], name: "index_players_on_team_id", using: :btree
+    t.index ["ticket_type_id"], name: "index_players_on_ticket_type_id", using: :btree
+    t.index ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
   end
 
   create_table "private_urls", force: :cascade do |t|
@@ -142,16 +154,6 @@ ActiveRecord::Schema.define(version: 20161203014601) do
     t.boolean  "paid"
     t.index ["person_id"], name: "index_sponsors_on_person_id", using: :btree
     t.index ["tournament_id"], name: "index_sponsors_on_tournament_id", using: :btree
-  end
-
-  create_table "sponsorships", force: :cascade do |t|
-    t.integer  "tournament_id"
-    t.string   "name"
-    t.string   "description"
-    t.float    "price"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["tournament_id"], name: "index_sponsorships_on_tournament_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
@@ -211,11 +213,13 @@ ActiveRecord::Schema.define(version: 20161203014601) do
   add_foreign_key "golf_course_people", "people"
   add_foreign_key "organizers", "people"
   add_foreign_key "organizers", "tournaments"
+  add_foreign_key "players", "people"
+  add_foreign_key "players", "teams"
+  add_foreign_key "players", "tournaments"
   add_foreign_key "private_urls", "tournaments"
   add_foreign_key "scheduled_events", "tournaments"
   add_foreign_key "sponsors", "people"
   add_foreign_key "sponsors", "tournaments"
-  add_foreign_key "sponsorships", "tournaments"
   add_foreign_key "teams", "tournaments"
   add_foreign_key "ticket_types", "tournaments"
   add_foreign_key "tournaments", "golf_courses"
