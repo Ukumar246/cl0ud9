@@ -38,7 +38,7 @@ class PeopleController < ApplicationController
         tournaments_organizers << organizer.tournament_id
       end
 
-      @tournaments_organizers = Tournament.where(id:tournaments)
+      @tournaments_organizers = Tournament.where(id:tournaments_organizers)
 
     end
     @players = Player.where(person_id:@player_id)
@@ -65,4 +65,3 @@ class PeopleController < ApplicationController
     end
   end
 end
-
