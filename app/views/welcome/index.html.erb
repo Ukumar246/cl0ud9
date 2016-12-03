@@ -36,9 +36,7 @@ LT: Notices mess with Alerts, how will we solve this?
         </h2>
       </div>
       
-      <div>
-        <a class="btn" href="misc_pages/features" role="button">Learn more</a>      
-      </div>
+      <div class="col-xs-12" style="height:30px;"></div>
       
       <div>
         <span class="glyphicon glyphicon-chevron-down"></span>
@@ -46,7 +44,7 @@ LT: Notices mess with Alerts, how will we solve this?
     </div>
 </div>  
 
-<div class="col-xs-12" style="height:100px;"></div>
+<div class="col-xs-12" style="height:130px;"></div>
 
 
 <!--
@@ -128,25 +126,37 @@ TODO: What do we want from here?
   </div>
 </div>
 
+<div class="col-xs-12" style="height:60px;"></div>
 
-<div class="col-xs-12" style="height:100px;"></div>
+<div class="text-center">
+  <a class="btn btn-primary" href="misc_pages/features" role="button"><h2>Learn more about us</h2></a>      
+</div>
 
+<div class="col-xs-12" style="height:60px;"></div>
+    
+<div>
+  <div class="container">
+    <div class="col-sm-2"></div>
+ 
+    <div class="col-sm-10">
+      <h2>Upcoming Tournaments:</h2>
+    </div>
 
-<!--TOURNAMENTS CONTAINER STARTS------------->
+  </div>
+</div>
 
-<!--TODO: needs font edits-->
 <div id = "tournaments-home" class = "container">
   <div class="row">
-    <div class="col-sm-4">
-      <!--TODO:place the map or some other part here on the left-->
-      <div class="jumbotron" id = "google-maps-div">
-        <p>Google maps coming soon!</p>
+    <div class="col-sm-2">
+      
+      <div class="jumbotron" id = "">
+        <p>New features weekly!</p>
       </div>
     </div>
-    <div class="col-sm-8">
-      <h2>Upcoming Tournaments:</h2>
-        <div class="list-group">
-          <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments}%>
+    <div class="col-sm-10">
+      <div class="list-group">
+        <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments}%>
+
         </div>
       </div>
   </div>

@@ -14,13 +14,13 @@
             </div>
 
             <!--second column of info-->
-            <div class = "col-sm-6">
+            <div class = "col-sm-5">
               <!--TODO: add timer for showing when registration ends-->
               <% if tournament.name %>
                   <h4 class="list-group-item-heading"><%= tournament.name %></h4>
                   <% if tournament.tournamentDate %>
-                      <p><%= tournament.tournamentDate %></p>
-                  <% end %>
+                      <p><%= tournament.tournamentDate.strftime("%d %B, %Y") %></p>
+                    <% end %>
                   <!--For the golf course and the registration end time-->
                   <!--<% if tournament.tournamentDate!=nil %>-->
                       <!--<p><%= tournament.tournamentDate %></p>-->
@@ -28,14 +28,30 @@
                   <!--<% if tournament.tournamentDate!=nil %>-->
                       <!--<p><%= tournament.tournamentDate %></p>-->
                       <!--<% end %>-->
+              
+                <% if tournament.numGuests %>
+                    <p><%= tournament.numGuests%> players attending</p>
+                <% end %>
+
               <% end %>
               <p class="list-group-item-text"></p>
             </div>
-            <!--third column-->
-            <div class = "col-sm-4">
-              <% if tournament.numGuests %>
-                  <p class="list-group-item-text">Attending: <%= tournament.numGuests%> players</p>
-              <% end %>
+
+            <!--TODO: missing dates and golf course due to data being omitted from the database -->
+            <div class = "col-sm-3">
+              <% if tournament.golf_course %>
+              
+                <div id="map-container">
+                  <div class="text-center">
+                    <iframe frameborder="0" height="100px" style="border:0; text-align: left"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= 
+        tournament.golf_course.addrStreetNum.to_s + ' ' + tournament.golf_course.addrStreetName + ' ' + tournament.golf_course.addrPostalCode
+                        %>"
+                        allowfullscreen>
+                    </iframe>
+                  </div>
+                </div>
+ <% end %>
             </div>
             <!--TODO: missing dates and golf course due to data being omitted from the database -->
           </div>
