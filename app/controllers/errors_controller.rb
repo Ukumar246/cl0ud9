@@ -1,9 +1,10 @@
 class ErrorsController < ApplicationController
 
-  def show
-    status_code = params[:code] || 500
-    flash.alert = "Status #{status_code}"
-    render "404", status: status_code
+  def not_found
+    respond_to do |format|
+      format.html { render status: 404 }
+    end
+  rescue ActionController::UnknownFormat
+    render status: 404, text: "nope"
   end
-
 end

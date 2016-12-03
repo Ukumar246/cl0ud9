@@ -62,14 +62,14 @@ Rails.application.routes.draw do
   
   #payments
   resources :charges
-
-  %w( 404 422 500 503 ).each do |code|
-    get code, :to => "errors#show", :code => code
-  end
   #ZS: added sponsorship resources to create the default routes
 #  resources :sponsorships
 
 
   # saves a golf course after model validation
   # post '/create_golf_course', to: 'golf_courses#create_golf_course'
+
+  #Last Chance, all errors
+  get "*any", via: :all, to: "errors#not_found"
+
 end
