@@ -274,8 +274,8 @@ class TournamentsController < ApplicationController
 
 	def current_user_permission_level(tournament)
 		organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
-		if(organizer.permissions == "EDIT")
-			return false
+    if organizer.nil? or organizer.permissions == "EDIT"
+      return false
 		elsif (organizer.permissions == "FULL")
 			return true
 		end
