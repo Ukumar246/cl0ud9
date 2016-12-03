@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <%= javascript_include_tag ('player_show.js') %>
-    <title>Profile page</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= javascript_include_tag ('player_show.js') %>
+  <title>Profile page</title>
 
     <!--<%= debug @tournaments_golf_courses%>-->
     <!-- Bootstrap Core CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+
+  <!-- BREAKS THE SITE, Add back in if you can fix the issues with the application view. <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
 
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -20,9 +20,6 @@
   <!-- Bootstrap Core JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-</head>
-
-<body>
     <!-- Page Content -->
     <div class="container">
         <!-- Second Featurette -->
@@ -34,16 +31,22 @@
 
             <p>Email: <span class="text-muted"><%= @player.email %></span> </p>
             <% if @player.birthDate %>
-              <p>Your Birthday: <span class="text-muted"><%= @player.birthDate %></span></p>
+              <p>Birthday: <span class="text-muted"><%= @player.birthDate %></span></p>
             <%end%>
             <% if @player.twitterLink %>
-              <p>Your Twitter Link: <span class="text-muted"><%= @player.twitterLink %></span></p>
+              <p>Twitter Link: <span class="text-muted"><%= @player.twitterLink %></span></p>
             <%end%>
 
             <p><%= link_to cl_image_tag('logo-facebook.svg'), @player.fbLink %></p>
 
         </div>
         <hr class="featurette-divider">
+          
+        <h3>
+        <%= if (current_person != nil && current_person.id == @player.id) then link_to 'Edit my email or password', edit_person_registration_path end %>
+        </h3>
+        <hr class="featurette-divider">
+        
 
       <div class="card">
         <div class="card-header">
@@ -109,9 +112,7 @@
 
       </div>
       <div class="jumbotron" id = "no-data">
-        <p>You are not playing, sponsoring, organizing or hosting a tournament!</p>
+        <p><%= if (current_person == nil || current_person.id != @player.id) then "This person is not playing in, sponsoring, organizing, or hosting any tournaments" else "You are not playing, sponsoring, organizing, or hosting any tournaments!" end %></p>
       </div>
     </div>
 
-</body>
-</html>

@@ -22,8 +22,9 @@ Rails.application.routes.draw do
 
   devise_for :people
 
+
   get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
-  get 'player/show'
+
   get 'players/new'
   post 'players/create'
 

@@ -87,8 +87,7 @@
           </form>
           <ul class="nav navbar-nav pull-right">
             <% if person_signed_in? %>
-              <li><%= link_to 'My Profile', ""%></li>
-              <li><%= link_to 'Account Settings', edit_person_registration_path %></li>
+              <li><a href="/people/<%= current_person.id %>">My Profile</a></li>
               <li><%= link_to 'Log out', destroy_person_session_path, method: :delete %></li>
             <% else %>
               <li><%= link_to 'Log In', new_person_session_path %></li>
