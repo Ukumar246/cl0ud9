@@ -2,8 +2,17 @@ class TournamentsController < ApplicationController
  	helper_method :sort_column, :sort_direction
 	def index
 		@addresses = Array.new
-		@tournaments = Tournament.order(sort_column + ' ' + sort_direction)
 		@count = Tournament.count
+
+		if params[:sort] == "host"
+      		@tournaments = sort_by_hostName
+      	elsif params[:sort] == "course_name"
+      		@tournaments = sort_by_course_name
+      	elsif params[:sort] == "tournamentDate"
+      		@tournaments = sort_by_date
+	    else
+	        @tournaments = sort
+    	end
 		#@tournaments.each do |t|
 		#	@addresses.push(get_golf_course_address(t))
 		#end
@@ -281,11 +290,29 @@ class TournamentsController < ApplicationController
 		end
 		return false
 	end
+
+ def sort
+	Tournament.order(sort_column + ' ' + sort_direction)
+ end
+
   def sort_column
-    Tournament.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    params[:sort] ? params[:sort] : "name"
   end
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
+
+  def sort_by_hostName
+  	Tournament.order('(SELECT "hostName" from hosts where id = host_id)' + "#{sort_direction}")
+   end
+
+   def sort_by_course_name
+  	Tournament.order('(SELECT "name" from golf_courses where id = golf_course_id)' + "#{sort_direction}")
+   end
+
+   def sort_by_date
+	   Tournament.order('"tournamentDate" ' + sort_direction)
+   end
+
 end
