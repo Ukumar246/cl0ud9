@@ -27,7 +27,6 @@ class Tournament < ApplicationRecord
   
   #validate tournamentDate
   validates :tournamentDate, presence: true
-  validate :tournamentDate_in_future
   
   validates :registerStart, presence: true
   validates :registerEnd, presence: true
@@ -51,16 +50,8 @@ class Tournament < ApplicationRecord
   
   private 
   
-  def tournamentDate_in_future
-	if tournamentDate < Time.zone.today
-		errors.add(:tournamentDate, "The tournament cannot be in the past")
-	end
-  end
-  
   def registration_dates_is_valid
-	if registerStart < Time.zone.today
-		errors.add(:registerStart, "Registration Cannot start in the past")
-	elsif registerEnd < registerStart
+	if registerEnd < registerStart
 		errors.add(:registerEnd, "The end date must be greater than the start date")
 	end
   end
