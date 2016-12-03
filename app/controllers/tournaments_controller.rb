@@ -96,6 +96,7 @@ class TournamentsController < ApplicationController
 			@golf_course = GolfCourse.none
 			@host = Host.all
 			@tournament = Tournament.new
+			@tournament.ticket_types.build
 		else
 			flash[:notice] = "Need to be logged in to create tournaments"
 			redirect_to :action =>"index"
@@ -131,8 +132,7 @@ class TournamentsController < ApplicationController
 			if(params[:tournament][:hostName].present?)
 				@tournament.host_id = host.id
 			end
-			
-			@tournament.privateURL = params[:tournament][:privateURL] == 1 ? false : true
+			@tournament.privateURL = params[:tournament][:privateURL] == "0" ? false : true
 
 			if(@tournament.save)
 				#Update the organizer entry to reflect the tournament entry
@@ -228,7 +228,7 @@ class TournamentsController < ApplicationController
 
 	private
 	def tournament_params
-		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id)
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
 	end
 
 

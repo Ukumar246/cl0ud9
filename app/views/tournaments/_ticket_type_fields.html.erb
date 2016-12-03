@@ -1,0 +1,15 @@
+<div class='nested-fields'>
+    <div class="field">
+      <%= t.label :name, "Name" %>
+      <%= t.text_field :name %>
+    </div>
+    <div class="field">
+      <%= t.label :price, "Price" %>
+      <%= t.text_field :price %><!--, :value => (number_with_precision(t.object.price, :precision => 2) || 0) %>-->
+    </div>
+	  <div class="field">
+      <%= t.label :numPlayers, "Number of players on the ticket" %>
+      <%= t.text_field :numPlayers %>
+    </div>
+    <%= link_to_remove_association "remove ticket", t %>
+</div>

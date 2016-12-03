@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require cloudinary
+//= require cocoon
 //= require tournament
 //= require_tree .

@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actioncable (5.0.0.1)
       actionpack (= 5.0.0.1)
@@ -68,6 +68,7 @@ GEM
     cloudinary (1.2.3)
       aws_cf_signer
       rest-client
+    cocoon (1.2.9)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -247,6 +248,7 @@ GEM
     unf_ext (0.0.7.2-x86-mingw32)
     warden (1.2.6)
       rack (>= 1.0)
+    wdm (0.1.1)
     web-console (3.3.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -269,6 +271,7 @@ DEPENDENCIES
   byebug
   carrierwave
   cloudinary
+  cocoon
   coffee-rails (~> 4.2)
   coffee-script-source (= 1.8.0)
   cucumber-rails
@@ -289,6 +292,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
+  wdm (>= 0.1.0)
   web-console
 
 BUNDLED WITH

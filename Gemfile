@@ -80,3 +80,6 @@ gem 'stripe'
 #filter and sorting
 gem 'filterrific'
 
+#dynamic nested forms
+gem 'cocoon'
+

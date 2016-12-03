@@ -43,6 +43,23 @@
 
 			<%= t.hidden_field :person_id, :value => current_person.id %>
 
+			<div id="tickets">
+				<div class="container">
+					<div class="jumbotron">
+						<p>
+						<%= t.label "Add the tickets you'll offer to your customers" %></p>
+						<div id='ticket_types'>
+						  <%= t.fields_for :ticket_types do |ticket| %>
+      						<%= render 'ticket_type_fields', :t => ticket %>
+    					  <% end %>
+					      <div class='links'>
+					      	<%= link_to_add_association "add a ticket_type", t, :ticket_types, form_name: 't' %>
+					      </div>
+					    </div>
+					</div>
+				</div>
+			</div>
+
 			<div id = "golf_course" >
 				<div class = "container" >
 					<div class = "jumbotron" >

@@ -35,6 +35,8 @@ class Tournament < ApplicationRecord
   
   #validate :selected_or_entered_golf_course
 
+  accepts_nested_attributes_for :ticket_types, reject_if: :all_blank, allow_destroy: true
+
   #attr_acc for passing host/people variables
   attr_accessor :hostName
   attr_accessor :hostPhone

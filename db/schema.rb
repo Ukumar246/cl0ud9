@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130002309) do
+ActiveRecord::Schema.define(version: 20161203014601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,11 +131,6 @@ ActiveRecord::Schema.define(version: 20161130002309) do
     t.index ["tournament_id"], name: "index_private_urls_on_tournament_id", using: :btree
   end
 
-  create_table "registrations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "scheduled_events", force: :cascade do |t|
     t.integer  "tournament_id"
     t.time     "startTime"
@@ -173,7 +168,6 @@ ActiveRecord::Schema.define(version: 20161130002309) do
   create_table "ticket_types", force: :cascade do |t|
     t.integer  "tournament_id"
     t.string   "name"
-    t.string   "description"
     t.float    "price"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
@@ -185,7 +179,7 @@ ActiveRecord::Schema.define(version: 20161130002309) do
     t.string   "name"
     t.text     "shortDesc"
     t.integer  "numGuests"
-    t.boolean  "privateURL"
+    t.boolean  "privateURL",     default: false
     t.string   "microSiteURL"
     t.string   "logoLink"
     t.string   "language"
@@ -196,8 +190,8 @@ ActiveRecord::Schema.define(version: 20161130002309) do
     t.datetime "registerEnd"
     t.integer  "host_id"
     t.integer  "golf_course_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.datetime "tournamentDate"
     t.string   "course_name"
     t.string   "course_addr"
