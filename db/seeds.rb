@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create!([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create!(name: 'Luke', movie: movies.first)
+
+#ZS:adding the admin account info
+p = Person.create!(password: '123abc', fName: 'cloud9', lName: 'admin', birthDate: Date.parse('1920/8/20'), email: 'cloud9golfing@gmail.com', allowUserEmails: 'true', profilePicLink: 'puppy.jpg', twitterLink: '@cl0ud9golf', fbLink: 'https://www.facebook.com/Cl0ud9Golf/')
+p.update_column(:profilePicLink,'puppy.jpg')
+
 p = Person.create!(password: '123abc', fName: 'Ozell', lName: 'Snavely', birthDate: Date.parse('1917/6/1'), email: 'Ozell.Snavely@gmail.com', allowUserEmails: 'true', profilePicLink: 'puppy.jpg', twitterLink: '@ThatKevinSmith', fbLink: 'https://www.facebook.com/ellentv/?fref=ts')
 p.update_column(:profilePicLink,'puppy.jpg')
 p = Person.create!(password: '123abc', fName: 'Lawrence', lName: 'Medford', birthDate: Date.parse('1979/2/22'), email: 'Lawrence.Medford@gmail.com', allowUserEmails: 'false', profilePicLink: 'puppy.jpg', twitterLink: '@ThatKevinSmith', fbLink: 'https://www.facebook.com/ellentv/?fref=ts')

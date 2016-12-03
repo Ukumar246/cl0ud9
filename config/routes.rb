@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get 'sponsors/new'
   post 'sponsors/create'
 
+  get 'sponsorships/new'
+  post 'sponsorships/create'
+
   #for searching for golf courses
   get 'tournaments/update_courses' => 'tournaments#update_courses'
   get 'tournaments/:id/refund' => 'tournaments#refund'
@@ -29,7 +32,7 @@ Rails.application.routes.draw do
   # that we'll probably use in the project (run: rails routes)
   resources :tournaments do
 		resources :photos
-		resources :sponsorships
+		#resources :sponsorships
   end
 
   resources :golf_courses
@@ -39,6 +42,9 @@ Rails.application.routes.draw do
   # Mailer Stuff
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
+
+  #ZS: added sponsorship resources to create the default routes
+#  resources :sponsorships
 
 
   # saves a golf course after model validation
