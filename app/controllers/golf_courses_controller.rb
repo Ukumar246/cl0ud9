@@ -1,5 +1,16 @@
 class GolfCoursesController < ApplicationController
 	
+  helper_method :sort_column, :sort_direction
+  def index
+    @golf_courses = GolfCourse.order(sort_column + ' ' + sort_direction)
+    @count = GolfCourse.count
+
+    @golf_course = GolfCourse.new
+    #@tournaments.each do |t|
+    # @addresses.push(get_golf_course_address(t))
+    #end
+  end
+
   def new
     print('Came into the new action!')
   # loads the partial view of the modal form for creating a golf course
@@ -62,6 +73,14 @@ class GolfCoursesController < ApplicationController
 			format.js
 		end
 	end
-	
+
+  def sort_column
+    GolfCourse.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+
 end
 

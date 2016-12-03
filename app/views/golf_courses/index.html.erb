@@ -1,0 +1,69 @@
+<div class="container">
+
+<%= render partial: 'golf_courses/new', :locals => {golf_course:@golf_course}%>
+
+  <h1>Golf Courses</h1>
+  <h3>There are currently <%= @count%> courses registered with us.</h3>
+  <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Add yours today</a>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+        </th>
+        
+        <th class="course">
+          <div class="dates-container">
+            <%= sortable "name", "Courses" %>
+
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="phone">
+          <div class="tournament-container">
+            Phone Number
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="email">
+          <div class="course-container">
+            Email
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="host_id">
+          <div class="host_id-container">
+            Location
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+      </tr>
+    </thead>
+
+    <div class="col-xs-12" style="height:40px;"></div>
+    
+    <tbody>
+      <% for gc in @golf_courses %>
+        <tr>
+          <td>
+            <%= cl_image_tag(gc.logoLink, :width => 40, :height => 40, :crop => :fill)%>
+          </td>
+          <td>
+          <%= link_to gc.name, gc.websiteURL %>
+          <!-- <a href="http://<%= gc.websiteURL%>"><%= gc.name%></a></td>
+           --><td><%= number_to_phone(gc.phone)%></td>
+          <td><%= gc.email%></td>
+          <td><%=gc.addrStreetNum%> <%=gc.addrStreetName%>, <%= gc.addrCountry %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+      <!-- @course_address = golfcourse.addrStreetNum.to_s + ' ' + golfcourse.addrStreetName + ' ' + golfcourse.addrPostalCode
+       -->
+<!-- Map embedding coming soon ... -->

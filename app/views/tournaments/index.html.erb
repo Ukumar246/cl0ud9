@@ -1,18 +1,24 @@
 <div class="container">
   <h1>Tournament Schedule</h1>
-  <h2>There are <%= @count%> upcoming tournaments</h2>
-  <div class="pull-right">
-    <a class="btn btn-primary" href="tournaments/new">Create New</a>
-  </div>
+  <h3>There are <%= @count%> upcoming tournaments</h3>
+  
+  <a class="btn btn-primary" href="tournaments/new">Host a Tournament with us</a>
+ 
   <table class="table">
   	<thead>
     	<tr>
-  			<th class="dates">
+  			
+        <th>
+        </th>
+
+        <th class="dates">
   				<div class="dates-container">
-  					Dates
+            <%= sortable "tournamentDate", "Date" %>
+
   					<span class="arrow-link arrow-link-down"></span>
   				</div>
   			</th>
+
   			<th class="tournament">
   				<div class="tournament-container">
   					<%= sortable "name", "Tournament" %>
@@ -21,6 +27,7 @@
   					<span class="arrow-link arrow-link-down"></span>
   				</div>
   			</th>
+        
         <th class="course">
           <div class="course-container">
             <%= sortable "course_name", "Golf Course" %>
@@ -28,6 +35,7 @@
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
+        
         <th class="host_id">
           <div class="host_id-container">
             <%= sortable "host_id" %>
@@ -35,25 +43,26 @@
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-  			<th class="links">
-  				<div class="links-container">
-  					Links
-  					<span class="arrow-link arrow-link-down"></span>
-  				</div>
-  			</th>
+  			
    		</tr>
   	</thead>
+
+    <div class="col-xs-12" style="height:40px;"></div>
 
   	<tbody>
     	<% for tourney in @tournaments.where(privateURL: false) %>
   			<tr>
-  				<td><%= tourney.tournamentDate.strftime("%m/%d/%Y") %></td>
-  				<td><%= tourney.name%></td>
-          <td><%= tourney.course_name%></td>
-          <td><%= tourney.host_id%></td>
-  				<td><%= link_to "Tournament Page", tourney%></td>
+          <td>
+            <%= cl_image_tag(tourney.logoLink, :width => 40, :height => 40, :crop => :fill)%>
+          </td>
+  				<td><%= link_to tourney.name, tourney%></td>
+          <td><%= tourney.tournamentDate.strftime("%d %B, %Y") %></td>
+          <td><%= if (tourney.golf_course != nil) then link_to tourney.golf_course.name, tourney.golf_course.websiteURL end%></td>
+
+          <td><%= if (tourney.host != nil) then tourney.host.hostName end%></td>
     	<% end %>
   	</tbody>
   </table>
 </div>
-<!-- Map embedding coming soon ... -->
+<!-- Map embedding coming soon ... PROBABLY NOT-->
+
