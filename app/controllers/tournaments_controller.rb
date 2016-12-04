@@ -166,10 +166,18 @@ class TournamentsController < ApplicationController
 	end
 
 	def email
-    @player = Player.find_by_person_id(request['player']['id'])
-		GeneralMailer.custom_email(@player, request['email_subject'], request['email_body'])
-		@curr_person = Person.find(request['player']['id'])
-    flash[:success] = 'Email has been sent to ' + @curr_person.fName + ' ' + @curr_person.lName + '.'
+    if request['player']['id'].blank?
+      @players = Player.where(tournament_id: request['id'])
+    else
+      @players = Array.new
+      @players.push(Player.find_by_person_id_and_tournament_id(request['player']['id'], request['id']))
+    end
+
+    @players.each do |p|
+      GeneralMailer.custom_email(p, request['email_subject'], request['email_body']).deliver!
+    end
+
+    flash[:success] = 'Email has been sent successfully.'
     redirect_to :controller => 'tournaments', :action => 'organize', :id => request['id']
 	end
 
