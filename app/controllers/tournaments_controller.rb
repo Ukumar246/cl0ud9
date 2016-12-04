@@ -2,7 +2,7 @@ class TournamentsController < ApplicationController
  	helper_method :sort_column, :sort_direction
 	def index
 		@addresses = Array.new
-		@count = Tournament.count
+		@count = Tournament.where(privateURL: false).count
 
 		if params[:sort] == "host"
       		@tournaments = sort_by_hostName
@@ -103,7 +103,7 @@ class TournamentsController < ApplicationController
 		@course_address = nil
 		@course_phone = nil
     @host = @tournament.host
-
+    @teams = @tournament.teams.order('"teeTime" asc')
     get_data_for_reports(@tournament)
 		get_golf_course_info(@tournament)
 	end
@@ -253,7 +253,7 @@ class TournamentsController < ApplicationController
 
 	private
 	def tournament_params
-		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :privateURL, :person_id, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
 	end
 
 

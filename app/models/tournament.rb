@@ -41,6 +41,8 @@ class Tournament < ApplicationRecord
   attr_accessor :hostPhone
   attr_accessor :hostEmail
   attr_accessor :person_id
+
+  attr_accessor :privateURL
   
   before_validation(on: :create) do |t|
   	if self.ticketsLeft == nil or self.ticketsLeft == 0

@@ -103,11 +103,7 @@ class PlayersController < ApplicationController
         end
 
     end
-    if @tournament.privateURL
-      redirect_to url_for(:controller => :tournaments, :action => "private_url", :key => @tournament.private_url.key, :id => @tournament.id)
-    else
-      redirect_to @tournament
-    end
+    redirect_to_tournament_with_privacy(@tournament)
     #redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorshipType => @sponsor.sponsorshipType) and return
   end
 
@@ -123,43 +119,42 @@ class PlayersController < ApplicationController
   private
   def assign_to_teams(newPlayers, tournament_id)
     numFullTeams = newPlayers.length / 4
-    puts {"#numFullTeams"}
-    newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}
-    Team.transaction do
-      if newTeams
-        newTeams.each do |nt|
-          nt.save
+    if numFullTeams > 0 
+      newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}
+      Team.transaction do
+        if newTeams
+          newTeams.each do |nt|
+            Team.assign_next_tee_time(nt, tournament_id)
+            nt.save
+          end
         end
       end
-    end
-    i = 0
-    newTeams.each do |t|
-      newPlayers[i..i+3].each do |p|
-        p.team_id = t.id
-        p.save
+      i = 0
+      newTeams.each do |t|
+        newPlayers[i..i+3].each do |p|
+          p.team_id = t.id
+          p.save
+        end
+        i+=4
       end
-      i+=4
+      newPlayers = newPlayers[i..-1]
     end
 
-    i -= 3
-    teams = Team.all
-    remainingPlayers = newPlayers[i..(newPlayers.size - 1)]
-    if not remainingPlayers.nil?
-      newPlayers[i..(newPlayers.size - 1)].each do |p|
+    if newPlayers.length > 0
+      teams = Tournament.find(tournament_id).teams
+      newPlayers.each do |p|
         team = teams.select {|t| t.numPlayers < 4}.first
         if team.nil?
-          team = Team.new(tournament_id: tournament_id, numPlayers: 1)
+          team = Team.create(tournament_id: tournament_id, numPlayers: 1)
+          Team.assign_next_tee_time(team, tournament_id)
           team.save
-          teams = Team.all
+          teams = Tournament.find(tournament_id).teams
         else
           team.numPlayers += 1
+          team.save
         end
-
         p.team_id = team.id
         p.save
-      end
-      Team.transaction do
-        teams.each(&:save!)
       end
     end
 

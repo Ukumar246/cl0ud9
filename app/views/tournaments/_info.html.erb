@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-striped">
   <tr>
     <td><%= @tournament.shortDesc %></td>
   </tr>
@@ -9,10 +9,13 @@
     <td><%= @tournament.numGuests - @tournament.ticketsLeft%> Players attending</td>
   </tr>
   <tr>
-    <td><strong>Date:</strong> <%= @tournament.tournamentDate %></td>
+    <td><strong>Link: </strong><%= link_to tournament_url_with_privacy(@tournament) %></td>
   </tr>
   <tr>
-    <td><strong>Location:</strong> <br>
+    <td><strong>Date: </strong> <%= @tournament.tournamentDate %></td>
+  </tr>
+  <tr>
+    <td><strong>Location: </strong> <br>
          <%= @course_name %> <br>
          <%= @course__address %> <br>
          <%= @course__phone %> <br>
