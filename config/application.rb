@@ -6,9 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-config.active_record.default_timezone :local
-config.time_zone :utc
-
 module GolfTournament
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
