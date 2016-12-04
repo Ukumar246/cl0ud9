@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   #ME FIX
   get 'people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }
-
+  get 'people' => 'people#index'
 
 
   get 'welcome/index'

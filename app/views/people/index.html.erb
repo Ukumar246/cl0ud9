@@ -1,0 +1,49 @@
+<div class="container">
+
+  <h1>Users</h1>
+  <h3>There are currently <%= @count%> users enjoying cl0ud9.</h3>
+  
+  <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>
+        #
+        </th>
+        <th>
+        </th>
+        
+        <th class="course">
+          <div class="dates-container">
+            Name
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="phone">
+          <div class="tournament-container">
+            Contact
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+      </tr>
+    </thead>
+
+    <div class="col-xs-12" style="height:40px;"></div>
+    
+    <tbody>
+      <% for ppl in @people %>
+        <tr>
+          <td><%= ppl.id %></td>
+          <td><%= cl_image_tag(ppl.profilePicLink, :width => 40, :height => 40, :crop => :fill) %></td>
+          <td><a href="/people/<%= ppl.id %>"><%= ppl.lName %>, <%= ppl.fName %></a></td>
+          <td><%= ppl.email %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+      <!-- @course_address = golfcourse.addrStreetNum.to_s + ' ' + golfcourse.addrStreetName + ' ' + golfcourse.addrPostalCode
+       -->
+<!-- Map embedding coming soon ... -->

@@ -17,36 +17,50 @@
                 <%= form_for golf_course, method:'post' do |f| %>
 
                     <!--change the fonts around-->
+                    <div class="text-danger">
+                      <h4> 
+                        Required
+                      </h4>
+                    </div>
+
                     <%= f.label :'Golf Course Name:' %>
-                    <%= f.text_field(:name, :placeholder => 'E.g. Country Club',class: 'form-control') %>
-
-                    <%= f.label :'Phone:' %>
-                    <%= f.text_field(:phone, :placeholder => 'E.g. +16472210980',class: 'form-control') %>
-
-                    <%= f.label :'Street Number:' %>
-                    <%= f.text_field(:addrStreetNum, :placeholder => 'E.g. 244 or 244A', class: 'form-control') %>
-
-                    <%= f.label :'Street Name:' %>
-                    <%= f.text_field(:addrStreetName,  :placeholder => 'E.g. St. George Street',class: 'form-control') %>
-
-                    <%= f.label :'Zip Code:' %>
-                    <%= f.text_field(:addrPostalCode,  :placeholder => 'E.g. M2N 6N3',class: 'form-control') %>
-
-                    <%= f.label :'Country:' %>
-                    <%= f.text_field(:addrCountry,  :placeholder => 'E.g. Country Club',class: 'form-control') %>
-
-                    <%= f.label :'Logo Link:' %>
-                    <%= f.text_field(:logoLink,  :placeholder => 'E.g. www.logolink.com',class: 'form-control') %>
-
-                    <%= f.label :'Website Url:' %>
-                    <%= f.text_field(:websiteURL,  :placeholder => 'E.g. www.golfy.com',class: 'form-control') %>
+                    <%= f.text_field(:name, :placeholder => '',class: 'form-control') %>
 
                     <%= f.label :'Contact Email:' %>
-                    <%= f.email_field(:email,  :placeholder => 'E.g. john.smith@gmail.com',class: 'form-control') %>
+                    <%= f.email_field(:email,  :placeholder => '',class: 'form-control') %>
+
+                    <%= f.label :'Address:' %>
+                    <%= f.text_field(:addrStreetNum, :placeholder => '#', class: 'form-control') %>
+
+                    <%= f.label :'Street Name:' %>
+                    <%= f.text_field(:addrStreetName,  :placeholder => '',class: 'form-control') %>
+
+                    <%= f.label :'Zip Code:' %>
+                    <%= f.text_field(:addrPostalCode,  :placeholder => 'ex. A1B 2C3',class: 'form-control') %>
+
+                    <%= f.label :'Country:' %>
+                    <%= f.text_field(:addrCountry,  :placeholder => '',class: 'form-control') %>
+
+
+                    <br>
+
+                    <div class="">
+                      <h4>
+                      Optional
+                      </h4>
+                    </div>
+                    <%= f.label :'Phone:' %>
+                    <%= f.text_field(:phone, :placeholder => 'ex. 4165550000',class: 'form-control') %>
+
+                    <%= f.label :'Logo Link:' %>
+                    <%= f.text_field(:logoLink,  :placeholder => 'ex. imgur.com/mylogo.jpg',class: 'form-control') %>
+
+                    <%= f.label :'Website Url:' %>
+                    <%= f.text_field(:websiteURL,  :placeholder => '',class: 'form-control') %>
 
                     <%= f.label :'Capacity:' %>
-                    <%= f.text_field(:capacity,  :placeholder => 'E.g. 100',class: 'form-control') %>
-
+                    <%= f.text_field(:capacity,  :placeholder => '',class: 'form-control') %>
+                    
                     <!--because you want to save a golf course person as well-->
                     <%= f.hidden_field :person_id, :value => current_person.id %>
 

@@ -1,6 +1,6 @@
 <% if golf_courses_passed_in != nil%>
     <% golf_courses_passed_in.each do |golf_course|%>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="http://<%= golf_course.websiteURL%>" class="list-group-item list-group-item-action">
           <!--sample item in the list-->
           <div class="row">
             <!--forst column of info-->
