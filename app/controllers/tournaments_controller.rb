@@ -97,6 +97,7 @@ class TournamentsController < ApplicationController
 		@course_name = nil
 		@course_address = nil
 		@course_phone = nil
+    @host = @tournament.host
 
 		get_golf_course_info(@tournament)
 	end
@@ -104,6 +105,13 @@ class TournamentsController < ApplicationController
 	def new
 		init_tournament_and_associations
 	end
+
+  def update
+    @tournament = Tournament.find(params[:id])
+    @tournament.update(tournament_params)
+
+    redirect_to :action => 'organize'
+  end
 
 	def create
 		#Create the organizer for the tournament first

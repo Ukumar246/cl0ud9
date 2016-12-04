@@ -1,26 +1,143 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+	<div class="modal-dialog">
+		<% if person_signed_in? %>
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Let's start with the basic details</h4>
+			</div>
+			<div class="modal-body text-justify">
+				<%= form_for @tournament, url: {:controller =>'tournaments', :action => 'update'}, method:'put' do |t| %>
+				<div class="container">
+					<div class="row col-md-offset-0">
+						<h4> Tournament Information:</h4>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-1">
+							<%= t.label :name, "Name" %>
+						</div>
+						<div class="col-md-2 col-md-offset-0">
+							<%= t.text_field(:name, class: 'form-control')%>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-1">
+							<%= t.label :shortDesc, "Description" %>
+						</div>
+						<div class="col-md-2 col-md-offset-0">
+							<%= t.text_area( :shortDesc, class: 'form-control') %>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-1">
+							<%= t.label :tournamentDate, "Date"%>
+						</div>
+						<div class="col-md-2 col-md-offset-0">
+							<%= t.date_select( :tournamentDate, {prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose Year'}}, class: 'form-control') %>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-1">
+							<%= t.label :numGuests, "Number of Tickets"%>
+						</div>
+						<div class="col-md-2 col-md-offset-0">
+							<%= t.text_field( :numGuests, class: 'form-control') %>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-1">
+							<%= t.label :privateURL, "Will it be private?"%>
+						</div>
+						<div class="col-md-2 col-md-offset-0">
+							<%= t.check_box( :privateURL) %>
+						</div>
+					</div>
+					<br>
+					<br>
+					<br>
+					<%= t.hidden_field :person_id, :value => current_person.id %>
+					<div class="row container col-md-6" style="" id="tickets">
+						<h4 class="col-md-offset-0">
+							<%= t.label "Tickets Available:" %>
+						</h4>
+						<div id='ticket_types'>
+							<%= t.fields_for :ticket_types do |ticket| %>
+							<%= render 'ticket_type_fields', :t => ticket %>
+							<% end %>
+							<div class='links col-md-offset-2'>
+								<%= link_to_add_association "Add another type of ticket", t, :ticket_types, form_name: 't', class:"btn btn-sm btn-primary" %>
+							</div>
+						</div>
+						<br>
+						<br>
+						<br>
+					</div>
+					<div id="Spacing" class="row col-md-6">
+					</div>
+				</div>
+				<!-- Hidden field for which course location method-->
+				<%= hidden_field_tag  :course_method, :id =>"course_method", :value => "1" %>
+				<div id = "regDates" class="row col-md-12">
+					<h4 class="col-md-offset-0">
+						<%= label_tag "Registration Dates:" %>
+					</h4>
+					<div id="reg_date" class="row col-md-offset-1">
+						<div class="row">
+							<div class="col-md-2 col-md-offset-0">
+								<%= t.label :registerStart, "Start Date:"%>
+							</div>
+							<div class="col-md-4 col-md-offset-0">
+								<%= t.date_select( :registerStart, {prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose Year'}}, class: "form-control") %>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-2 col-md-offset-0">
+								<%= t.label :registerEnd, "End Date:"%>
+							</div>
+							<div class="col-md-4 col-md-offset-0">
+								<%= t.date_select( :registerEnd, {prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose Year'}}, class: 'form-control') %>
+							</div>
+						</div>
+					</div>
+				</div>
 
-  <% if person_signed_in? %>
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Tournament</h4>
-      </div>
-      <div class="modal-body text-justify">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            Tournament info here.
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <!--empty now for spacing purposes-->
-      </div>
-    </div>
-
-  <% end %>
-
-  </div>
+				<div id = "submit" class="row col-md-offset-10">
+					<p>
+						<button type = "submit" class ="btn btn-primary" %>
+							Submit
+						</button>
+					</p>
+				</div>
+			</div>
+			<!--Hidden field to grab the person id-->
+			<%= t.hidden_field :person_id, :value => current_person.id %>
+			<% end %>
+		</div>
+		<div class="modal-footer">
+			<!--empty now for spacing purposes-->
+		</div>
+	</div>
+	<% else %>
+	<div class="modal-content panel-danger">
+		<div class="modal-header panel-heading">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">ERROR</h4>
+		</div>
+		<div class="modal-body">
+			<h3>
+				You must be signed in to create a tournament
+			</h3>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+		</div>
+	</div>
+	<% end %>
+</div>
 </div>
