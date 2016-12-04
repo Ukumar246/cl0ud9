@@ -18,4 +18,9 @@ default from: 'cl0ud9golfing@gmail.com'
 		@subject = 'Your tournament confirmation'
 		mail(to: organizer_email, subject: @subject)
 	end
+
+	def refund_email (person, tournament_name)
+		subject = 'Refund for ' + tournament_name + ' tickets'
+		mail(to: person.email, subject: subject)
+	end
 end

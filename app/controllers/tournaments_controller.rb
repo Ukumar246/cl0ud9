@@ -191,21 +191,22 @@ class TournamentsController < ApplicationController
 
 	end
 
-   def refund
-		 @tournament = Tournament.find(params[:id])
-		 @tournament.ticketsLeft += 1
-		 @tournament.save
+  def refund
+    @tournament = Tournament.find(params[:id])
+    @tournament.ticketsLeft += 1
+    @tournament.save
 
-     @player = Player.where(person_id: params[:person_id])
-		 @player.destroy_all
+    @player = Player.where(person_id: params[:person_id])
+    @player.destroy_all
 
-		 @curr_person = Person.find(params[:person_id])
+    @curr_person = Person.find(params[:person_id])
+    GeneralMailer.refund_email(@curr_person, @tournament.name).deliver!
 
-		 # TODO: Logic to actually refund payment
+    # TODO: Logic to actually refund payment
 
-     flash[:success] = @curr_person.fName + ' ' + @curr_person.lName + ' has been removed from this tournament.'
-     redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
-   end
+    flash[:success] = @curr_person.fName + ' ' + @curr_person.lName + ' has been removed from this tournament.'
+    redirect_to :controller => 'tournaments', :action => 'organize', :id => params[:id]
+  end
 
 
 	def update_courses
