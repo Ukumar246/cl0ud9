@@ -75,6 +75,7 @@
             <%end%>
           </ul>
         </div>
+        
         <!--loop through and display the golf courses-->
 
             <div class="card-block" id = "card-0">
@@ -88,11 +89,13 @@
                   <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_golf_courses}%>
             <%end%>
             </div>
+
             <div class="card-block" id = "card-2">
               <% if @tournaments_sponsors != nil && @tournaments_sponsors.size > 0%>
                   <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_sponsors}%>
             <%end%>
             </div>
+            
             <div class="card-block" id = "card-3">
               <% if @tournaments_players != nil && @tournaments_players.size >0%>
                   <%= render partial: 'people/tournament_tabs', :locals => {tournaments_passed_in:@tournaments_players}%>

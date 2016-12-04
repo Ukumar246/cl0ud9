@@ -2,6 +2,16 @@ class PeopleController < ApplicationController
   #show all the player's on our database
   def list
     @players = Person.all
+    @people = Person.all
+  end
+
+  def index
+  @people = Person.all
+  @count = Person.count
+  @person = Person.new
+    #@tournaments.each do |t|
+    # @addresses.push(get_golf_course_address(t))
+    #end
   end
 
   #show a single player's profile based on passed in id
