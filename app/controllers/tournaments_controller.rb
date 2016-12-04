@@ -23,10 +23,15 @@ class TournamentsController < ApplicationController
 	end
 
 	def destroy
+    @tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
 
 		@players = Player.where(tournament_id: params[:id])
 		@players.destroy_all
+    @organizers = Organizer.where(tournament_id: params[:id])
+    @organizers.destroy_all
+    @sponsors = Sponsor.where(tournament_id: params[:id])
+    @sponsors.destroy_all
 		@ticket_types = TicketType.where(tournament_id: params[:id])
 		@ticket_types.destroy_all
 
@@ -289,7 +294,7 @@ class TournamentsController < ApplicationController
 	end
 
 	def assert_user_can_organize (tournament)
-		if !current_user_is_organizer(@tournament)
+		if !current_user_is_organizer(tournament)
 			flash[:danger] = 'You do not have access to organize this tournament!'
 			redirect_to :action => 'show'
 		end
