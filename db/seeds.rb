@@ -65,6 +65,8 @@ t.update_column(:logoLink, 't4.png')
 t = Tournament.create!(name: 'GOLF! Tykes and Tycoons', shortDesc: 'loremipsum', tournamentDate: DateTime.strptime("03/20/2017 10:00", "%m/%d/%Y %H:%M"), numGuests: 1, privateURL: false, microSiteURL: '', logoLink: "puppy.jpg", language: 'EN', currency: 'CAD', timeZone: 'EST', registerStart: DateTime.strptime("09/01/1999 17:00", "%m/%d/%Y %H:%M"), registerEnd: DateTime.strptime("09/01/2999 17:00", "%m/%d/%Y %H:%M"), host_id: 4, golf_course_id: 3)
 t.update_column(:logoLink, 't5.png')
 
+admin = Cloud9Person.create!(person_id: 1)
+
 t = TicketType.create!(tournament_id: 1, name: 'Single', price: 50.00, numPlayers: 1)
 t = TicketType.create!(tournament_id: 1, name: 'Foursome', price: 175.00, numPlayers: 4)
 t = TicketType.create!(tournament_id: 2, name: 'Single',  price: 50.00, numPlayers: 1)

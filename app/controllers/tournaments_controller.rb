@@ -287,11 +287,20 @@ class TournamentsController < ApplicationController
 	def current_user_is_organizer (tournament)
 		if person_signed_in?
 			is_organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
-			return !is_organizer.nil?
+      return ( !is_organizer.nil? or current_user_is_admin(tournament) )
 		else
 			return false
 		end
 	end
+
+  def current_user_is_admin (tournament)
+    if person_signed_in?
+      is_cloud9person = Cloud9Person.find_by_person_id(current_person.id)
+      return !is_cloud9person.nil?
+    else
+      return false
+    end
+  end
 
 	def assert_user_can_organize (tournament)
 		if !current_user_is_organizer(tournament)
