@@ -1,0 +1,61 @@
+<div class="modal fade" id="sponsorshipsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+   <% if person_signed_in? %>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create a new sponsorship</h4>
+      </div>
+      <div class="modal-body text-justify">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+          <%= form_for :sponsorship, url: {:controller =>'sponsorships', :action => 'create'}, method:'post' do |f| %>
+
+            <%= f.label :'Name' %><text class='text-danger'>*</text>
+            <%= f.text_field(:name, :placeholder => 'Gold',class: 'form-control') %>
+
+            <%= f.label :'Price(CAD)'%><text class='text-danger'>*</text>
+            <%= f.text_field(:price, :placeholder => '100', class: 'form-control') %>
+
+            <%= f.label :'Description', class: 'text-justify'%>
+            <%= f.text_field(:description, class: 'form-control') %>
+
+            <%= f.hidden_field :tournament_id, :value => @tournament.id %>
+
+            <div class="modal-footer">
+              <!--empty now for spacing purposes-->
+            </div>
+
+            <%= f.submit 'Submit', class: 'btn btn-primary', id: 'add_sponsorship_btn'%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--empty now for spacing purposes-->
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="modal-content panel-danger">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">ERROR</h4>
+        </div>
+        <div class="modal-body">
+          <h3>
+          You must be signed in to create a sponsorship for this tournament
+          </h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+        </div>
+      </div>
+
+  <% end %>
+
+  </div>
+</div>
