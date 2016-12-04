@@ -9,7 +9,7 @@
         <h4 class="modal-title">Let's start with the basic details</h4>
       </div>
       <div class="modal-body text-justify">
-	      <%= form_for @tournament, url: {:controller =>'tournaments', :action => 'new'}, method:'post' do |t| %>
+	      <%= form_for @tournament, url: {:controller =>'tournaments', :action => 'create'}, method:'post' do |t| %>
         <div class="row">
           <div class="col-md-3 col-md-offset-1">
 						<%= t.label :name, "Name" %>
