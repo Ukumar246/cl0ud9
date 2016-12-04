@@ -9,138 +9,243 @@
         <h4 class="modal-title">Let's start with the basic details</h4>
       </div>
       <div class="modal-body text-justify">
+
 	      <%= form_for @tournament, url: {:controller =>'tournaments', :action => 'create'}, method:'post' do |t| %>
-        <div class="row">
-          <div class="col-md-3 col-md-offset-1">
-						<%= t.label :name, "Name" %>
-					</div>
-					<div class="col-md-3 col-md-offset-1">
-						<%= t.text_field(:name, class: 'form-control')%>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3 col-md-offset-1">					
-				    <%= t.label :shortDesc, "Description" %>
-				  </div>
-				  <div class="col-md-3 col-md-offset-1">
-						<%= t.text_area( :shortDesc, class: 'form-control') %>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3 col-md-offset-1">			
-				    <%= t.label :tournamentDate, "Date:"%>
-				  </div>
-				  <div class="col-md-3 col-md-offset-1">
-						<%= t.datetime_select( :tournamentDate, class: 'form-control') %>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3 col-md-offset-1">			
-				    <%= t.label :numGuests, "Number of Participants:"%>
-				  </div>
-				  <div class="col-md-3 col-md-offset-1">
-						<%= t.text_field( :numGuests, class: 'form-control') %>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3 col-md-offset-1">			
-				    <%= t.label :privateURL, "Keep the tournament private?"%>
-				  </div>
-				  <div class="col-md-3 col-md-offset-1">
-						<%= t.check_box( :privateURL, class: 'form-control') %>
-					</div>
-				</div>
-					<%= t.hidden_field :person_id, :value => current_person.id %>
+        <div class="container">
+          
+          <div class="row col-md-offset-0">
+            <h4> Tournament Information:</h4>
+          </div>
 
-				<div id="tickets">
-					<p>
-					<%= t.label "Add the tickets you'll offer to your customers" %></p>
-					<div id='ticket_types'>
-					  <%= t.fields_for :ticket_types do |ticket| %>
-  						<%= render 'ticket_type_fields', :t => ticket %>
-					  <% end %>
-				      <div class='links'>
-				      	<%= link_to_add_association "Add another type of ticket", t, :ticket_types, form_name: 't' %>
-				      </div>
-				    </div>
-				</div>
+          <br>
 
-				<div id = "golf_course" >
-					<%= t.label "Golf Course" %> <br>
-					<button id = "search_course" type = "button" class = "btn btn-primary btn-md">
-						Search for Golf Courses
-					</button>
-										
-					<button id = "enter_course" type = "button" class = "btn btn-primary btn-md">
-						Enter a location
-					</button>
-					
-					<div id = "golf_search" style="display:none">							
-						<p>
-							<%= label_tag "Enter the golf course name" %><br>
-						</p>
-						<p>
-							<%= text_field_tag id = "search_value"%>
-						</p>
-						<button id = "search_button" type = "button" class = "btn btn-primary btn-md">
-							Search
-						</button> <br><br>
-						<p> Select: </p>
-						<p>
-							<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
-						</p>
-					</div>
-				
-					<div id = "golf_enter" style = "display:none">
-						<br>
-						<p>
-							<%= label_tag "Name" %> <br>
-							<%= t.text_field :course_name %>
-						</p>
-						<p>
-							<%= label_tag "Address" %> <br>
-							<!--%= label_tag "(Format: Street#, Street, City, State/Province, Country)"-%><br>-->
-							<%= t.text_area :course_addr %>
-						</p>
-					</div>
-				</div>
-		
-				<!-- Hidden field for which course location method-->
-				<%= hidden_field_tag  :course_method, :id =>"course_method", :value => "1" %>
-		
-				<div id = "regDates">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+  						<%= t.label :name, "Name" %>
+  					</div>
+  					<div class="col-md-2 col-md-offset-0">
+  						<%= t.text_field(:name, class: 'form-control')%>
+  					</div>
+  				</div>
+  				
+          <br>
+
+          <div class="row">
+  					<div class="col-md-2 col-md-offset-1">					
+  				    <%= t.label :shortDesc, "Description" %>
+  				  </div>
+  				  <div class="col-md-2 col-md-offset-0">
+  						<%= t.text_area( :shortDesc, class: 'form-control') %>
+  					</div>
+  				</div>
+  				
+          <br>
+
+          <div class="row">
+  					<div class="col-md-2 col-md-offset-1">			
+  				    <%= t.label :tournamentDate, "Date"%>
+  				  </div>
+  				  <div class="col-md-2 col-md-offset-0">
+  						<%= t.date_select( :tournamentDate, {prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose Year'}}, class: 'form-control') %>
+            </div>
+  				</div>
+  				
+          <br>
+
+          <div class="row">
+  					<div class="col-md-2 col-md-offset-1">			
+  				    <%= t.label :numGuests, "Number of Tickets"%>
+  				  </div>
+  				  <div class="col-md-2 col-md-offset-0">
+  						<%= t.text_field( :numGuests, class: 'form-control') %>
+  					</div>
+  				</div>
+  				
+          <br>
+
+          <div class="row">
+  					<div class="col-md-2 col-md-offset-1">			
+  				    <%= t.label :privateURL, "Will it be private?"%>
+  				  </div>
+  				  <div class="col-md-2 col-md-offset-0">
+  						<%= t.check_box( :privateURL) %>
+  					</div>
+  				</div>
+
+          <br>              
+          <br>
+          <br>
+          
+          	<%= t.hidden_field :person_id, :value => current_person.id %>
+
+  				<div class="row container col-md-6" style="" id="tickets">
+  					
+            <h4 class="col-md-offset-0">
+  					 <%= t.label "Tickets Available:" %>
+  					</h4>
+
+            <div id='ticket_types'>
+  					  <%= t.fields_for :ticket_types do |ticket| %>
+    						<%= render 'ticket_type_fields', :t => ticket %>
+  					  <% end %>
+  				      <div class='links col-md-offset-2'>
+  				      	<%= link_to_add_association "Add another type of ticket", t, :ticket_types, form_name: 't', class:"btn btn-sm btn-primary" %>
+  				      </div>
+  				    </div>
+
+              <br>
+              <br>
+              <br>
+
+  				</div>
+
+          <div id="Spacing" class="row col-md-6">
+          </div>
+
+  				<div id = "golf_course" class="row container col-md-12">
+  					<h4 class="col-md-offset-0">
+            <%= t.label "Golf Course:" %>
+            </h4>
+
+            <div class="col-md-offset-0">
+    					<button id = "search_course" type = "button" class = "col-md-2 btn btn-primary btn-sm">
+    						Find my local Golf Course
+    					</button>
+              <div class="col-md-1 text-center">or</div>
+    					<button id = "enter_course" type = "button" class = "col-md-2 btn btn-primary btn-sm">
+    						Enter a custom location
+    					</button>
+  					</div>
+
+
+            <br>
+            <br>
+
+            <div class="row container col-md-12">
+            <div class="container col-md-12">
+    					<div id = "golf_search" class="row container col-md-6" style="display:none; background-color: #eee">	
+
+              <br>
+
+    						<div class="row">
+                  <div class="col-md-4 col-md-offset-2">      
+                    <strong>1.</strong> Enter golf course:
+    						  </div>
+                  <div class="col-md-4 col-md-offset-0">      
+                    <%= text_field_tag id = "search_value", "", class: "form-control"%>
+                  </div>
+                </div>
+    						
+                <br>
+
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-2">      
+                    <strong>2.</strong>
+                  </div>
+                  <div class="col-md-4 col-md-offset-0">      
+                    <button id = "search_button" type = "button" class = "btn btn-primary btn-success btn-sm">
+                      Search
+                    </button> 
+                  </div>
+                </div>
+                
+                <br>
+    						
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-2">      
+                    <strong>3.</strong> Select your course:
+                  </div>
+                  <div class="col-md-4 col-md-offset-0">      
+                      <%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
+                      
+                    </div>
+                </div>
+                
+                <br>
+    					</div>
+    				
+              <div class="container col-md-12">
+                <div id = "golf_enter" class="row container col-md-6" style="display:none; background-color: #eee">  
+
+                <br>
+
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-2">      
+        							<%= label_tag "Course Name" %> <br>
+                    </div>
+                    <div class="col-md-4 col-md-offset-0">      
+        							<%= t.text_field :course_name, class: "form-control"%>
+                    </div>
+                  </div>
+        					
+                  <br>
+
+                  <div class="row">
+                    <div class="col-md-4 col-md-offset-2">      
+                  	 <%= label_tag "Address" %> <br>
+      						  </div>
+                    <div class="col-md-4 col-md-offset-0">      
+                    	<%= t.text_area :course_addr, class: "form-control" %>
+      						  </div>
+                  </div>
+                <br>
+                  
+                </div>
+
+              </div>
+    				</div>
+          </div>
+
+          <br>
+          <br>
+          <br>
+          </div>
+
+  				<!-- Hidden field for which course location method-->
+  				<%= hidden_field_tag  :course_method, :id =>"course_method", :value => "1" %>
+  		
+  				<div id = "regDates" class="row col-md-12">
+  					<h4 class="col-md-offset-0">
+  						<%= label_tag "Registration Dates:" %>
+  					</h4>
+  					
+  					<div id="reg_date" class="row col-md-offset-1">
+  					
+              <div class="row">
+                <div class="col-md-2 col-md-offset-0">      
+    							<%= t.label :registerStart, "Start Date:"%>
+    						</div>
+                <div class="col-md-2 col-md-offset-0">
+                 	<%= t.date_select( :registerStart, {prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose Year'}}, class: "form-control") %>
+      				  </div>
+              </div>
+              
+              <br>
+
+  						<div class="row">
+                <div class="col-md-2 col-md-offset-0">      
+              	 <%= t.label :registerEnd, "End Date:"%>
+                </div>
+                <div class="col-md-2 col-md-offset-0">
+    							<%= t.date_select( :registerEnd, {prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose Year'}}, class: 'form-control') %>
+            
+  	            </div>					
+              </div>
+
+             </div>
+
+  				</div>
+
+  			</div>
+				<div id = "submit" class="row col-md-offset-10"> 
 					<p>
-						<%= label_tag "Registration" %> <br>
-					<p>
-					
-					<button id = "reg_date_button" type = "button" class = "btn btn-primary btn_md">
-						Set Registration Dates
-					</button>
-					
-					<div id= "reg_date" style="display:none">
-						<p>
-							<%= t.label :registerStart, "Registration Start Date:" %><br>
-							<%= t.datetime_select :registerStart%>
-						</p>
-						
-						<p>
-							<%= t.label :registerEnd, "Registration End Date:" %><br>
-							<%= t.datetime_select :registerEnd %>
-						</p>
-					</div>
-				</div>
-			
-				<div id = "submit"> 
-					<p>
-						<button type = "submit" class ='"btn btn-primary btn-md' %>Next</button>
+						<button type = "submit" class ="btn btn-primary" %><bold>Next</button>
 					</p>
 				</div>
 		
 				<!--Hidden field to grab the person id-->
 				<%= t.hidden_field :person_id, :value => current_person.id %>
 			<% end %>
-          </div>
-        </div>
       </div>
       <div class="modal-footer">
         <!--empty now for spacing purposes-->

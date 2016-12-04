@@ -1,15 +1,48 @@
-<div class='nested-fields'>
-    <div class="field">
-      <%= t.label :name, "Name" %>
-      <%= t.text_field :name %>
+
+<div class="row container col-md-12" >
+  <div class='nested-fields'>
+    <div style="background-color: #eee">
+      <br>
+      <div class="row">
+        <div class="field col-md-4 col-md-offset-2">
+          <%= t.label :name, "Name" %>
+        </div>
+        <div class="col-md-4 col-md-offset-0">
+          <%= t.text_field(:name, class: 'form-control') %>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">  
+        <div class="field col-md-4 col-md-offset-2">
+          <%= t.label :price, "Price" %>
+        </div>
+        <div class="col-md-4 col-md-offset-0">
+          <%= t.text_field(:price, class: 'form-control') %> 
+        </div>
+      </div>
+    
+      <br>
+
+      <div class="row">
+        <div class="field col-md-4 col-md-offset-2">
+          <%= t.label :numPlayers, "Players per ticket" %>
+        </div>
+        <div class="col-md-4 col-md-offset-0">  
+          <%= t.text_field(:numPlayers, class: 'form-control') %>
+        </div>
+      </div>
+      
+      <br>
+      
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <%= link_to_remove_association "Remove this ticket", t, class:'btn btn-danger btn-sm' %>
+        </div>
+      </div>
+      <br>
     </div>
-    <div class="field">
-      <%= t.label :price, "Price" %>
-      <%= t.text_field :price %><!--, :value => (number_with_precision(t.object.price, :precision => 2) || 0) %>-->
-    </div>
-	  <div class="field">
-      <%= t.label :numPlayers, "Number of players on the ticket" %>
-      <%= t.text_field :numPlayers %>
-    </div>
-    <%= link_to_remove_association "Remove this ticket", t %>
+    <br>
+  </div>
 </div>
