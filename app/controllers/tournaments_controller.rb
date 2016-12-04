@@ -13,6 +13,9 @@ class TournamentsController < ApplicationController
 	    else
 	        @tournaments = sort
     	end
+
+    	#so that the create modal will work
+    	new
 		#@tournaments.each do |t|
 		#	@addresses.push(get_golf_course_address(t))
 		#end
@@ -113,6 +116,10 @@ class TournamentsController < ApplicationController
 	end
 
 	def create
+
+		@tournament = Tournament.new
+		@tournament.ticket_types.build
+		
 		#Create the organizer for the tournament first
 		organizer = Organizer.new
 		organizer.person_id = params[:tournament][:person_id]

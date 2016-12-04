@@ -1,0 +1,170 @@
+<div class="modal fade" id="essentialInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+  <% if person_signed_in? %>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Let's start with the basic details</h4>
+      </div>
+      <div class="modal-body text-justify">
+	      <%= form_for @tournament, url: {:controller =>'tournaments', :action => 'new'}, method:'post' do |t| %>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-1">
+						<%= t.label :name, "Name" %>
+					</div>
+					<div class="col-md-3 col-md-offset-1">
+						<%= t.text_field(:name, class: 'form-control')%>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-1">					
+				    <%= t.label :shortDesc, "Description" %>
+				  </div>
+				  <div class="col-md-3 col-md-offset-1">
+						<%= t.text_area( :shortDesc, class: 'form-control') %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-1">			
+				    <%= t.label :tournamentDate, "Date:"%>
+				  </div>
+				  <div class="col-md-3 col-md-offset-1">
+						<%= t.datetime_select( :tournamentDate, class: 'form-control') %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-1">			
+				    <%= t.label :numGuests, "Number of Participants:"%>
+				  </div>
+				  <div class="col-md-3 col-md-offset-1">
+						<%= t.text_field( :numGuests, class: 'form-control') %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-1">			
+				    <%= t.label :privateURL, "Keep the tournament private?"%>
+				  </div>
+				  <div class="col-md-3 col-md-offset-1">
+						<%= t.check_box( :privateURL, class: 'form-control') %>
+					</div>
+				</div>
+					<%= t.hidden_field :person_id, :value => current_person.id %>
+
+				<div id="tickets">
+					<p>
+					<%= t.label "Add the tickets you'll offer to your customers" %></p>
+					<div id='ticket_types'>
+					  <%= t.fields_for :ticket_types do |ticket| %>
+  						<%= render 'ticket_type_fields', :t => ticket %>
+					  <% end %>
+				      <div class='links'>
+				      	<%= link_to_add_association "Add another type of ticket", t, :ticket_types, form_name: 't' %>
+				      </div>
+				    </div>
+				</div>
+
+				<div id = "golf_course" >
+					<%= t.label "Golf Course" %> <br>
+					<button id = "search_course" type = "button" class = "btn btn-primary btn-md">
+						Search for Golf Courses
+					</button>
+										
+					<button id = "enter_course" type = "button" class = "btn btn-primary btn-md">
+						Enter a location
+					</button>
+					
+					<div id = "golf_search" style="display:none">							
+						<p>
+							<%= label_tag "Enter the golf course name" %><br>
+						</p>
+						<p>
+							<%= text_field_tag id = "search_value"%>
+						</p>
+						<button id = "search_button" type = "button" class = "btn btn-primary btn-md">
+							Search
+						</button> <br><br>
+						<p> Select: </p>
+						<p>
+							<%= t.select :golf_course_id, options_for_select(@golf_course.collect { |golf_course| [golf_course.name, golf_course.id] }.insert(0, ""), 0), {}, { id: "golf_course_select"}%>
+						</p>
+					</div>
+				
+					<div id = "golf_enter" style = "display:none">
+						<br>
+						<p>
+							<%= label_tag "Name" %> <br>
+							<%= t.text_field :course_name %>
+						</p>
+						<p>
+							<%= label_tag "Address" %> <br>
+							<!--%= label_tag "(Format: Street#, Street, City, State/Province, Country)"-%><br>-->
+							<%= t.text_area :course_addr %>
+						</p>
+					</div>
+				</div>
+		
+				<!-- Hidden field for which course location method-->
+				<%= hidden_field_tag  :course_method, :id =>"course_method", :value => "1" %>
+		
+				<div id = "regDates">
+					<p>
+						<%= label_tag "Registration" %> <br>
+					<p>
+					
+					<button id = "reg_date_button" type = "button" class = "btn btn-primary btn_md">
+						Set Registration Dates
+					</button>
+					
+					<div id= "reg_date" style="display:none">
+						<p>
+							<%= t.label :registerStart, "Registration Start Date:" %><br>
+							<%= t.datetime_select :registerStart%>
+						</p>
+						
+						<p>
+							<%= t.label :registerEnd, "Registration End Date:" %><br>
+							<%= t.datetime_select :registerEnd %>
+						</p>
+					</div>
+				</div>
+			
+				<div id = "submit"> 
+					<p>
+						<button type = "submit" class ='"btn btn-primary btn-md' %>Next</button>
+					</p>
+				</div>
+		
+				<!--Hidden field to grab the person id-->
+				<%= t.hidden_field :person_id, :value => current_person.id %>
+			<% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--empty now for spacing purposes-->
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="modal-content panel-danger">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">ERROR</h4>
+        </div>
+        <div class="modal-body">
+          <h3>
+          You must be signed in to create a tournament
+          </h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+        </div>
+      </div>
+
+  <% end %>
+
+  </div>
+</div>

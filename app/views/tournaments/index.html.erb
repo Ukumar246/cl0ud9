@@ -1,8 +1,9 @@
+<%= render partial: 'essential_info' %>
 <div class="container">
   <h1>Tournament Schedule</h1>
   <h3>There are <%= @count%> upcoming tournaments</h3>
   
-  <a class="btn btn-primary" href="tournaments/new">Host a Tournament with us</a>
+  <a href="#essentialInfoModal" role="button" class="btn btn-primary" data-toggle="modal">Host a Tournament with us</a>
  
   <table class="table thead-invese table-hover">
   	<thead>
