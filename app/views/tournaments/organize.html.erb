@@ -70,6 +70,27 @@
 		    	<% end %>
 			</table>
 		</div>
+		<div class="col-md-4">
+				<p class="text-center">
+					<strong>Sales Report</strong>
+				</p>
+				<table class="table table-striped">
+					<tr>
+						<td>Total Number of tickets</td>
+						<td><%= @tournament.numGuests %></td>
+					</tr>
+					<tr>
+						<td>Tickets Left</td>
+						<td><%= @tournament.ticketsLeft %></td>
+					</tr>
+					<% @sales_by_ticket_types.each do |tt| %>
+						<tr>
+							<td><%= tt['type'] %> tickets sold</td>
+							<td><%= tt['sales'] %></td>
+						</tr>
+					<% end %>
+				</table>
+		</div>
 	</div>
 
 	<div class="row">

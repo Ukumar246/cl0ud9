@@ -99,6 +99,7 @@ class TournamentsController < ApplicationController
 		@course_phone = nil
     @host = @tournament.host
 
+    get_data_for_reports(@tournament)
 		get_golf_course_info(@tournament)
 	end
 
@@ -261,6 +262,22 @@ class TournamentsController < ApplicationController
 
 		return host_name
 	end
+
+  def get_data_for_reports(tournament)
+    ticket_types = TicketType.where(tournament_id: tournament.id)
+    @sales_by_ticket_types = Array.new
+
+    ticket_types.each do |tt|
+      ticket_sale = {"type" => tt.name}
+      players_for_ticket_type = Player.where(ticket_type_id: tt.id)
+      if not players_for_ticket_type.nil?
+        ticket_sale['sales'] = players_for_ticket_type.length
+      else
+        ticket_sale['sales'] = 0
+      end
+      @sales_by_ticket_types.push(ticket_sale)
+    end
+  end
 
 	def current_user_is_organizer (tournament)
 		if person_signed_in?
