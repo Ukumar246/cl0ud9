@@ -7,14 +7,12 @@
 
 <div class="container">
 	<div class="row">
+		<div class="alert alert-warning" role="alert">You've only filled out <%= 50 %>% of your tournament information! Finish adding details so your customers know what's up!</div>
+	</div>
+	<div class="row">
 		<div class="col-md-9">
 			<h1> Organizer Dashboard </h1>
 			<h3><%= @tournament.name %></h3>
-		</div>
-		<div class="col-md-12">
-			<div class="jumbotron">
-				<strong>You've only filled out <%= 50 %>% of your tournament information! Finish adding details so your customers know what's up!</strong>
-			</div>
 		</div>
 		<div class="col-md-3">
 			<div class="pull-right" style="padding-top: 25px;">
