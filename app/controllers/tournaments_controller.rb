@@ -6,16 +6,17 @@ class TournamentsController < ApplicationController
 
 		if params[:sort] == "host"
       		@tournaments = sort_by_hostName
-      	elsif params[:sort] == "course_name"
-      		@tournaments = sort_by_course_name
-      	elsif params[:sort] == "tournamentDate"
-      		@tournaments = sort_by_date
-	    else
-	        @tournaments = sort
-    	end
+  	elsif params[:sort] == "course_name"
+  		@tournaments = sort_by_course_name
+  	elsif params[:sort] == "tournamentDate"
+  		@tournaments = sort_by_date
+  	else
+      @tournaments = sort
+		end
 
-    	#so that the create modal will work
-    	new
+    #so that the create modal will work
+    init_tournament_and_associations
+
 		#@tournaments.each do |t|
 		#	@addresses.push(get_golf_course_address(t))
 		#end
@@ -101,25 +102,10 @@ class TournamentsController < ApplicationController
 	end
 
 	def new
-
-		#Add log in check
-		if(current_person)
-			#originally index none of the golf_course and hosts. The value is updated using ajax
-			@golf_course = GolfCourse.none
-			@host = Host.all
-			@tournament = Tournament.new
-			@tournament.ticket_types.build
-		else
-			flash[:notice] = "Need to be logged in to create tournaments"
-			redirect_to :action =>"index"
-		end
+		init_tournament_and_associations
 	end
 
 	def create
-
-		@tournament = Tournament.new
-		@tournament.ticket_types.build
-		
 		#Create the organizer for the tournament first
 		organizer = Organizer.new
 		organizer.person_id = params[:tournament][:person_id]
@@ -320,6 +306,13 @@ class TournamentsController < ApplicationController
 
    def sort_by_date
 	   Tournament.order('"tournamentDate" ' + sort_direction)
+   end
+
+   def init_tournament_and_associations
+			@golf_course = GolfCourse.none
+			@host = Host.all
+			@tournament = Tournament.new
+			@tournament.ticket_types.build
    end
 
 end
