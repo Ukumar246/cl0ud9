@@ -30,7 +30,7 @@
                       <!--<% end %>-->
               
                 <% if tournament.numGuests %>
-                    <p><%= tournament.numGuests%> players attending</p>
+                    <p><%= tournament.numGuests - tournament.ticketsLeft %> players attending</p>
                 <% end %>
 
               <% end %>
