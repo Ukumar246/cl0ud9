@@ -6,6 +6,8 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style media="screen" type="text/css">
       @media (max-width: 991px) {
           .navbar-header {
@@ -37,7 +39,7 @@
               margin: 15px 0;
           }
           /* since 3.1.0 */
-          .navbar-collapse.collapse.in { 
+          .navbar-collapse.collapse.in {
               display: block!important;
           }
           .collapsing {
@@ -70,7 +72,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          
+
           <ul class="nav navbar-nav">
             <li><%= link_to 'Tournaments', tournaments_path%></li>
           </ul>
@@ -81,7 +83,7 @@
             </div>
             <button type="submit" class="btn btn-default">Go</button>
           </form>
-          
+
           <ul class="nav navbar-nav">
             <li><%= link_to 'Golf Courses', golf_courses_path%></li>
           </ul>
@@ -119,9 +121,9 @@
     <%= yield %>
 
 
-    <!--Footer-->  
+    <!--Footer-->
     <footer  style="background: #eee; margin: 60px 0 0 0 ; padding: 20px 0 20px 0 ; height: 100%; width: 100%;">
-      
+
       <div class="container text-center">
         <div class="col-md-6 col-md-offset-3">
 
