@@ -1,5 +1,6 @@
 <%= render partial: 'sponsor/new'%>
 <%= render partial: 'players/new'%>
+<%= render partial: 'invite/new'%>
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -7,6 +8,7 @@
 		</div>
 		<div class="col-md-3">
 			<div class="pull-right" style="padding-top: 25px;">
+        <a href="#inviteModal" role="button" class="btn btn-primary" data-toggle="modal">Invite</a>
 				<% if @sold_out %>
 					<a class="btn btn-primary btn-danger" href="#">Sold out!</a>
 				<% else %>

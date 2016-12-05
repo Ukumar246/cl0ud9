@@ -1,0 +1,89 @@
+<!--<%= render partial: 'charges/new'%>-->
+
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+  <% if person_signed_in? %>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Invite 5 Friends</h4>
+      </div>
+      <div class="modal-body text-justify">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <%= form_tag("/tournaments/invite", :method => "post") do %>
+                <%= label_tag(:q, "Golfer 1") %>
+                <%= text_field_tag(:q) %>
+                <%= submit_tag("Invite Friends")  %>
+
+            <% end %>
+          <!--<%= form_for :invites, url: {:controller =>'sponsors', :action => 'create'}, method:'post' do |f| %>-->
+
+                <!--<%= f.label :'Golfer 1', class: 'text-justify'%>-->
+                <!--<%= f.text_field(:websiteURL, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
+
+            <!--<%= f.label :'Golfer 2', class: 'text-justify'%>-->
+            <!--<%= f.text_field(:websiteURL, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
+
+
+            <!--<%= f.label :'Golfer 3' %>-->
+            <!--<%= f.text_field(:twitterLink, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
+
+            <!--<%= f.label :'Golfer 4' %>-->
+            <!--<%= f.text_field(:fbLink, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
+
+            <!--<%= f.label :'Golfer 5' %>-->
+            <!--<%= f.text_field(:snapchatHandle, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
+
+            <div>
+            </div>
+
+            <%= f.hidden_field :person_id, :value => current_person.id %>
+            <%= f.hidden_field :tournament_id, :value => @tournament.id %>
+
+            <!-- TODO: Gotta also not allow this continue if not paid -->
+            <!-- if success -->
+            <%= f.submit 'Invite Friends', class: 'btn btn-primary', id: 'add_sponsor_btn'%>
+            <!-- else-->
+            <!--payment failed error-->
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--empty now for spacing purposes-->
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="modal-content panel-danger">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">ERROR</h4>
+        </div>
+        <div class="modal-body">
+          <h3>
+          You must be signed in to become a Sponsor of this tournament
+          </h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+        </div>
+      </div>
+
+  <% end %>
+
+  </div>
+</div>
+<script
+			  src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+			  integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+			  crossorigin="anonymous"></script>
+<script>
+$('#sponsor_sponsorshipType').on('change', function() {
+  console.log("Changed" ); // or $(this).val()
+});
+</script>

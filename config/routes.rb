@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'tournaments/:id/email' => 'tournaments#email'
 
 
+
   get 'scheduled_events/new'
   post 'scheduled_events/create'
   get 'unscheduled_events/new'
@@ -72,7 +73,8 @@ Rails.application.routes.draw do
   # Mailer Stuff
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
-  
+  post '/tournaments/invite' => "tournaments#invite"
+
   #payments
   resources :charges
   #ZS: added sponsorship resources to create the default routes

@@ -207,6 +207,14 @@ class TournamentsController < ApplicationController
 
 	end
 
+	def invite
+		emailAddress = params[:q]
+		puts "POST NEW FORM FOR INVITE #{emailAddress}"
+		@email = GeneralMailer.invite_email(emailAddress).deliver!
+	end
+
+
+
   def refund
     @tournament = Tournament.find(params[:id])
     @tournament.ticketsLeft += 1
