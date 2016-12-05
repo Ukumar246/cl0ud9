@@ -3,7 +3,9 @@
 <div class="modal fade" id="sponsorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
 
-  <% if person_signed_in? %>
+<% if person_signed_in? %>
+
+  <% if @tournament.sponsorships != [] %>
 
     <div class="modal-content">
       <div class="modal-header">
@@ -15,15 +17,10 @@
           <div class="col-md-6 col-md-offset-3">
           <%= form_for :sponsor, url: {:controller =>'sponsors', :action => 'create'}, method:'post' do |f| %>
 
-            <%= f.label :'Type' %><text class='text-danger'>*</text>
-            <select name="sponsor[sponsorshipType]" id="sponsor_sponsorshipType" class="form-control">
-                <option value="" >Select One          </option>
-                <option value="1"  >Gold          $100</option>
-                <option value="2"  >Platinum      $1,000</option>
-                <option value="3">Double Gold   $10,000</option>
-                <option value="4" >Diamond       $100,000</option>
-                <option value="5" >Stumm         $100,000,000,000,000</option>
-            </select>
+            <%= f.label :'sponsorshipType'%><text class='text-danger'>*</text>
+            <div >
+             <%= f.select :sponsorship_id, options_for_select(@tournament.sponsorships.collect { |item| [item.name + ' $' + (item.price).to_s, item.id]}.sort.insert(0,""), 0), {}, {id: "sponsor_sponsorship_id"}%>
+            </div>
 
             <%= f.label :'Website URL', class: 'text-justify'%>
             <%= f.text_field(:websiteURL, :placeholder => 'www.GOLF.com',class: 'form-control') %>
@@ -38,11 +35,13 @@
             <%= f.label :'Snapchat' %>
             <%= f.text_field(:snapchatHandle, :placeholder => 'cl0ud9Snapchat',class: 'form-control') %>
 
-            <div>
-            </div>
 
             <%= f.hidden_field :person_id, :value => current_person.id %>
             <%= f.hidden_field :tournament_id, :value => @tournament.id %>
+
+            <div class="modal-footer">
+              <!--empty now for spacing purposes-->
+            </div>
 
             <!-- TODO: Gotta also not allow this continue if not paid -->
             <!-- if success -->
@@ -56,9 +55,28 @@
       <div class="modal-footer">
         <!--empty now for spacing purposes-->
       </div>
+
     </div>
 
-  <% else %>
+    <% else %>
+    <div class="modal-content panel-danger">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">ERROR</h4>
+       </div>
+       <div class="modal-body">
+        <h3>
+          There are no sponsorships available for this tournament
+        </h3>
+       </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+       </div>
+     </div>
+
+    <% end %>
+
+<% else %>
 
     <div class="modal-content panel-danger">
       <div class="modal-header panel-heading">

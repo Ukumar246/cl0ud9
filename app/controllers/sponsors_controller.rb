@@ -19,14 +19,14 @@ class SponsorsController < ApplicationController
       flash[:danger] = @sponsor.errors.full_messages
     end
     #redirect_to Tournament.find(params[:sponsor][:tournament_id]) and return
-    redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorshipType => @sponsor.sponsorshipType) and return
+    redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorship_id => @sponsor.sponsorship_id) and return
   end
-  
-  def change_sponsor
-    
-  end  
 
-  private  
+  def change_sponsor
+
+  end
+
+  private
   def require_payment
     redirect_to url_for(:controller => :charges , :action => :new) and return
   end

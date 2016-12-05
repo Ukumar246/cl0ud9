@@ -18,17 +18,15 @@
 	 </div>
 
 	<div class="row">
-		<a href=<%= tournament_url_with_privacy(@tournament) %>="button" class="btn btn-primary" data-toggle="modal">Go back to my tournament's public page</a>
-	</div>
-	<div class="row">
 		<div class="col-md-9">
 			<h1> Organizer Dashboard </h1>
 			<h3><%= @tournament.name %></h3>
 		</div>
 		<div class="col-md-3">
-			<div class="pull-right" style="padding-top: 25px;">
+			<div class="pull-right" style="padding-top: 35px; padding-bottom: 35px;">
 				<a href="#editModal" role="button" class="btn btn-primary" data-toggle="modal">Edit</a>
 				<a href="#sponsorshipsModal" role="button" class="btn btn-primary" data-toggle="modal">Sponsorship</a>
+				<a href=<%= tournament_url_with_privacy(@tournament) %>="button" class="btn btn-primary" data-toggle="modal">Go back</a>
 			</div>
 		</div>
 	</div>
@@ -107,7 +105,7 @@
 			<p class="text-center">
 				<strong>Events and Features</strong>
 			</p>
-				<p>Build a schedule for your customers here. List all the fantastic stuff you're going to have at your tournament!</p>			
+				<p>Build a schedule for your customers here. List all the fantastic stuff you're going to have at your tournament!</p>
 				<strong>Schedule</strong>
 				<p>
 				<span class="">
@@ -122,7 +120,7 @@
 						</tr>
 						<% @sched_events.each do |se| %>
 							<tr>
-								<td> 
+								<td>
 									<%= se.startTime.strftime("%H:%M %p") %>
 								</td>
 								<td> <%= se.description %></td>
@@ -130,7 +128,7 @@
 								<%= link_to  [@tournament, se], remote: true, method: :delete do%>
     							<i class="btn btn-xs glyphicon glyphicon-trash"></i>
 								<% end %>
-							</span></td>								
+							</span></td>
 							</tr>
 						<% end %>
 				</table>
@@ -154,7 +152,7 @@
 						<% end %>
 				</table>
 		</div>
-	
+
 
 	<div class="row">
 		<div class="col-md-4">
@@ -174,7 +172,7 @@
 					<% @teams.each do |team| %>
 						<tr>
 							<td><%= team.id%></td>
-							<td> 
+							<td>
 								<%= team.numPlayers %>
 								<% if team.numPlayers == 4 %>
 									<strong> (FULL)</strong>

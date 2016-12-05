@@ -3,7 +3,7 @@
 one:
   person: one
   tournament: one
-  sponsorshipType: one 
+  sponsorship: one
   logoLink: MyString
   websiteURL: MyString
   twitterLink: MyString
@@ -13,7 +13,7 @@ one:
 two:
   person: two
   tournament: two
-  sponsorshipType: two
+  sponsorship: two
   logoLink: MyString
   websiteURL: MyString
   twitterLink: MyString
