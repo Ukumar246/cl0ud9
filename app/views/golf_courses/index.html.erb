@@ -49,7 +49,7 @@
     <tbody>
       <% for gc in @golf_courses %>
         <tr>
-          <td><%= cl_image_tag(gc.logoLink, :width => 40, :height => 40, :crop => :fill) %></td>
+          <td><%=cl_image_tag(gc.logoLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left') %></td>
           <td><%= link_to gc.name, gc.websiteURL %></td>
           <td><%= number_to_phone(gc.phone) %></td>
           <td><%= gc.email %></td>

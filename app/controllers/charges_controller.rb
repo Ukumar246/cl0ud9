@@ -1,10 +1,11 @@
 class ChargesController < ApplicationController
   def new
-     @amount =  params[:sponsorshipType].to_i * 10000
      @sponsor = params[:sponsor_id]
+     @sponsorship =  Sponsorship.find(params[:sponsorship_id])
+     @amount = @sponsorship.price
 
   end
-  
+
   def create
     customer = Stripe::Customer.create(
        :email => params[:stripeEmail],
@@ -29,6 +30,6 @@ class ChargesController < ApplicationController
   end
 
  end
-    
+
     #redirect_to url_for(:controller => :sponsors , :action => :new)
 end

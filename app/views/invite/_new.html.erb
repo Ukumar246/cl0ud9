@@ -1,0 +1,39 @@
+<!--<%= render partial: 'charges/new'%>-->
+
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Invite a friend</h4>
+      </div>
+      <div class="modal-body text-justify">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <%= form_tag("/tournaments/invite", :method => "post") do %>
+                <%= label_tag(:q, "Your golfer friend") %>
+                <%= text_field_tag(:q) %>
+                <%= submit_tag("Invite", class: 'btn btn-primary') %>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--empty now for spacing purposes-->
+      </div>
+    </div>
+
+  </div>
+</div>
+<script
+			  src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+			  integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+			  crossorigin="anonymous"></script>
+<script>
+$('#sponsor_sponsorshipType').on('change', function() {
+  console.log("Changed" ); // or $(this).val()
+});
+</script>

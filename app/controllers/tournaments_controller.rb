@@ -2,7 +2,7 @@ class TournamentsController < ApplicationController
  	helper_method :sort_column, :sort_direction
 	def index
 		@addresses = Array.new
-		@count = Tournament.count
+		@count = Tournament.where(privateURL: false).count
 
 		if params[:sort] == "host"
       		@tournaments = sort_by_hostName
@@ -76,6 +76,7 @@ class TournamentsController < ApplicationController
 	def organize
 		@tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
+		@organize = true
 
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
@@ -103,9 +104,23 @@ class TournamentsController < ApplicationController
 		@course_address = nil
 		@course_phone = nil
     @host = @tournament.host
-
+    @teams = @tournament.teams.order('"teeTime" asc')
     get_data_for_reports(@tournament)
 		get_golf_course_info(@tournament)
+		@sched_events = @tournament.scheduled_events.order('"startTime" asc')
+
+		setDate = (@tournament.tournamentDate.nil?) ? 0.0 : 0.1
+		setRegDates = (@tournament.registerStart.nil?) ? 0.0 : 0.1
+		setCourse = (@tournament.golf_course.nil?) ? 0.0 : 0.1
+		setnumGuests = (@tournament.numGuests.nil?) ? 0.0 : 0.1
+		setDescription = (@tournament.shortDesc.nil? or @tournament.shortDesc.empty?) ? 0.0 : 0.1
+		setTime = (@tournament.tournamentDate.hour == 0 and @tournament.tournamentDate.min == 0) ? 0.0 : 0.1
+		setLogo= (@tournament.logoLink?) ? 0.0 : 0.1
+		setEvent= (@tournament.scheduled_events.nil? and @tournament.unscheduled_events.nil?) ? 0.0 : 0.1
+		setPhoto= (@tournament.photos.nil?) ? 0.0 : 0.1
+		@setHost = (@tournament.host.nil?) ? 0.0 : 0.1
+		@percentage_done = (setDate + setRegDates + setCourse + setnumGuests + setDescription + setTime + setLogo + setEvent + setPhoto + @setHost)*100
+
 	end
 
 	def new
@@ -205,6 +220,14 @@ class TournamentsController < ApplicationController
 
 	end
 
+	def invite
+		emailAddress = params[:q]
+		puts "POST NEW FORM FOR INVITE #{emailAddress}"
+		@email = GeneralMailer.invite_email(emailAddress).deliver!
+	end
+
+
+
   def refund
     @tournament = Tournament.find(params[:id])
     @tournament.ticketsLeft += 1
@@ -243,7 +266,7 @@ class TournamentsController < ApplicationController
 		tourney = Tournament.find(params[:id])
 		if tourney
 			if tourney.privateURL
-			    if not PrivateUrl.where('tournament_id = ? AND key = ?', params[:id], params[:key] ).exists?
+			    if not PrivateUrl.where('tournament_id = ? AND key = ?', params[:id], params[:key]).exists?
 			      flash[:error] = 'You do not have permission to view the page you entered'
 			      redirect_to '/'
 			    end
@@ -251,9 +274,17 @@ class TournamentsController < ApplicationController
 		end
 	end
 
+	def delete_logo
+		@tournament = Tournament.find(params[:id])
+    Cloudinary::Api.delete_resources_by_tag(@tournament.logoLink)
+    @tournament.remove_logoLink!
+    @tournament.save
+    redirect_to url_for(:action => :organize, :id=>@tournament.id)
+	end
+
 	private
 	def tournament_params
-		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :privateURL, :person_id, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
 	end
 
 

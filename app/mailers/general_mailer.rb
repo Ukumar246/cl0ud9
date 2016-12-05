@@ -23,4 +23,11 @@ default from: 'cl0ud9golfing@gmail.com'
 		subject = 'Refund for ' + tournament_name + ' tickets'
 		mail(to: person.email, subject: subject)
 	end
+
+	def invite_email(emailAddress)
+		puts "Sending email to address ", emailAddress
+		@message = 'You are invited to join Cl0ud9 Golfing Tour'
+		mail(to: emailAddress, subject: 'Tournament Invite')
+	end
+
 end

@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-striped">
   <tr>
     <td><%= @tournament.shortDesc %></td>
   </tr>
@@ -9,10 +9,26 @@
     <td><%= @tournament.numGuests - @tournament.ticketsLeft%> Players attending</td>
   </tr>
   <tr>
-    <td><strong>Date:</strong> <%= @tournament.tournamentDate %></td>
+    <td><strong>Link: </strong><%= link_to tournament_url_with_privacy(@tournament) %></td>
   </tr>
   <tr>
-    <td><strong>Location:</strong> <br>
+    <td><strong>Date: </strong> <%= @tournament.tournamentDate.strftime("%A, %B %d, %Y") %> 
+  </tr>
+  <tr>
+    <% get_time_from_tournament_date(@tournament) %>
+    <% if @hour == 0 and @minute == 0 %> 
+      <td><strong>Time: </strong>No time set yet!
+        <% if not organize.nil? and organize %>
+          <a href="#setdatetimeModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Change the date and time</a>
+        <% end %></td> 
+    <% else %>
+      <td><strong>Time: </strong><%= @tournament.tournamentDate.strftime("%H:%M %p") %><% if not organize.nil? and organize %>
+          <a href="#setdatetimeModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Change the date and time</a>
+        <% end %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <td><strong>Location: </strong> <br>
          <%= @course_name %> <br>
          <%= @course__address %> <br>
          <%= @course__phone %> <br>

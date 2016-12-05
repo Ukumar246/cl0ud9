@@ -19,6 +19,22 @@ Rails.application.routes.draw do
   get 'tournaments/:id/refund' => 'tournaments#refund'
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
   post 'tournaments/:id/email' => 'tournaments#email'
+  get 'tournaments/:id/delete_logo' => 'tournaments#delete_logo'
+
+
+
+  get 'scheduled_events/new'
+  post 'scheduled_events/create'
+  get 'unscheduled_events/new'
+  post 'unscheduled_events/create'
+  get 'photos/new'
+  post 'photos/create'
+  resources :tournaments do
+   resources :scheduled_events, only: :destroy
+   resources :unscheduled_events, only: :destroy
+   resources :photos, only: :destroy
+  end
+
 
   devise_for :people
 
@@ -27,6 +43,8 @@ Rails.application.routes.draw do
 
   get 'players/new'
   post 'players/create'
+
+  get 'teams/:id' => 'teams#show'
 
   #ME FIX
   get 'people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }
@@ -45,13 +63,6 @@ Rails.application.routes.draw do
     get 'tournaments/:id/private/:key'     => :private_url
   end
 
-  # RA: Added tournaments as a resource, this provides us with useful endpoints
-  # that we'll probably use in the project (run: rails routes)
-  resources :tournaments do
-		resources :photos
-		#resources :sponsorships
-  end
-
   resources :golf_courses
   root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -59,7 +70,8 @@ Rails.application.routes.draw do
   # Mailer Stuff
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
-  
+  post '/tournaments/invite' => "tournaments#invite"
+
   #payments
   resources :charges
   #ZS: added sponsorship resources to create the default routes

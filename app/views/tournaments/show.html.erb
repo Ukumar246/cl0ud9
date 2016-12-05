@@ -1,5 +1,6 @@
 <%= render partial: 'sponsor/new'%>
 <%= render partial: 'players/new'%>
+<%= render partial: 'invite/new'%>
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -7,6 +8,7 @@
 		</div>
 		<div class="col-md-3">
 			<div class="pull-right" style="padding-top: 25px;">
+        <a href="#inviteModal" role="button" class="btn btn-primary" data-toggle="modal">Invite</a>
 				<% if @sold_out %>
 					<a class="btn btn-primary btn-danger" href="#">Sold out!</a>
 				<% else %>
@@ -27,13 +29,13 @@
 		<div class="row">
 			<!-- information table -->
 			<div class="col-md-4">
-				<%= render(:partial => "info" ,:controller=>"tournament") %>
+				<%= render(:partial => "info" ,:controller=>"tournament", :locals =>{organize: false}) %>
 			</div>
 
 			<!-- Image -->
 			<div class="col-md-8">
 				<div class="pull-right">
-			  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
+          <%=cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
 				</div>
 			</div>
 		</div>

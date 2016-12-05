@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161203014601) do
+ActiveRecord::Schema.define(version: 20161205144013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,8 +104,10 @@ ActiveRecord::Schema.define(version: 20161203014601) do
 
   create_table "photos", force: :cascade do |t|
     t.string   "photoLink"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id"
+    t.index ["tournament_id"], name: "index_photos_on_tournament_id", using: :btree
   end
 
   create_table "players", force: :cascade do |t|
@@ -132,37 +134,53 @@ ActiveRecord::Schema.define(version: 20161203014601) do
     t.index ["tournament_id"], name: "index_private_urls_on_tournament_id", using: :btree
   end
 
+  create_table "registrations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "scheduled_events", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.time     "startTime"
     t.text     "description"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.datetime "startTime"
     t.index ["tournament_id"], name: "index_scheduled_events_on_tournament_id", using: :btree
   end
 
   create_table "sponsors", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "tournament_id"
-    t.string   "sponsorshipType"
     t.string   "logoLink"
     t.string   "websiteURL"
     t.string   "twitterLink"
     t.string   "fbLink"
     t.string   "snapchatHandle"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.boolean  "paid"
+    t.integer  "sponsorship_id"
     t.index ["person_id"], name: "index_sponsors_on_person_id", using: :btree
+    t.index ["sponsorship_id"], name: "index_sponsors_on_sponsorship_id", using: :btree
     t.index ["tournament_id"], name: "index_sponsors_on_tournament_id", using: :btree
+  end
+
+  create_table "sponsorships", force: :cascade do |t|
+    t.integer  "tournament_id"
+    t.string   "name"
+    t.string   "description"
+    t.float    "price"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tournament_id"], name: "index_sponsorships_on_tournament_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
     t.integer  "tournament_id"
     t.integer  "numPlayers"
-    t.time     "teeTime"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.datetime "teeTime"
     t.index ["tournament_id"], name: "index_teams_on_tournament_id", using: :btree
   end
 
@@ -214,6 +232,7 @@ ActiveRecord::Schema.define(version: 20161203014601) do
   add_foreign_key "golf_course_people", "people"
   add_foreign_key "organizers", "people"
   add_foreign_key "organizers", "tournaments"
+  add_foreign_key "photos", "tournaments"
   add_foreign_key "players", "people"
   add_foreign_key "players", "teams"
   add_foreign_key "players", "tournaments"
@@ -221,6 +240,7 @@ ActiveRecord::Schema.define(version: 20161203014601) do
   add_foreign_key "scheduled_events", "tournaments"
   add_foreign_key "sponsors", "people"
   add_foreign_key "sponsors", "tournaments"
+  add_foreign_key "sponsorships", "tournaments"
   add_foreign_key "teams", "tournaments"
   add_foreign_key "ticket_types", "tournaments"
   add_foreign_key "tournaments", "golf_courses"

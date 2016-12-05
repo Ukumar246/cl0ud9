@@ -35,7 +35,7 @@
       <% for ppl in @people %>
         <tr>
           <td><%= ppl.id %></td>
-          <td><%= cl_image_tag(ppl.profilePicLink, :width => 40, :height => 40, :crop => :fill) %></td>
+          <td><%=cl_image_tag(ppl.profilePicLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%></td>
           <td><a href="/people/<%= ppl.id %>"><%= ppl.lName %>, <%= ppl.fName %></a></td>
           <td><%= ppl.email %></td>
       <% end %>
