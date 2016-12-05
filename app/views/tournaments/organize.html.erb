@@ -161,28 +161,30 @@
 				<i href="#emailModal" role="button" class="btn btn-xs glyphicon glyphicon-envelope pull-right" data-toggle="modal"></i>
 			</p>
 			<table class="table table-striped">
-					<% if @people.empty? %>
+					<% if @players.empty? %>
 						<p class="text-center">Nobody has signed up yet!</p>
 					<% else %>
-			    	<% @people.each do |person| %>
+			    	<% @players.each do |player| %>
 				  			<tr>
-				  				<td><%= person.fName + " " + person.lName %></td>
+				  				<td><%= player.person.fName + " " + player.person.lName %></td>
 									<td>
 										<span class="pull-right">
-										  <i class="btn btn-xs glyphicon glyphicon-search" data-toggle="collapse" href=<%= "#details" + person.id.to_s %> aria-expanded="false" aria-controls=<%= "details" + person.id.to_s %>></i>
+										  <i class="btn btn-xs glyphicon glyphicon-search" data-toggle="collapse" href=<%= "#details" + player.person.id.to_s %> aria-expanded="false" aria-controls=<%= "details" + player.person.id.to_s %>></i>
 										</span>
 									</td>
 								</tr>
-								<tr id=<%= "details" + person.id.to_s %> class="collapse">
+								<tr id=<%= "details" + player.person.id.to_s %> class="collapse">
 									<td>
 										<strong>Contact information:</strong><br>
-										<%= person.email %> <br>
+										<%= player.person.email %> <br>
 										<strong>Check-in status:</strong> <br>
 										Unknown <br>
+                    <strong>Payment Status:</strong> <br>
+                    Unknown <br>
 										<strong>Tools: </strong><br>
 										<span class="btn-group btn-group-sm" role="group">
-											<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
-											<%= link_to "Refund", {action: "refund", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
+											<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: player.person.id}, {role: 'button', class: 'btn btn-default'} %>
+											<%= link_to "Refund", {action: "refund", person_id: player.person.id}, {role: 'button', class: 'btn btn-default'} %>
 										</span>
 									</td>
 									<td>
