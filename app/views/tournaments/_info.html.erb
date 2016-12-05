@@ -15,7 +15,7 @@
     <td><strong>Date: </strong> <%= @tournament.tournamentDate.strftime("%A, %B %d, %Y") %> 
   </tr>
   <tr>
-    <%= get_time_from_tournament_date(@tournament) %>
+    <% get_time_from_tournament_date(@tournament) %>
     <% if @hour == 0 and @minute == 0 %> 
       <td><strong>Time: </strong>No time set yet!
         <% if not organize.nil? and organize %>
