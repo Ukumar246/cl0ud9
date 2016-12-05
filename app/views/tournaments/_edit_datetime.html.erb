@@ -1,0 +1,23 @@
+<div class="modal fade" id="setdatetimeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tournament Date and Time</h4>
+      </div>
+      <div class="modal-body text-justify">
+      <%= form_for @tournament do |t| %>
+        <%= t.label "Set the date and time of the tournament" %>
+  			<%= t.datetime_select(:tournamentDate, class: "form-control") %>
+        <div id = "submit" class="row col-md-offset-10"> 
+          <p>
+            <button type = "submit" class ="btn btn-primary" %><bold>Done</button>
+          </p>
+        </div>
+			<% end %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :tournament
+  has_many :players
 
   def self.assign_next_tee_time(team, tournament_id)
 		tournament = Tournament.find(tournament_id)

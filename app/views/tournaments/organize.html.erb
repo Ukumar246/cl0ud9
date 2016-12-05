@@ -5,6 +5,9 @@
 <%= render partial: 'organizer/new'%>
 <%= render partial: 'players/new'%>
 <%= render partial: 'sponsorships/new'%>
+<%= render partial: 'tournaments/edit_datetime' %>
+<%= render partial: 'scheduled_events/new' %>
+<%= render partial: 'unscheduled_events/new' %>
 
 <div class="container">
 
@@ -14,6 +17,9 @@
 	  </div>
 	 </div>
 
+	<div class="row">
+		<a href=<%= tournament_url_with_privacy(@tournament) %>="button" class="btn btn-primary" data-toggle="modal">Go back to my tournament's public page</a>
+	</div>
 	<div class="row">
 		<div class="col-md-9">
 			<h1> Organizer Dashboard </h1>
@@ -36,7 +42,7 @@
 						<i class="btn btn-xs glyphicon glyphicon-trash" href="#deleteModal" data-toggle="modal"></i>
 					</span>
 			</p>
-			<%= render(:partial => "info" ,:controller=>"tournament") %>
+			<%= render(:partial => "info" ,:controller=>"tournament", :locals => {organize: @organize}) %>
 		</div>
 		<div class="col-md-4">
 			<p class="text-center">
@@ -97,8 +103,92 @@
 				</table>
 		</div>
 	</div>
+<div class="col-md-4">
+			<p class="text-center">
+				<strong>Events and Features</strong>
+			</p>
+				<p>Build a schedule for your customers here. List all the fantastic stuff you're going to have at your tournament!</p>			
+				<strong>Schedule</strong>
+				<p>
+				<span class="">
+				<i class="btn btn-xs glyphicon glyphicon-plus" href="#scheduledEventModal"  data-toggle="modal"></i>Add to the schedule
+				</span></p>
+				<p> Eg. Lunch at noon, Raffle draw at 3PM</p>
+				<table class="table table-striped">
+						<tr>
+							<th>Time</th>
+							<th>Event</th>
+							<th></th>
+						</tr>
+						<% @sched_events.each do |se| %>
+							<tr>
+								<td> 
+									<%= se.startTime.strftime("%H:%M %p") %>
+								</td>
+								<td> <%= se.description %></td>
+								<td><span class="pull-right">
+								<%= link_to  [@tournament, se], remote: true, method: :delete do%>
+    							<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+								<% end %>
+							</span></td>								
+							</tr>
+						<% end %>
+				</table>
+				<strong>Features</strong>
+				<p>
+				<span class="">
+				<i class="btn btn-xs glyphicon glyphicon-plus" href="#featuredEventModal"  data-toggle="modal"></i>Add some fun features
+				</span></p>
+				<p> Eg. prizes for the longest drive winner... </p>
+				<table class="table table-striped">
+						<% @tournament.unscheduled_events.each do |ue| %>
+							<tr>
+								<td> <%= ue.description %></td>
+								</td>
+								<td><span class="pull-right">
+								<%= link_to  [@tournament, ue], remote: true, method: :delete do%>
+    							<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+								<% end %>
+							</span></td>
+							</tr>
+						<% end %>
+				</table>
+		</div>
+	
 
 	<div class="row">
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Teams</strong>
+			</p>
+			<table class="table table-striped">
+				<% if @teams.empty? %>
+					<p class="text-center">No teams built yet!</p>
+				<% else %>
+					<tr>
+						<th>Team ID</th>
+						<th>Players</th>
+						<th>Tee time</th>
+						<th></th>
+					</tr>
+					<% @teams.each do |team| %>
+						<tr>
+							<td><%= team.id%></td>
+							<td> 
+								<%= team.numPlayers %>
+								<% if team.numPlayers == 4 %>
+									<strong> (FULL)</strong>
+								<% end %>
+							</td>
+							<td> <%= team.teeTime.strftime("%H:%M") %></td>
+							</td>
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
+	</div
+		<div class="row">
 		<div class="col-md-4">
 			<p class="text-center">
 				<strong>Organizers</strong>
@@ -126,31 +216,5 @@
 			</table>
 		</div>
 
-		<div class="col-md-4">
-			<p class="text-center">
-				<strong>Teams</strong>
-			</p>
-			<table class="table table-striped">
-				<tr>
-					<th>Team ID</th>
-					<th>Players</th>
-					<th>Tee time</th>
-				</tr>
-				<% @teams.each do |team| %>
-					<tr>
-						<td> <%= team.id%></td>
-						<td> 
-							<%= team.numPlayers %>
-							<% if team.numPlayers == 4 %>
-								<strong> (FULL)</strong>
-							<% end %>
-						</td>
-						<td> <%= team.teeTime.strftime("%H:%M") %></td>
-						</td>
-					</tr>
-				<% end %>
-			</table>
-		</div>
-	</div>
 
-</div>
+	</div>

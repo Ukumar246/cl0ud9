@@ -20,6 +20,17 @@ Rails.application.routes.draw do
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
   post 'tournaments/:id/email' => 'tournaments#email'
 
+
+  get 'scheduled_events/new'
+  post 'scheduled_events/create'
+  get 'unscheduled_events/new'
+  post 'unscheduled_events/create'
+  resources :tournaments do
+   resources :scheduled_events, only: :destroy
+   resources :unscheduled_events, only: :destroy
+  end
+
+
   devise_for :people
 
 
@@ -27,6 +38,8 @@ Rails.application.routes.draw do
 
   get 'players/new'
   post 'players/create'
+
+  get 'teams/:id' => 'teams#show'
 
   #ME FIX
   get 'people/:id' => 'people#show'#, constraints: { id: /^[1-9][0-9]*$/ }

@@ -76,6 +76,7 @@ class TournamentsController < ApplicationController
 	def organize
 		@tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
+		@organize = true
 
 		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
@@ -106,6 +107,7 @@ class TournamentsController < ApplicationController
     @teams = @tournament.teams.order('"teeTime" asc')
     get_data_for_reports(@tournament)
 		get_golf_course_info(@tournament)
+		@sched_events = @tournament.scheduled_events.order('"startTime" asc')
 	end
 
 	def new
