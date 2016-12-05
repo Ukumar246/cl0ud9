@@ -3,12 +3,14 @@
 <%= render partial: 'invite/new'%>
 <div class="container">
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-1">
 		<!-- Image -->
 			<% if @tournament.logoLink? %>
 	          <%=cl_image_tag(@tournament.logoLink, :width => 50, :height => 50, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
 
 			<% end %>
+		</div>
+			<div class = "col-md-7">
 			<h1><%= @tournament.name %></h1>
 		</div>
 		<div class="col-md-4">
@@ -64,7 +66,7 @@
 		<!-- Map -->
 	  <div id="map-container">
 	    <div class="text-center">
-	      <iframe width="800" height="300" frameborder="0" style="border:0"
+	      <iframe width="80%" height="300" frameborder="0" style="border:0"
 	          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMbwpEJjsPHGYafnf9848Yw9LYoero6Ow&q=<%= @course_address %>"
 	          allowfullscreen>
 	      </iframe>
