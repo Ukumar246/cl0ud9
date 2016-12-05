@@ -18,35 +18,6 @@
                 <%= submit_tag("Invite", class: 'btn btn-primary') %>
 
             <% end %>
-          <!--<%= form_for :invites, url: {:controller =>'sponsors', :action => 'create'}, method:'post' do |f| %>-->
-
-                <!--<%= f.label :'Golfer 1', class: 'text-justify'%>-->
-                <!--<%= f.text_field(:websiteURL, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
-
-            <!--<%= f.label :'Golfer 2', class: 'text-justify'%>-->
-            <!--<%= f.text_field(:websiteURL, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
-
-
-            <!--<%= f.label :'Golfer 3' %>-->
-            <!--<%= f.text_field(:twitterLink, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
-
-            <!--<%= f.label :'Golfer 4' %>-->
-            <!--<%= f.text_field(:fbLink, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
-
-            <!--<%= f.label :'Golfer 5' %>-->
-            <!--<%= f.text_field(:snapchatHandle, :placeholder => 'abc@gmail.com',class: 'form-control') %>-->
-
-            <div>
-            </div>
-
-            <%= f.hidden_field :person_id, :value => current_person.id %>
-            <%= f.hidden_field :tournament_id, :value => @tournament.id %>
-
-            <!-- TODO: Gotta also not allow this continue if not paid -->
-            <!-- if success -->
-            <!-- else-->
-            <!--payment failed error-->
-            <% end %>
           </div>
         </div>
       </div>
