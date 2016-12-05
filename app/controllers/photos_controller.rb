@@ -13,7 +13,7 @@ class PhotosController < ApplicationController
 	def destroy
 		puts "calling destroy"
 		@tournament = Tournament.find params[:tournament_id]
-    @photo = @tournament.photo.find params[:id]
+    @photo = @tournament.photos.find params[:id]
     Cloudinary::Api.delete_resources_by_tag(@photo.photoLink)
     @photo.remove_photoLink!
     @photo.destroy
