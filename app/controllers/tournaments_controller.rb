@@ -54,6 +54,7 @@ class TournamentsController < ApplicationController
 		@sold_out = @tournament.ticketsLeft == 0
 		@ticketsLeft = @tournament.ticketsLeft
 		@tournament_organizer = current_user_is_organizer(@tournament)
+		@sched_events = @tournament.scheduled_events.order('"startTime" asc')
 	end
 
 	def private_url

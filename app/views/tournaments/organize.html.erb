@@ -142,26 +142,7 @@
 				<% if @tournament.unscheduled_events.empty? %>
 				<p> Eg. Lunch at noon, Raffle draw at 3PM</p>
 				<% end %>
-				<table class="table table-striped">
-						<tr>
-							<th>Time</th>
-							<th>Event</th>
-							<th></th>
-						</tr>
-						<% @sched_events.each do |se| %>
-							<tr>
-								<td>
-									<%= se.startTime.strftime("%H:%M %p") %>
-								</td>
-								<td> <%= se.description %></td>
-								<td><span class="pull-right">
-								<%= link_to  [@tournament, se], remote: true, method: :delete do%>
-    							<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-								<% end %>
-							</span></td>
-							</tr>
-						<% end %>
-				</table>
+				<%= render(:partial => 'scheduled_events/show_schedule' , :locals =>{organize: true}) %>
 				<strong>Features</strong>
 				<p>
 				<span class="">
@@ -170,19 +151,7 @@
 				<% if @tournament.unscheduled_events.empty? %>
 					<p> Eg. prizes for the longest drive winner... </p>
 				<% end %>
-				<table class="table table-striped">
-						<% @tournament.unscheduled_events.each do |ue| %>
-							<tr>
-								<td> <%= ue.description %></td>
-								</td>
-								<td><span class="pull-right">
-								<%= link_to  [@tournament, ue], remote: true, method: :delete do%>
-    							<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-								<% end %>
-							</span></td>
-							</tr>
-						<% end %>
-				</table>
+				<%= render(:partial => 'unscheduled_events/show_features', :locals =>{organize: true}) %>
 		</div>
 	<div class="col-md-4">
 			<p class="text-center">

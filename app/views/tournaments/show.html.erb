@@ -3,10 +3,15 @@
 <%= render partial: 'invite/new'%>
 <div class="container">
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-8">
+		<!-- Image -->
+			<% if @tournament.logoLink? %>
+	          <%=cl_image_tag(@tournament.logoLink, :width => 50, :height => 50, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
+
+			<% end %>
 			<h1><%= @tournament.name %></h1>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="pull-right" style="padding-top: 25px;">
         <a href="#inviteModal" role="button" class="btn btn-primary" data-toggle="modal">Invite</a>
 				<% if @sold_out %>
@@ -16,7 +21,7 @@
 				<% end %>
 				<a href="#sponsorModal" role="button" class="btn btn-primary" data-toggle="modal">Sponsor</a>
 				<% if @tournament_organizer %>
-					<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary inline-block'} %>
+					<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary'} %>
 				<% end %>
 			</div>
 		</div>
@@ -31,15 +36,31 @@
 			<div class="col-md-4">
 				<%= render(:partial => "info" ,:controller=>"tournament", :locals =>{organize: false}) %>
 			</div>
-
-			<!-- Image -->
-			<div class="col-md-8">
-				<div class="pull-right">
-          <%=cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
-				</div>
+			<div class="col-md-4">
+			<% @tournament.photos.each do |photo| %>
+				<% if photo.photoLink? %>
+					<%=cl_image_tag(photo.photoLink, :width=>150, :height=>150, :crop => :fill)%>
+				<% end %>
+			<%end %>
 			</div>
+			<div class="col-md-4">
+			 <% if not @tournament.scheduled_events.length == 0 %>
+			 	<h3>Schedule</h3>
+
+				<%= render(:partial => "scheduled_events/show_schedule" , :locals =>{organize: false}) %>
+			 <%end%>
+			</div>
+
 		</div>
 
+		<div class="row">
+			<div class="col-md-12">
+				<% if not @tournament.unscheduled_events.length == 0 %>
+					<h3>Features</h3>
+					<%= render(:partial => "unscheduled_events/show_features" , :locals =>{organize: false}) %>
+				<% end %>
+			</div>
+		</div>
 		<!-- Map -->
 	  <div id="map-container">
 	    <div class="text-center">
