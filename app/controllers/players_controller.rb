@@ -103,10 +103,14 @@ class PlayersController < ApplicationController
         end
 
     end
+    puts "Player id: #{@player.id}"
+
     if @tournament.privateURL
-      redirect_to url_for(:controller => :tournaments, :action => "private_url", :key => @tournament.private_url.key, :id => @tournament.id)
+      redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
+      #redirect_to url_for(:controller => :tournaments, :action => "private_url", :key => @tournament.private_url.key, :id => @tournament.id)
     else
-      redirect_to @tournament
+      redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
+      #redirect_to @tournament
     end
     #redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorshipType => @sponsor.sponsorshipType) and return
   end

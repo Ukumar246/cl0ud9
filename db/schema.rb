@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20161203014601) do
     t.datetime "updated_at",     null: false
     t.string   "QRCodeStr"
     t.integer  "ticket_type_id"
+    t.boolean  "paid"
     t.index ["person_id"], name: "index_players_on_person_id", using: :btree
     t.index ["team_id"], name: "index_players_on_team_id", using: :btree
     t.index ["ticket_type_id"], name: "index_players_on_ticket_type_id", using: :btree
