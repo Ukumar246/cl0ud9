@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'tournaments/:id/refund' => 'tournaments#refund'
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
   post 'tournaments/:id/email' => 'tournaments#email'
+  get 'tournaments/:id/delete_logo' => 'tournaments#delete_logo'
 
 
 
@@ -26,9 +27,12 @@ Rails.application.routes.draw do
   post 'scheduled_events/create'
   get 'unscheduled_events/new'
   post 'unscheduled_events/create'
+  get 'photos/new'
+  post 'photos/create'
   resources :tournaments do
    resources :scheduled_events, only: :destroy
    resources :unscheduled_events, only: :destroy
+   resources :photos, only: :destroy
   end
 
 
@@ -57,13 +61,6 @@ Rails.application.routes.draw do
   #for private tournaments
   controller :tournaments do
     get 'tournaments/:id/private/:key'     => :private_url
-  end
-
-  # RA: Added tournaments as a resource, this provides us with useful endpoints
-  # that we'll probably use in the project (run: rails routes)
-  resources :tournaments do
-		resources :photos
-		#resources :sponsorships
   end
 
   resources :golf_courses

@@ -253,12 +253,20 @@ class TournamentsController < ApplicationController
 		tourney = Tournament.find(params[:id])
 		if tourney
 			if tourney.privateURL
-			    if not PrivateUrl.where('tournament_id = ? AND key = ?', params[:id], params[:key] ).exists?
+			    if not PrivateUrl.where('tournament_id = ? AND key = ?', params[:id], params[:key]).exists?
 			      flash[:error] = 'You do not have permission to view the page you entered'
 			      redirect_to '/'
 			    end
 			end
 		end
+	end
+
+	def delete_logo
+		@tournament = Tournament.find(params[:id])
+    Cloudinary::Api.delete_resources_by_tag(@tournament.logoLink)
+    @tournament.remove_logoLink!
+    @tournament.save
+    redirect_to url_for(:action => :organize, :id=>@tournament.id)
 	end
 
 	private

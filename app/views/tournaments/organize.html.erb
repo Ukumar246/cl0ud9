@@ -9,6 +9,7 @@
 <%= render partial: 'scheduled_events/new' %>
 <%= render partial: 'unscheduled_events/new' %>
 <%= render partial: 'tournaments/update_logo' %>
+<%= render partial: 'photos/new' %>
 
 <div class="container">
 
@@ -16,7 +17,7 @@
   	<div class = "col-md-12">
 		 <div class="alert alert-warning" role="alert">You've only filled out <%= 50 %>% of your tournament information! Finish adding details so your customers know what's up!</div>
 	  </div>
-	 </div>
+	</div>
 
 	<div class="row">
 		<div class="col-md-9">
@@ -31,69 +32,40 @@
 			</div>
 		</div>
 	</div> 
-<!-- Image -->
+
 	<div class="row" >
 		<div class="col-md-4">
 			<div class="text-center">
-			<% if not @tournament.logoLink? %>
-				<div class="bg-info" style="width:200px;height:200px;border:1px;">
-				<a href="#updateLogoModal" role="button" class="btn btn-primary" data-toggle="modal">Add your logo here!</a>
-				</div>
-			<% else %>
-		  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%><br><br>
-				<a href="#updateLogoModal" role="button" class="btn btn-primary" data-toggle="modal">Change your logo!</a>
-		  <% end %>
+				<h4>Your logo</h4>
+				<% if not @tournament.logoLink? %>
+					<div class="bg-info" style="width:200px;height:200px;border:1px;">
+						<a href="#updateLogoModal" role="button" class="btn btn-primary" data-toggle="modal">Add your logo here!</a>
+					</div>
+				<% else %>
+					<div>
+				  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
+				  	</div>
+				  	<div style="width:200px;height:200px;">
+				  	<span class="pull-right">
+							<i class="btn btn-xs glyphicon glyphicon-pencil" href="#updateLogoModal" data-toggle="modal"></i>	
+							<%= link_to url_for(:action => :delete_logo, :id => @tournament.id) do%>
+								<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+							<% end %>
+						</span>
+					</div>
+		 		 <% end %>
 			</div>
 		</div>
-		</div>
-	<div class="row">
 		<div class="col-md-4">
 			<p class="text-center">
-					<strong>Details:</strong>
-					<span class="pull-right">
-						<i class="btn btn-xs glyphicon glyphicon-pencil" href="#editModal" data-toggle="modal"></i>
-						<i class="btn btn-xs glyphicon glyphicon-trash" href="#deleteModal" data-toggle="modal"></i>
-					</span>
+				<strong>Details:</strong>
+				<span class="pull-right">
+					<i class="btn btn-xs glyphicon glyphicon-pencil" href="#editModal" data-toggle="modal"></i>
+					<i class="btn btn-xs glyphicon glyphicon-trash" href="#deleteModal" data-toggle="modal"></i>
+				</span>
 			</p>
 			<%= render(:partial => "info" ,:controller=>"tournament", :locals => {organize: @organize}) %>
-		</div>
-
-		<div class="col-md-4">
-			<p class="text-center">
-				<strong>Players</strong>
-				<i href="#emailModal" role="button" class="btn btn-xs glyphicon glyphicon-envelope pull-right" data-toggle="modal"></i>
-			</p>
-			<table class="table table-striped">
-					<% if @people.empty? %>
-						<p class="text-center">Nobody has signed up yet!</p>
-					<% else %>
-			    	<% @people.each do |person| %>
-				  			<tr>
-				  				<td><%= person.fName + " " + person.lName %></td>
-									<td>
-										<span class="pull-right">
-										  <i class="btn btn-xs glyphicon glyphicon-search" data-toggle="collapse" href=<%= "#details" + person.id.to_s %> aria-expanded="false" aria-controls=<%= "details" + person.id.to_s %>></i>
-										</span>
-									</td>
-								</tr>
-								<tr id=<%= "details" + person.id.to_s %> class="collapse">
-									<td>
-										<strong>Contact information:</strong><br>
-										<%= person.email %> <br>
-										<strong>Check-in status:</strong> <br>
-										Unknown <br>
-										<strong>Tools: </strong><br>
-										<span class="btn-group btn-group-sm" role="group">
-											<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
-											<%= link_to "Refund", {action: "refund", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
-										</span>
-									</td>
-									<td>
-									</td>
-								</tr>
-			    	<% end %>
-			    <% end %>
-			</table>
+	
 		</div>
 		<div class="col-md-4">
 				<p class="text-center">
@@ -116,8 +88,48 @@
 					<% end %>
 				</table>
 		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-12 jumbotron">
+		<h3>Tournament Photos</h3><br>
+		<% if @tournament.photos.length < 4 %>
+		<p>
+			<a href="#addPhotoModal" role="button" class="btn btn-primary" data-toggle="modal">Add up to 4 pictures to advertise your tournament</a></p>
+			<% end %>
+			<div class="col-md-12">
+				<div class="text-center">
+				<% if not @tournament.photos.nil? or @tournament.photos.empty? %>
+					<% @tournament.photos.each do |photo| %>
+							<div class="col-md-3">
+							<%= cl_image_tag(photo.photoLink, :width => 200, :height => 200, :crop => :fill)%><br>
+							<span class="pull-right">
+								<%= link_to  [@tournament, photo], remote: true, method: :delete do%>
+									<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+								<% end %>
+							</span>
+							</div>
+					<% end%>
+			  <% end %>
+			  <div>
+			  	<% if @tournament.photos.length < 4 %>
+				  <div class="bg-primary col-md-3" style="width:200px;height:200px;border:1px;">
+				  	<div class="vertical-align text-center">
+				  		<div><br><br>
+				  		<a href="#addPhotoModal" role="button" class="btn" data-toggle="modal">
+					 		<%= cl_image_tag("10133_igb2ve.png", :width => 100, :height => 100, :crop => :fill) %></a>
+					 		</div>
+						</div>
+					</div>
+					<% end %>
+				</div>
+			</div>
+			</div>
 	</div>
-<div class="col-md-4">
+
+	<div class="col-md-12">
+	</div>
+	<div class= "row">
+		<div class="col-md-4">
 			<p class="text-center">
 				<strong>Events and Features</strong>
 			</p>
@@ -172,6 +184,44 @@
 						<% end %>
 				</table>
 		</div>
+	<div class="col-md-4">
+			<p class="text-center">
+				<strong>Players</strong>
+				<i href="#emailModal" role="button" class="btn btn-xs glyphicon glyphicon-envelope pull-right" data-toggle="modal"></i>
+			</p>
+			<table class="table table-striped">
+					<% if @people.empty? %>
+						<p class="text-center">Nobody has signed up yet!</p>
+					<% else %>
+			    	<% @people.each do |person| %>
+				  			<tr>
+				  				<td><%= person.fName + " " + person.lName %></td>
+									<td>
+										<span class="pull-right">
+										  <i class="btn btn-xs glyphicon glyphicon-search" data-toggle="collapse" href=<%= "#details" + person.id.to_s %> aria-expanded="false" aria-controls=<%= "details" + person.id.to_s %>></i>
+										</span>
+									</td>
+								</tr>
+								<tr id=<%= "details" + person.id.to_s %> class="collapse">
+									<td>
+										<strong>Contact information:</strong><br>
+										<%= person.email %> <br>
+										<strong>Check-in status:</strong> <br>
+										Unknown <br>
+										<strong>Tools: </strong><br>
+										<span class="btn-group btn-group-sm" role="group">
+											<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
+											<%= link_to "Refund", {action: "refund", person_id: person.id}, {role: 'button', class: 'btn btn-default'} %>
+										</span>
+									</td>
+									<td>
+									</td>
+								</tr>
+			    	<% end %>
+			    <% end %>
+			</table>
+		</div>
+		
 	<div class="col-md-4">
 		<p class="text-center">
 			<strong>Teams</strong>
@@ -228,6 +278,7 @@
 			<% end %>
 		</table>
 	</div>
-
-
 	</div>
+	</div>
+</div>
+
