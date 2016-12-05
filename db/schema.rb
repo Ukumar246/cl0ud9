@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205023141) do
+ActiveRecord::Schema.define(version: 20161205144013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,8 +104,10 @@ ActiveRecord::Schema.define(version: 20161205023141) do
 
   create_table "photos", force: :cascade do |t|
     t.string   "photoLink"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id"
+    t.index ["tournament_id"], name: "index_photos_on_tournament_id", using: :btree
   end
 
   create_table "players", force: :cascade do |t|
@@ -229,6 +231,7 @@ ActiveRecord::Schema.define(version: 20161205023141) do
   add_foreign_key "golf_course_people", "people"
   add_foreign_key "organizers", "people"
   add_foreign_key "organizers", "tournaments"
+  add_foreign_key "photos", "tournaments"
   add_foreign_key "players", "people"
   add_foreign_key "players", "teams"
   add_foreign_key "players", "tournaments"
