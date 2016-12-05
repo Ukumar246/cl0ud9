@@ -108,6 +108,19 @@ class TournamentsController < ApplicationController
     get_data_for_reports(@tournament)
 		get_golf_course_info(@tournament)
 		@sched_events = @tournament.scheduled_events.order('"startTime" asc')
+
+		setDate = (@tournament.tournamentDate.nil?) ? 0.0 : 0.1
+		setRegDates = (@tournament.registerStart.nil?) ? 0.0 : 0.1
+		setCourse = (@tournament.golf_course.nil?) ? 0.0 : 0.1
+		setnumGuests = (@tournament.numGuests.nil?) ? 0.0 : 0.1
+		setDescription = (@tournament.shortDesc.nil? or @tournament.shortDesc.empty?) ? 0.0 : 0.1
+		setTime = (@tournament.tournamentDate.hour == 0 and @tournament.tournamentDate.min == 0) ? 0.0 : 0.1
+		setLogo= (@tournament.logoLink?) ? 0.0 : 0.1
+		setEvent= (@tournament.scheduled_events.nil? and @tournament.unscheduled_events.nil?) ? 0.0 : 0.1
+		setPhoto= (@tournament.photos.nil?) ? 0.0 : 0.1
+		@setHost = (@tournament.host.nil?) ? 0.0 : 0.1
+		@percentage_done = (setDate + setRegDates + setCourse + setnumGuests + setDescription + setTime + setLogo + setEvent + setPhoto + @setHost)*100
+
 	end
 
 	def new
