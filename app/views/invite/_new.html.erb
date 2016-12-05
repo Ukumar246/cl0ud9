@@ -3,7 +3,6 @@
 <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
 
-  <% if person_signed_in? %>
 
     <div class="modal-content">
       <div class="modal-header">
@@ -55,25 +54,6 @@
         <!--empty now for spacing purposes-->
       </div>
     </div>
-
-  <% else %>
-
-    <div class="modal-content panel-danger">
-      <div class="modal-header panel-heading">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">ERROR</h4>
-        </div>
-        <div class="modal-body">
-          <h3>
-          You must be signed in to become a Sponsor of this tournament
-          </h3>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
-        </div>
-      </div>
-
-  <% end %>
 
   </div>
 </div>
