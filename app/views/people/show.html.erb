@@ -23,30 +23,32 @@
     <!-- Page Content -->
     <div class="container">
         <!-- Second Featurette -->
-        <div class="featurette" id="services">
-          <%= cl_image_tag(@player.profilePicLink, :width => 250, :height => 250, :crop => :fill, :class => 'featurette-image img-circle img-responsive pull-left')%>
+        <div class = "row">
+          <div class="featurette col-md-9" id="services">
+            <%= cl_image_tag(@player.profilePicLink, :width => 250, :height => 250, :crop => :fill, :class => 'featurette-image img-circle img-responsive pull-left')%>
             <h2 class="featurette-heading"><%= @player.fName %>
-                <span class="text-muted"><%= @player.lName %></span>
+              <span class="text-muted"><%= @player.lName %></span>
             </h2>
 
             <p>Email: <span class="text-muted"><%= @player.email %></span> </p>
             <% if @player.birthDate %>
-              <p>Birthday: <span class="text-muted"><%= @player.birthDate %></span></p>
+                <p>Birthday: <span class="text-muted"><%= @player.birthDate %></span></p>
             <%end%>
             <% if @player.twitterLink %>
-              <p>Twitter Link: <span class="text-muted"><%= @player.twitterLink %></span></p>
+                <p>Twitter Link: <span class="text-muted"><%= @player.twitterLink %></span></p>
             <%end%>
 
             <p><%= link_to cl_image_tag('logo-facebook.svg'), @player.fbLink %></p>
 
+          </div>
+          <div class="col-md-3">
+            <div class="pull-right" style="padding-top: 25px;">
+              <%= if (current_person != nil && current_person.id == @player.id) then link_to 'Edit my email or password', edit_person_registration_path end %>
+            </div>
+          </div>
         </div>
+
         <hr class="featurette-divider">
-          
-        <h3>
-        <%= if (current_person != nil && current_person.id == @player.id) then link_to 'Edit my email or password', edit_person_registration_path end %>
-        </h3>
-        <hr class="featurette-divider">
-        
 
       <div class="card">
         <div class="card-header">
