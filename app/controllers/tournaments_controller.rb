@@ -222,9 +222,13 @@ class TournamentsController < ApplicationController
 	end
 
 	def invite
+		@tournament = Tournament.find(params[:tournament_id])
+
 		emailAddress = params[:q]
 		puts "POST NEW FORM FOR INVITE #{emailAddress}"
-		@email = GeneralMailer.invite_email(emailAddress).deliver!
+		@email = GeneralMailer.invite_email(emailAddress, @tournament.name, @tournament).deliver!
+		flash[:success] = 'You have successfully invited a friend'
+		redirect_to :action => 'show', :id => params[:tournament_id]
 	end
 
 

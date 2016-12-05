@@ -16,7 +16,7 @@
                 <%= label_tag(:q, "Your golfer friend") %>
                 <%= text_field_tag(:q) %>
                 <%= submit_tag("Invite", class: 'btn btn-primary') %>
-
+                <%= hidden_field_tag :tournament_id, @tournament.id %>
             <% end %>
           </div>
         </div>
