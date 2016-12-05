@@ -1,0 +1,14 @@
+<table class="table table-striped">
+	<% @tournament.unscheduled_events.each do |ue| %>
+		<tr>
+			<td> <%= ue.description %></td>
+			</td>
+			<% if organize %>
+			<td><span class="pull-right">
+			<%= link_to  [@tournament, ue], remote: true, method: :delete do%>
+				<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+			<% end %>
+		</span></td><%end%>
+		</tr>
+	<% end %>
+</table>

@@ -1,0 +1,22 @@
+<table class="table table-striped">
+	<tr>
+		<th>Time</th>
+		<th>Event</th>
+		<th></th>
+	</tr>
+	<% @sched_events.each do |se| %>
+		<tr>
+			<td>
+				<%= se.startTime.strftime("%H:%M %p") %>
+			</td>
+			<td> <%= se.description %></td>
+			<% if organize %>
+			<td><span class="pull-right">
+			<%= link_to  [@tournament, se], remote: true, method: :delete do%>
+				<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+			<% end %>
+		</span></td>
+		<%end%>
+		</tr>
+	<% end %>
+</table>
