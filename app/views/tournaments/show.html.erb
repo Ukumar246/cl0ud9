@@ -35,7 +35,7 @@
 			<!-- Image -->
 			<div class="col-md-8">
 				<div class="pull-right">
-			  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
+          <%=cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
 				</div>
 			</div>
 		</div>

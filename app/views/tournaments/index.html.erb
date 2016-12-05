@@ -1,7 +1,7 @@
 <%= render partial: 'essential_info' %>
 <div class="container">
   <h1>Tournament Schedule</h1>
-  <h3>There are <%= @count%> upcoming tournaments</h3>
+  <p class = "text-muted">There are <%= @count%> upcoming tournaments</p>
   
   <a href="#essentialInfoModal" role="button" class="btn btn-primary" data-toggle="modal">Host a Tournament with us</a>
  
@@ -59,7 +59,7 @@
 		<% for tourney in @tournaments.where(privateURL: false ) %>
         <tr>
           <td>
-            <%= cl_image_tag(tourney.logoLink, :width => 40, :height => 40, :crop => :fill)%>
+            <%=cl_image_tag(tourney.logoLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
           </td>
   				<td><%= link_to tourney.name, tourney%></td>
           <td><%= tourney.tournamentDate.strftime("%d %B, %Y") %></td>
