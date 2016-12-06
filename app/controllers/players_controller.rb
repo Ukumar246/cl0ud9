@@ -73,6 +73,7 @@ class PlayersController < ApplicationController
     params.permit!
     @tournament = Tournament.find(params[:player][:tournament_id])
     @player = Player.new(params[:player])
+    @player.paid = false
     @numPlayersOnTicket = @player.ticket_type.numPlayers
     @numTickets = @player.numTickets.to_i
     @numPlayers = @numTickets * @numPlayersOnTicket
@@ -136,7 +137,10 @@ class PlayersController < ApplicationController
         flash[:error] = e.message
         redirect_to Tournament.find(params[:player][:tournament_id])
 
-        #@player.paid = true
+        @player.paid = true
+        @newPlayers.each do |p|
+          p.paid = true
+        end
   end
 
   private
