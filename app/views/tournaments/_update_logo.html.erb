@@ -9,16 +9,15 @@
       <%= form_for @tournament do |t| %>
         <%= t.label :logoLink, "Upload your logo:" %><br>
         <%= t.file_field :logoLink, class: 'form-control' %>
-        
-      </div>
-      <div class="modal-footer">
-      <div class="row">
-        <div id = "submit" class="pull-right col-md-12">
-            <button type= "button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type = "submit" class ="btn btn-primary" %>Done</button>
+        <div class="row">
+        <div id = "submit" class="pull-right col-md-3"><br>
+            <button type = "submit" class ="btn btn-primary pull-right" %>Done</button>
         </div>
         </div>
       <% end %>
+      </div>
+      <div class="modal-footer">
+      
       </div>
     </div>
   </div>
