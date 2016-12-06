@@ -125,30 +125,29 @@
 
 	<div class= "row">
 		<div class="col-md-4">
-			<p class="text-center">
-				<strong>Events and Features</strong>
+			<div class="text-center">
+				<strong>Events and Features</strong><br>
+			</div>
+			<p>
+				Build a schedule for your customers here. List all the fantastic stuff you're going to have at your tournament!
 			</p>
-				<p>Build a schedule for your customers here. List all the fantastic stuff you're going to have at your tournament!</p>
-				<strong>Schedule</strong>
+			<div>
 				<p>
-				<span class="">
-				<i class="btn btn-xs glyphicon glyphicon-plus" href="#scheduledEventModal"  data-toggle="modal"></i>Add to the schedule
-				</span></p>
-				<% if @tournament.unscheduled_events.empty? %>
-				<p> Eg. Lunch at noon, Raffle draw at 3PM</p>
-				<% end %>
+					<strong>Schedule</strong>
+					<a class="btn btn-xs glyphicon glyphicon-plus pull-right" href="#scheduledEventModal"  data-toggle="modal"></a>
+				</p>
 				<%= render(:partial => 'scheduled_events/show_schedule' , :locals =>{organize: true}) %>
+			</div>
+			<div>
 				<strong>Features</strong>
-				<p>
-				<span class="">
-				<i class="btn btn-xs glyphicon glyphicon-plus" href="#featuredEventModal"  data-toggle="modal"></i>Add some fun features
-				</span></p>
-				<% if @tournament.unscheduled_events.empty? %>
-					<p> Eg. prizes for the longest drive winner... </p>
-				<% end %>
-				<%= render(:partial => 'unscheduled_events/show_features', :locals =>{organize: true}) %>
+				<a class="btn btn-xs glyphicon glyphicon-plus pull-right" href="#featuredEventModal"  data-toggle="modal"></a>
+			</div>
+			<% if @tournament.unscheduled_events.empty? %>
+				<p> Eg. prizes for the longest drive winner... </p>
+			<% end %>
+			<%= render(:partial => 'unscheduled_events/show_features', :locals =>{organize: true}) %>
 		</div>
-	<div class="col-md-4">
+		<div class="col-md-4">
 			<p class="text-center">
 				<strong>Players</strong>
 				<i href="#emailModal" role="button" class="btn btn-xs glyphicon glyphicon-envelope pull-right" data-toggle="modal"></i>
