@@ -1,0 +1,45 @@
+<div class="modal fade" id="createHostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Host</h4>
+        <%= form_for @tournament, url: {:controller =>'tournaments', :action => 'create_host'}, method:'post' do |t| %>
+          <button id = "host_button" type = "button" class = "btn btn-primary btn_md">
+            Add Host
+          </button>
+          <button id = "create_host_button" type = "button" class = "btn btn-primary btn-md">
+            Create Host
+          </button>
+          <br><br>
+          <div id = "add_host" style="display:none">
+            <% if false %>
+            <p>
+              <button type = "submit" class ='"btn btn-primary btn-md' %>Submit</button>
+            </p>
+            <button id = "host_search" type = "button" class = "btn btn-primary btn_md">
+              Search
+            </button>
+            <% end %>
+            <p> Select: </p>
+            <p>
+            <%= t.select :host_id, options_from_collection_for_select(Host.all, 'id', 'hostName')%>
+            </p>
+          </div>
+          <div id = "create_host" style = "display:none">
+            <%= label_tag "Host Name:" %>
+            <%= t.text_field(:hostName, class: 'form-control') %>
+            <%= label_tag "Phone Number:" %>
+            <%= t.text_field(:hostPhone, class: 'form-control') %>
+            <%= label_tag "Email:" %>
+            <%= t.text_field(:hostEmail, class: 'form-control') %>
+          </div>
+          <div id = "submit" class="row col-md-offset-10"> 
+          <p>
+            <button type = "submit" class ="btn btn-primary" %><bold>Done</button>
+          </p>
+        </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

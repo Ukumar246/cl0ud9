@@ -3,10 +3,13 @@
     <td><%= @tournament.shortDesc %></td>
   </tr>
   <tr>
-    <td><%= @host_name %></i></td>
+    <td><%= @tournament.numGuests - @tournament.ticketsLeft%> Players attending</td>
   </tr>
   <tr>
-    <td><%= @tournament.numGuests - @tournament.ticketsLeft%> Players attending</td>
+    <td><strong>Host: </strong><%= @host_name %>
+    <% if @host_name == "None." and organize%>  
+      <a href="#createHostModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Add the host</a>
+    <%end%>  
   </tr>
   <tr>
     <td><strong>Link: </strong><%= link_to tournament_url_with_privacy(@tournament) %></td>
