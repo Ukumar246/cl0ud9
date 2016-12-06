@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'tournaments/:id/resend_confirmation' => 'tournaments#resend_confirmation'
   post 'tournaments/:id/email' => 'tournaments#email'
   get 'tournaments/:id/delete_logo' => 'tournaments#delete_logo'
+  post 'tournaments/:id/create_host' => 'tournaments#create_host'
 
 
 
