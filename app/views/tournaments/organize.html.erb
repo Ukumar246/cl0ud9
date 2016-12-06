@@ -203,9 +203,7 @@
 						<td>
 							<% if @organizer_permissions %>
 							<span class="pull-right">
-								<%= link_to 'Delete', :controller => 'organizer', :action => 'destroy', method:'delete', :id => admin.id do %>
-									<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-								<% end %>
+								<%= link_to "", {controller: "organizer", action: "destroy", id: admin.id}, method:'delete', :class => 'btn btn-xs glyphicon glyphicon-trash' %>
 							</span>
 							<% end %>
 						</td>
@@ -220,7 +218,7 @@
 
 	<!-- Tournament Photos header -->
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12" style="border-top: 1px grey solid; border-bottom: 1px gray solid; padding-bottom: 10px;">
 			<h3>Tournament Photos</h3>
 			<% if @tournament.photos.length < 4 %>
 				<p>

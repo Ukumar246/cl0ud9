@@ -125,7 +125,8 @@
     <footer  style="background: #eee; margin: 60px 0 0 0 ; padding: 20px 0 20px 0 ; height: 100%; width: 100%;">
 
       <div class="container text-center">
-        <div class="col-md-6 col-md-offset-3">
+        <div class = "row">
+         <div class="col-md-6 col-md-offset-3 col-sm-12">
 
           <div>
             <h4>
@@ -136,7 +137,11 @@
             <%= link_to cl_image_tag("logo-twitter.svg"), "https://twitter.com/cl0ud9golf"%>
             <%= link_to cl_image_tag("logo-linkedin.svg"), "https://www.linkedin.com/in/cloud9-golf/"%>
           </div>
+        </div>
+      </div>
 
+      <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
           <table class="table">
             <thead>
             <tr>
@@ -154,19 +159,21 @@
               <td><%= link_to "Partners", "/misc_pages/partners" %></td>
             </tr>
             </thead>
-          </table>
+           </table>
+          </div>
         </div>
+
       </div>
 
 
       <div class="text-center">
-        <div>
+        <div class = "row">
           Cl0ud9 © 2016
         </div>
-        <div>
+        <div class = "row">
           <%= link_to "Our Story", "/misc_pages/our_story" %>
         </div>
-        <div>
+        <div class = "row">
           A University of Toronto Software Engineering Company
         </div>
       </div>

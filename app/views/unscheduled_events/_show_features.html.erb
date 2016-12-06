@@ -5,9 +5,7 @@
 			</td>
 			<% if organize %>
 			<td><span class="pull-right">
-			<%= link_to  [@tournament, ue], remote: true, method: :delete do%>
-				<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-			<% end %>
+			<%= link_to  "", [@tournament, ue], remote: true, method: :delete, :class => 'btn btn-xs glyphicon glyphicon-trash' %>
 		</span></td><%end%>
 		</tr>
 	<% end %>
