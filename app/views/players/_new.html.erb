@@ -64,7 +64,7 @@
         <!-- Start of ROW  -->
         <div class="row">
           <div class="col-md-8 col-md-offset-2" style="padding-bottom:10%;padding-top:10%">
-          <%= form_for :player, url: {:controller =>'players', :action => 'create'}, method:'post' do |f| %>
+          <%= form_for :player, url: {:controller =>'players', :action => 'create'}, :html=>{:id => 'player-form'}, method:'post' do |f| %>
 
             <%= f.label :'ticket_type_id' %><text class='text-danger'>*</text>
               <select name="player[ticket_type_id]" id="player_ticket_id_ticket_type_id" class="form-control">
@@ -93,7 +93,7 @@
                       </div>                    
                   </div>
                   <div class="panel-body">
-                      <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                       <%= form_for :charges, url: charges_path, :html => {:id => 'payment-form'}  do |f|%>
                           <div class="row">
                               <div class="col-xs-12">
                                   <div class="form-group">
@@ -150,7 +150,7 @@
                           </div>
                           <div class="row">
                               <div class="col-xs-12">
-                                  <button class="subscribe btn btn-success btn-lg btn-block" type="button">Start Subscription</button>
+                                  <input type="button" class="submit" id = "sib" value="Submit Payment">
                               </div>
                           </div>
                           <div class="row" style="display:none;">
@@ -158,7 +158,7 @@
                                   <p class="payment-errors"></p>
                               </div>
                           </div>
-                      </form>
+                      <%end%>
                   </div>
               </div>            
               <!-- CREDIT CARD FORM ENDS HERE -->
@@ -223,5 +223,33 @@
   
   <!-- Form Js -->
   <script>
-  
+    $(document).ready(function () {
+    console.log("DOCUMENT> READY !!");
+    var $form = $('#payment-form');
+    var $player_form = $("#player-form")
+    Stripe.setPublishableKey('pk_test_RgnPfafPCKHSojLKReicFHiz');
+
+    $("#sib").on('click',function (e) {
+      console.log("Clicked submit!");
+      // Request a token from Stripe:
+      Stripe.card.createToken($form, stripeResponseHandler);
+      // Prevent the form from being submitted:
+    });
+
+    function stripeResponseHandler(status, response) {
+      // Grab the form:
+      var $form = $('#payment-form');
+      if (response.error) { // Problem!
+        console.log("ERROR!");
+      } else { // Token was created!
+        // Get the token ID:
+        var token = response.id;
+        console.log("TOKEN: "+ token);
+        // Insert the token ID into the form so it gets submitted to the server:
+        $player_form.append($('<input type="hidden" name="stripeToken">').val(token));
+        // Submit the form:
+        $player_form.get(0).submit();
+      }
+    }
+  });
   </script>

@@ -1,7 +1,7 @@
 class ChargesController < ApplicationController
   def new
      @sponsor = params[:sponsor_id]
-     @sponsorship =  Sponsorship.find(params[:sponsorship_id])
+     @sponsorship =  Sponsorship.find(params[:sponsor][:sponsorship_id])
      @amount = @sponsorship.price
   end
 
