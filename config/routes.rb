@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/index'
+
   get 'organizer/new'
   post 'organizer/create'
   delete 'organizer/:id/' => 'organizer#destroy'
@@ -21,8 +23,6 @@ Rails.application.routes.draw do
   post 'tournaments/:id/email' => 'tournaments#email'
   get 'tournaments/:id/delete_logo' => 'tournaments#delete_logo'
   post 'tournaments/:id/create_host' => 'tournaments#create_host'
-
-
 
   get 'scheduled_events/new'
   post 'scheduled_events/create'

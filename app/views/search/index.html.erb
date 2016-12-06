@@ -1,0 +1,119 @@
+<div class="container">
+	<div class = "row">
+	  <h1>Tournaments</h1>
+		
+	  <table class="table thead-invese table-hover">
+		<div class = "col-xs-4">
+		<thead>
+			<tr>
+			<th>
+			</th>
+				<th class="tournament">
+					<div class="tournament-container">
+						Name
+						<span class="arrow-link arrow-link-down"></span>
+					</div>
+				</th>
+	   </div>
+	   <div class = "col-xs-2">
+			<th class="dates">
+			  <div class="dates-container">
+				Date
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+	  </div>
+	  <div class = "col-xs-3 ">
+			<th class="course">
+			  <div class="course-container">
+				Golf Course
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+	  </div>
+	  <div class = "col-xs-3 ">
+			<th class="host_id">
+			  <div class="host_id-container">
+				Host
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+
+			</tr>
+		</thead>
+	  </div>
+
+		<div class="col-xs-12" style="height:40px;"></div>
+
+		<tbody>
+
+			<% for tourney in @tournaments %>
+			<tr>
+			  <td>
+				<%=cl_image_tag(tourney.logoLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left')%>
+			  </td>
+			  <td><%= link_to tourney.name, tourney%></td>
+			  <td><%= tourney.tournamentDate.strftime("%d %B, %Y") %></td>
+			  <td><%= if (tourney.golf_course != nil) then link_to tourney.golf_course.name, tourney.golf_course.websiteURL end%></td>
+
+			  <td><%= if (tourney.host != nil) then tourney.host.hostName end%></td>
+			<% end %>
+		</tbody>
+	  </table>
+	</div>
+	
+	<div class="row">
+	<h1>Golf Courses</h1>
+
+	<table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>
+        </th>
+        
+        <th class="course">
+          <div class="dates-container">
+			Name 
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="phone">
+          <div class="tournament-container">
+            Phone Number
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="email">
+          <div class="course-container">
+            Email
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+        <th class="host_id">
+          <div class="host_id-container">
+            Location
+            <span class="arrow-link arrow-link-down"></span>
+          </div>
+        </th>
+      
+      </tr>
+    </thead>
+
+    <div class="col-xs-12" style="height:40px;"></div>
+    
+    <tbody>
+      <% for gc in @golf_courses %>
+        <tr>
+          <td><%=cl_image_tag(gc.logoLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left') %></td>
+          <td><%= link_to gc.name, gc.websiteURL %></td>
+          <td><%= number_to_phone(gc.phone) %></td>
+          <td><%= gc.email %></td>
+          <td><%= gc.addrStreetNum %> <%= gc.addrStreetName %>, <%= gc.addrCountry %></td>
+      <% end %>
+    </tbody>
+	</table>
+	</div>
+</div>

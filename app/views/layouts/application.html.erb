@@ -77,13 +77,6 @@
             <li><%= link_to 'Tournaments', tournaments_path%></li>
           </ul>
 
-          <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search Tournaments...">
-            </div>
-            <button type="submit" class="btn btn-default">Go</button>
-          </form>
-
           <ul class="nav navbar-nav">
             <li><%= link_to 'Golf Courses', golf_courses_path%></li>
           </ul>
@@ -91,6 +84,13 @@
           <ul class="nav navbar-nav">
             <li><%= link_to 'Users', people_path%></li>
           </ul>
+		  
+		  <div>
+            <%= form_tag({:controller => "search", :action => "index"}, method: :get, :class => "navbar-form navbar-left") do %>
+				<%= text_field_tag :search, params[:search] %>
+				<%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+			<% end %>
+			</div>
 
           <ul class="nav navbar-nav pull-right">
             <% if person_signed_in? %>
