@@ -2,55 +2,57 @@
 <div class="container">
   <h1>Tournament Schedule</h1>
   <p class = "text-muted">There are <%= @count%> upcoming tournaments</p>
-  
+
   <a href="#essentialInfoModal" role="button" class="btn btn-primary" data-toggle="modal">Host a Tournament with us</a>
- 
+
+ <div class = "row">
   <table class="table thead-invese table-hover">
+    <div class = "col-xs-4">
   	<thead>
     	<tr>
-  			
         <th>
         </th>
-
   			<th class="tournament">
   				<div class="tournament-container">
-  					
             <%= sortable "name", "Tournament" %>
-
   					<span class="arrow-link arrow-link-down"></span>
   				</div>
   			</th>
-
+   </div>
+   <div class = "col-xs-2">
         <th class="dates">
           <div class="dates-container">
-            
+
             <%= sortable '"tournamentDate"', "Date" %>
 
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-
+  </div>
+  <div class = "col-xs-3 ">
         <th class="course">
           <div class="course-container">
-            
-            
+
+
             <%= sortable "course_name", "Golf Course" %>
 
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-        
+  </div>
+  <div class = "col-xs-3 ">
         <th class="host_id">
           <div class="host_id-container">
-            
+
             <%= sortable "host", "Host" %>
-            
+
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-  			
+
    		</tr>
   	</thead>
+  </div>
 
     <div class="col-xs-12" style="height:40px;"></div>
 
@@ -70,5 +72,5 @@
   	</tbody>
   </table>
 </div>
+</div>
 <!-- Map embedding coming soon ... PROBABLY NOT-->
-
