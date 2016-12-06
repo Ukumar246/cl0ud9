@@ -26,7 +26,7 @@
          var tab = $("#"+nav_id);
          tab.addClass('active');
 
-         var split_id = nav_id.split("-");
+         var split_id = !!nav_id ? nav_id.split("-"):"";
          var card_id = 'card-'+split_id[1];
 
          $('#'+card_id).show();
