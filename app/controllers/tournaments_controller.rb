@@ -86,8 +86,8 @@ class TournamentsController < ApplicationController
 		end
 
 		#Get the players in the tournaments
-		players = Player.where(tournament_id: @tournament.id)
-		player_ids = players.map { |player| player.person_id }
+		@players = Player.where(tournament_id: @tournament.id)
+		player_ids = @players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)
 
 		@host_name = get_host_name(@tournament)
