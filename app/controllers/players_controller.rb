@@ -71,7 +71,6 @@ class PlayersController < ApplicationController
 
   def create
     params.permit!
-
     @tournament = Tournament.find(params[:player][:tournament_id])
     @player = Player.new(params[:player])
     @numPlayersOnTicket = @player.ticket_type.numPlayers
@@ -80,30 +79,37 @@ class PlayersController < ApplicationController
     if (@numPlayersOnTicket * @numTickets > @tournament.ticketsLeft)
       flash[:danger] = 'There are not enough tickets remaining to fill your order'
     else
-        @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
-        @allPlayersValid = true
-        Player.transaction do
-          @newPlayers.each do |nP|
-            if not nP.save
-              @allPlayersValid = false
-              @errors = nP.errors.full_messages
-              break
-            end
+      @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
+      @allPlayersValid = true
+      Player.transaction do
+        @newPlayers.each do |nP|
+          if not nP.save
+            @allPlayersValid = false
+            @errors = nP.errors.full_messages
+            break
           end
         end
-        if not @allPlayersValid
-          flash[:danger] = 'There was an error with your order: ' + @errors.to_s
-        else
-          assign_to_teams(@newPlayers, @tournament.id)
-          GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
-          # flash.now for to make the flash disappear after a while
-          flash[:success] = 'You have successfully joined this tournament.'
-          @tournament.ticketsLeft -= @numPlayers
-          @tournament.save
-        end
-
+      end
+      if not @allPlayersValid
+        flash[:danger] = 'There was an error with your order: ' + @errors.to_s
+      else
+        assign_to_teams(@newPlayers, @tournament.id)
+        GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
+        # flash.now for to make the flash disappear after a while
+        flash[:success] = 'You have successfully joined this tournament.'
+        @tournament.ticketsLeft -= @numPlayers
+        @tournament.save
+      end
     end
-    redirect_to_tournament_with_privacy(@tournament)
+    puts "Player id: #{@player.id}"
+
+    if @tournament.privateURL
+      redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
+      #redirect_to url_for(:controller => :tournaments, :action => "private_url", :key => @tournament.private_url.key, :id => @tournament.id)
+    else
+      redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
+      #redirect_to @tournament
+    end
     #redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorshipType => @sponsor.sponsorshipType) and return
   end
 
@@ -119,42 +125,43 @@ class PlayersController < ApplicationController
   private
   def assign_to_teams(newPlayers, tournament_id)
     numFullTeams = newPlayers.length / 4
-    if numFullTeams > 0 
-      newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}
-      Team.transaction do
-        if newTeams
-          newTeams.each do |nt|
-            Team.assign_next_tee_time(nt, tournament_id)
-            nt.save
-          end
+    puts {"#numFullTeams"}
+    newTeams = Array.new(numFullTeams){|i| i=Team.create(tournament_id: tournament_id, numPlayers: 4)}
+    Team.transaction do
+      if newTeams
+        newTeams.each do |nt|
+          nt.save
         end
       end
-      i = 0
-      newTeams.each do |t|
-        newPlayers[i..i+3].each do |p|
-          p.team_id = t.id
-          p.save
-        end
-        i+=4
+    end
+    i = 0
+    newTeams.each do |t|
+      newPlayers[i..i+3].each do |p|
+        p.team_id = t.id
+        p.save
       end
-      newPlayers = newPlayers[i..-1]
+      i+=4
     end
 
-    if newPlayers.length > 0
-      teams = Tournament.find(tournament_id).teams
-      newPlayers.each do |p|
+    i -= 3
+    teams = Team.all
+    remainingPlayers = newPlayers[i..(newPlayers.size - 1)]
+    if not remainingPlayers.nil?
+      newPlayers[i..(newPlayers.size - 1)].each do |p|
         team = teams.select {|t| t.numPlayers < 4}.first
         if team.nil?
-          team = Team.create(tournament_id: tournament_id, numPlayers: 1)
-          Team.assign_next_tee_time(team, tournament_id)
+          team = Team.new(tournament_id: tournament_id, numPlayers: 1)
           team.save
-          teams = Tournament.find(tournament_id).teams
+          teams = Team.all
         else
           team.numPlayers += 1
-          team.save
         end
+
         p.team_id = team.id
         p.save
+      end
+      Team.transaction do
+        teams.each(&:save!)
       end
     end
 

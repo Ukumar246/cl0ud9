@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<!--Hidden field to grab the person id-->
-			<%= t.hidden_field :person_id, :value => current_person.id %>
+			<%= if (current_person != nil && current_person.id == @player.id) then t.hidden_field :person_id, :value => current_person.id end %>
 			<% end %>
 		</div>
 		<div class="modal-footer">

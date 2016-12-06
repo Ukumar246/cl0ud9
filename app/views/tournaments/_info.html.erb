@@ -7,28 +7,29 @@
   </tr>
   <tr>
     <td><strong>Host: </strong><%= @host_name %>
-    <% if @host_name == "None." and organize%>  
+    <% if @host_name == "None." and organize%>
       <a href="#createHostModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Add the host</a>
-    <%end%>  
+    <%end%>
   </tr>
   <tr>
     <td><strong>Link: </strong><%= link_to tournament_url_with_privacy(@tournament) %></td>
   </tr>
   <tr>
-    <td><strong>Date: </strong> <%= @tournament.tournamentDate.strftime("%A, %B %d, %Y") %> 
+    <td><strong>Date: </strong> <%= @tournament.tournamentDate.strftime("%A, %B %d, %Y") %>
   </tr>
   <tr>
-    <% get_time_from_tournament_date(@tournament) %>
-    <% if @hour == 0 and @minute == 0 %> 
-      <td><strong>Time: </strong>No time set yet!
-        <% if not organize.nil? and organize %>
-          <a href="#setdatetimeModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Change the date and time</a>
-        <% end %></td> 
-    <% else %>
-      <td><strong>Time: </strong><%= @tournament.tournamentDate.strftime("%H:%M %p") %><% if not organize.nil? and organize %>
-          <a href="#setdatetimeModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Change the date and time</a>
-        <% end %></td>
-    <% end %>
+    <td>
+      <strong>Time: </strong>
+      <% get_time_from_tournament_date(@tournament) %>
+      <% if @hour == 0 and @minute == 0 %>
+        No time set yet!
+      <% else %>
+        <%= @tournament.tournamentDate.strftime("%H:%M %p") %>
+      <% end %>
+      <% if not organize.nil? and organize %>
+        <a href="#setdatetimeModal" role="button" class="btn btn-primary pull-right" style="padding: 0 10px;" data-toggle="modal">Edit</a>
+      <% end %>
+    </td>
   </tr>
   <tr>
     <td><strong>Location: </strong> <br>
