@@ -1,90 +1,91 @@
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript"> Stripe.setPublishableKey('#{Rails.application.secrets.stripe_publishable_key}'); </script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">  </script>
+  </head>
 
-<div class="container">
-  <%= form_for :charges, url: charges_path do |f|%>
-    <article>
-      <% if flash[:error].present? %>
-      <div id= "error_explanation">
-        <p><%= flash[:error] %></p>
-      </div>
-      <% end %>
-    <!-- Hidden Fields for Form -->
-    <%= f.hidden_field :amount, :value => @amount %>
-    <%= f.hidden_field :sponsor_id, :value => @sponsor %>
+  <div class="container">
+    <%= form_for :charges, url: charges_path, :html => {:id => 'payment-form'}  do |f|%>
+        <article>
+          <% if flash[:error].present? %>
+              <div id= "error_explanation">
+                <p><%= flash[:error] %></p>
+              </div>
+          <% end %>
+          <%= f.hidden_field :amount, :value => @amount %>
+          <%= f.hidden_field :sponsor_id, :value => @sponsor %>
 
-    <label class="amount">
-      <span>Amount: $<%= @amount %> </span>
-    </label>
-    
-    <div class="form-group">
-      <label>
-        <span>Your email</span>
-        <input type="text" size="20" data-stripe="email" value="theutkarsh246@gmail.com" name="name">
-      </label>
+          <label class="amount">
+            <span>Amount: $<%= @amount %> </span>
+          </label>
+
+          <div class="form-group">
+            <label>
+              <span>Your email</span>
+              <input type="text" size="20" data-stripe="email" name="name">
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span>Card Number</span>
+              <input type="text" size="20" data-stripe="number" name="number">
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span>Expiration (MM/YY)</span>
+              <input type="text" size="2" data-stripe="exp_month"  name="expiry">
+            </label>
+            <span> / </span>
+            <input type="text" size="2" data-stripe="exp_year" >
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span>CVC</span>
+              <input type="text" size="4" data-stripe="cvc"  name="cvc">
+            </label>
+          </div>
+
+
+          <input type="button" class="submit" id = "sib"value="Submit Payment">
+    <% end %>
+    </article>
     </div>
-
-    <div class="form-group">
-      <label>
-        <span>Card Number</span>
-        <input type="text" size="20" data-stripe="number" value="4012888888881881" name="number">
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label>
-        <span>Expiration (MM/YY)</span>    
-        <input type="text" size="2" data-stripe="exp_month" value="4" name="expiry">    
-      </label> 
-      <span> / </span>
-      <input type="text" size="2" data-stripe="exp_year" value="2017">     
-    </div>
-    
-    <div class="form-group">
-      <label>
-        <span>CVC</span>
-        <input type="text" size="4" data-stripe="cvc" value="1234" name="cvc">
-      </label>
-    </div>
-
-    <input type="submit" class="submit" value="Submit Payment">
-   <% end %>
-
-</div>
-
-<script   
-  src="https://code.jquery.com/jquery-3.1.1.slim.js"   
-  integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA="   
-  crossorigin="anonymous">
-</script>
-
+</html>
 <script>
-  $(function() {
-    var $form = $('#payment-form');
-    $form.submit(function(event) {
-      // Disable the submit button to prevent repeated clicks:
-      $form.find('.submit').prop('disabled', true);
-      // Request a token from Stripe:
-      Stripe.card.createToken($form, stripeResponseHandler);
-      // Prevent the form from being submitted:
-      return false;
-    });
-  });
-  function stripeResponseHandler(status, response) {
-    // Grab the form:
-    var $form = $('#payment-form');
-    if (response.error) { // Problem!
-      // Show the errors on the form:
-      //$form.find('.payment-errors').text(response.error.message);
-      $form.find('.submit').prop('disabled', false); // Re-enable submission
-    } else { // Token was created!
-      // Get the token ID:
-      var token = response.id;
-      // Insert the token ID into the form so it gets submitted to the server:
-      $form.append($('<input type="hidden" name="stripeToken">').val(token));
-      // Submit the form:
-      $form.get(0).submit();
-    }
-  };
+//  $(document).ready(function () {
+//    console.log("DOCUMENT> READY !!");
+//    var $form = $('#payment-form');
+//    Stripe.setPublishableKey('pk_test_RgnPfafPCKHSojLKReicFHiz');
+//
+//    $("#sib").on('click',function (e) {
+//      console.log("Clicked submit!");
+//      // Request a token from Stripe:
+//      Stripe.card.createToken($form, stripeResponseHandler);
+//      // Prevent the form from being submitted:
+//    });
+//
+//    function stripeResponseHandler(status, response) {
+//      // Grab the form:
+//      var $form = $('#payment-form');
+//      if (response.error) { // Problem!
+//        console.log("ERROR!");
+//      } else { // Token was created!
+//        // Get the token ID:
+//        var token = response.id;
+//        console.log("TOKEN: "+ token);
+//        // Insert the token ID into the form so it gets submitted to the server:
+//        $form.append($('<input type="hidden" name="stripeToken">').val(token));
+//        // Submit the form:
+//        $form.get(0).submit();
+//      }
+//    }
+//  });
+
 </script>
 
