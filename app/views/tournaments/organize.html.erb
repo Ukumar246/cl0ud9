@@ -138,9 +138,9 @@
 									<strong>Contact information:</strong><br>
 									<%= player.person.email %> <br>
 									<strong>Check-in status:</strong> <br>
-									Unknown <br>
+                  <%= (player.checkedIn.blank? and "Not Checked In") or ( player.checkedIn and "Checked In" ) %> <br>
                   <strong>Payment Status:</strong> <br>
-                  Unknown <br>
+                  <%= (player.paid.blank? and "Not Paid") or ( player.paid and "Paid" ) %> <br>
 									<strong>Tools: </strong><br>
 									<span class="btn-group btn-group-sm" role="group">
 										<%= link_to "Resend Confirmation", {action: "resend_confirmation", person_id: player.person.id}, {role: 'button', class: 'btn btn-default'} %>

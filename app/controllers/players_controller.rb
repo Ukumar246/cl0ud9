@@ -140,6 +140,7 @@ class PlayersController < ApplicationController
         @player.paid = true
         @newPlayers.each do |p|
           p.paid = true
+          p.save
         end
   end
 
@@ -188,7 +189,7 @@ class PlayersController < ApplicationController
 
   end
 
-  
+
 
   # private
   #   def get_golf_courses
@@ -212,4 +213,3 @@ class PlayersController < ApplicationController
   #   end
 
 end
-
