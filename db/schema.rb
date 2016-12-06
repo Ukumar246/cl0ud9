@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 20161205144013) do
     t.datetime "updated_at",     null: false
     t.string   "QRCodeStr"
     t.integer  "ticket_type_id"
-    t.boolean  "paid"
     t.index ["person_id"], name: "index_players_on_person_id", using: :btree
     t.index ["team_id"], name: "index_players_on_team_id", using: :btree
     t.index ["ticket_type_id"], name: "index_players_on_ticket_type_id", using: :btree
@@ -132,11 +131,6 @@ ActiveRecord::Schema.define(version: 20161205144013) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["tournament_id"], name: "index_private_urls_on_tournament_id", using: :btree
-  end
-
-  create_table "registrations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "scheduled_events", force: :cascade do |t|

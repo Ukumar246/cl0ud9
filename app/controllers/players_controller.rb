@@ -71,7 +71,6 @@ class PlayersController < ApplicationController
 
   def create
     params.permit!
-
     @tournament = Tournament.find(params[:player][:tournament_id])
     @player = Player.new(params[:player])
     @numPlayersOnTicket = @player.ticket_type.numPlayers
@@ -80,28 +79,27 @@ class PlayersController < ApplicationController
     if (@numPlayersOnTicket * @numTickets > @tournament.ticketsLeft)
       flash[:danger] = 'There are not enough tickets remaining to fill your order'
     else
-        @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
-        @allPlayersValid = true
-        Player.transaction do
-          @newPlayers.each do |nP|
-            if not nP.save
-              @allPlayersValid = false
-              @errors = nP.errors.full_messages
-              break
-            end
+      @newPlayers = Array.new(@numPlayers){|i| i=Player.new(params[:player])};
+      @allPlayersValid = true
+      Player.transaction do
+        @newPlayers.each do |nP|
+          if not nP.save
+            @allPlayersValid = false
+            @errors = nP.errors.full_messages
+            break
           end
         end
-        if not @allPlayersValid
-          flash[:danger] = 'There was an error with your order: ' + @errors.to_s
-        else
-          assign_to_teams(@newPlayers, @tournament.id)
-          GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
-          # flash.now for to make the flash disappear after a while
-          flash[:success] = 'You have successfully joined this tournament.'
-          @tournament.ticketsLeft -= @numPlayers
-          @tournament.save
-        end
-
+      end
+      if not @allPlayersValid
+        flash[:danger] = 'There was an error with your order: ' + @errors.to_s
+      else
+        assign_to_teams(@newPlayers, @tournament.id)
+        GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
+        # flash.now for to make the flash disappear after a while
+        flash[:success] = 'You have successfully joined this tournament.'
+        @tournament.ticketsLeft -= @numPlayers
+        @tournament.save
+      end
     end
     puts "Player id: #{@player.id}"
 

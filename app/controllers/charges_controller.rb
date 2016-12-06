@@ -3,7 +3,6 @@ class ChargesController < ApplicationController
      @sponsor = params[:sponsor_id]
      @sponsorship =  Sponsorship.find(params[:sponsorship_id])
      @amount = @sponsorship.price
-
   end
 
   def create
@@ -23,13 +22,12 @@ class ChargesController < ApplicationController
       flash[:error] = e.message
       redirect_to url_for(:controller => :tournaments, :action => :index)
 
-  @sponsor = Sponsor.find(params[:charges][:sponsor_id])
-  @sponsor.paid = true
-  if @sponsor.save
-    puts "saved!"
+    @sponsor = Sponsor.find(params[:charges][:sponsor_id])
+    @sponsor.paid = true
+    if @sponsor.save
+      puts "saved!"
+    end
   end
-
- end
-
-    #redirect_to url_for(:controller => :sponsors , :action => :new)
+  
+  #redirect_to url_for(:controller => :sponsors , :action => :new)
 end
