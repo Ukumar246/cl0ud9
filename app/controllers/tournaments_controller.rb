@@ -89,7 +89,8 @@ class TournamentsController < ApplicationController
 		assert_user_can_organize(@tournament)
 		@organize = true
 
-		if(@golf_course = GolfCourse.find(@tournament.golf_course_id))
+		if(@tournament.golf_course_id)
+			@golf_course = GolfCourse.find(@tournament.golf_course_id)
 			@golf_course_address = @golf_course.addrStreetNum.to_s + ' ' + @golf_course.addrStreetName + ' ' + @golf_course.addrPostalCode
 		else
 			@golf_course_address = @tournament.course_name + @tournament.course_addr
