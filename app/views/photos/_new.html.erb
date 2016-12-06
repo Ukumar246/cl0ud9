@@ -11,16 +11,15 @@
           <div class="col-md-6 col-md-offset-3">
           <%= form_for :photo, url: {:controller =>'photos', :action => 'create'}, method:'post' do |f| %>
             <%= f.label 'Choose a photo' %>
-            <%= f.file_field :photoLink %>
+            <%= f.file_field :photoLink, {class: 'form-control'} %>
             <%= f.hidden_field :tournament_id, :value => @tournament.id %>
 
-            <%= f.submit 'Add', class: 'btn btn-primary', id: 'add_player_btn'%>
-            <% end %>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <!--empty now for spacing purposes-->
+            <%= f.submit 'Add', class: 'btn btn-primary', id: 'add_player_btn'%>
+            <% end %>
       </div>
     </div>
 

@@ -72,7 +72,7 @@
               </select>
 
             <%= f.label 'Quantity' %><text class='text-danger'>*</text><br>
-            <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1, value: 1 %>
+            <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1, value: 1, class: 'form-control' %>
             <div>
             <br>
             <br>
@@ -81,16 +81,7 @@
             <%= f.hidden_field :person_id, :value => current_person.id %>
             <%= f.hidden_field :tournament_id, :value => @tournament.id %>
 
-            <!-- Submit Button for Form 1 -->
-            <div class="text-center">
-              <%= f.submit 'Proceed to Payment', class: 'btn btn-primary', id: 'add_player_btn'%>
-            </div>
-            <% end %>
-          </div>
-
-
-           <!-- Payments Stuff -->
-          <div class="col-md-8 col-md-offset-2">
+            <!-- Payments Stuff -->
               <!-- CREDIT CARD FORM STARTS HERE -->
               <div class="panel panel-default credit-card-box">
                   <div class="panel-heading display-table" >
@@ -171,9 +162,14 @@
                   </div>
               </div>            
               <!-- CREDIT CARD FORM ENDS HERE -->
-          </div>                    
+            
+            <!--  End of Payment Stuff -->
+
+            <% end %>
+          </div>
 
 
+           
 
 
         </div>
