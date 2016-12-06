@@ -2,6 +2,7 @@
 	<div class = "row">
 	  <h1>Tournaments</h1>
 		
+	  <div class="table-responsive">
 	  <table class="table thead-invese table-hover">
 		<div class = "col-xs-4">
 		<thead>
@@ -62,60 +63,62 @@
 			<% end %>
 		</tbody>
 	  </table>
+	  </div>
 	</div>
 	
 	<div class="row">
 	<h1>Golf Courses</h1>
+	<div class="table-responsive">
+		<table class="table table-hover">
+		<thead>
+		  <tr>
+			<th>
+			</th>
+			
+			<th class="course">
+			  <div class="dates-container">
+				Name 
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+		  
+			<th class="phone">
+			  <div class="tournament-container">
+				Phone Number
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+		  
+			<th class="email">
+			  <div class="course-container">
+				Email
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+		  
+			<th class="host_id">
+			  <div class="host_id-container">
+				Location
+				<span class="arrow-link arrow-link-down"></span>
+			  </div>
+			</th>
+		  
+		  </tr>
+		</thead>
 
-	<table class="table table-hover table-responsive">
-    <thead>
-      <tr>
-        <th>
-        </th>
-        
-        <th class="course">
-          <div class="dates-container">
-			Name 
-            <span class="arrow-link arrow-link-down"></span>
-          </div>
-        </th>
-      
-        <th class="phone">
-          <div class="tournament-container">
-            Phone Number
-            <span class="arrow-link arrow-link-down"></span>
-          </div>
-        </th>
-      
-        <th class="email">
-          <div class="course-container">
-            Email
-            <span class="arrow-link arrow-link-down"></span>
-          </div>
-        </th>
-      
-        <th class="host_id">
-          <div class="host_id-container">
-            Location
-            <span class="arrow-link arrow-link-down"></span>
-          </div>
-        </th>
-      
-      </tr>
-    </thead>
-
-    <div class="col-xs-12" style="height:40px;"></div>
-    
-    <tbody>
-      <% for gc in @golf_courses %>
-        <tr>
-          <td><%=cl_image_tag(gc.logoLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left') %></td>
-          <td><%= link_to gc.name, gc.websiteURL %></td>
-          <td><%= number_to_phone(gc.phone) %></td>
-          <td><%= gc.email %></td>
-          <td><%= gc.addrStreetNum %> <%= gc.addrStreetName %>, <%= gc.addrCountry %></td>
-      <% end %>
-    </tbody>
-	</table>
+		<div class="col-xs-12" style="height:40px;"></div>
+		
+		<tbody>
+		  <% for gc in @golf_courses %>
+			<tr>
+			  <td><%=cl_image_tag(gc.logoLink, :width => 40, :height => 40, :crop => :fill,  :class => 'featurette-image img-circle img-responsive pull-left') %></td>
+			  <td><%= link_to gc.name, gc.websiteURL %></td>
+			  <td><%= number_to_phone(gc.phone) %></td>
+			  <td><%= gc.email %></td>
+			  <td><%= gc.addrStreetNum %> <%= gc.addrStreetName %>, <%= gc.addrCountry %></td>
+		  <% end %>
+		</tbody>
+		</table>
+		</div>
 	</div>
 </div>
