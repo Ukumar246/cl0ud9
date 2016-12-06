@@ -19,7 +19,7 @@
               </select>
 
             <%= f.label 'Quantity' %><text class='text-danger'>*</text><br>
-            <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1, value: 1 %>
+            <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1, value: 1, class: 'form-control' %>
             <div>
             <br>
             <br>
