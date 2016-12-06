@@ -15,7 +15,7 @@
       <div class="modal-body text-justify">
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-          <%= form_for :sponsor, url: {:controller =>'sponsors', :action => 'create'}, method:'post' do |f| %>
+          <%= form_for :sponsor, url: {:controller =>'sponsors', :action => 'create'}, :html => {:id => 'sponsor-form'} ,method:'post' do |f| %>
 
             <%= f.label 'Sponsorship Type'%><text class='text-danger'>*</text>
             <div >
@@ -39,16 +39,64 @@
             <%= f.hidden_field :person_id, :value => current_person.id %>
             <%= f.hidden_field :tournament_id, :value => @tournament.id %>
 
-            <div class="modal-footer">
-              <!--empty now for spacing purposes-->
-            </div>
-
             <!-- TODO: Gotta also not allow this continue if not paid -->
             <!-- if success -->
-            <%= f.submit 'Proceed to Payment', class: 'btn btn-primary', id: 'add_sponsor_btn'%>
+            <!--<%= f.submit 'Proceed to Payment', class: 'btn btn-primary', id: 'add_sponsor_btn'%>-->
             <!-- else-->
             <!--payment failed error-->
             <% end %>
+          </div>
+        </div>
+        <div class = "row">
+          <div class = "col-md-6 col-md-offset-3">
+            <%= form_for :charges, url: charges_path, :html => {:id => 'payment-form'}  do |f|%>
+                <article>
+                  <% if flash[:error].present? %>
+                      <div id= "error_explanation">
+                        <p><%= flash[:error] %></p>
+                      </div>
+                  <% end %>
+                  <%= f.hidden_field :amount, :value => '100' %>
+                  <%= f.hidden_field :sponsor_id, :value => '16' %>
+
+                  <label class="amount">
+                    <span>Amount: $<%= '100' %> </span>
+                  </label>
+
+                  <div class="form-group">
+                    <label>
+                      <span>Your email</span>
+                      <input type="text" size="20" data-stripe="email" name="name">
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label>
+                      <span>Card Number</span>
+                      <input type="text" size="20" data-stripe="number" name="number">
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label>
+                      <span>Expiration (MM/YY)</span>
+                      <input type="text" size="2" data-stripe="exp_month"  name="expiry">
+                    </label>
+                    <span> / </span>
+                    <input type="text" size="2" data-stripe="exp_year" >
+                  </div>
+
+                  <div class="form-group">
+                    <label>
+                      <span>CVC</span>
+                      <input type="text" size="4" data-stripe="cvc"  name="cvc">
+                    </label>
+                  </div>
+
+
+                  <input type="button" class="submit" id = "sib" value="Submit Payment">
+            <% end %>
+            </article>
           </div>
         </div>
       </div>
@@ -99,12 +147,34 @@
 
   </div>
 </div>
-<script
-			  src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-			  integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
-			  crossorigin="anonymous"></script>
 <script>
-$('#sponsor_sponsorshipType').on('change', function() {
-  console.log("Changed" ); // or $(this).val()
-});
+  $(document).ready(function () {
+    console.log("DOCUMENT> READY !!");
+    var $form = $('#payment-form');
+    var $sponsor_form = $("#sponsor-form")
+    Stripe.setPublishableKey('pk_test_RgnPfafPCKHSojLKReicFHiz');
+
+    $("#sib").on('click',function (e) {
+      console.log("Clicked submit!");
+      // Request a token from Stripe:
+      Stripe.card.createToken($form, stripeResponseHandler);
+      // Prevent the form from being submitted:
+    });
+
+    function stripeResponseHandler(status, response) {
+      // Grab the form:
+      var $form = $('#payment-form');
+      if (response.error) { // Problem!
+        console.log("ERROR!");
+      } else { // Token was created!
+        // Get the token ID:
+        var token = response.id;
+        console.log("TOKEN: "+ token);
+        // Insert the token ID into the form so it gets submitted to the server:
+        $sponsor_form.append($('<input type="hidden" name="stripeToken">').val(token));
+        // Submit the form:
+        $sponsor_form.get(0).submit();
+      }
+    }
+  });
 </script>
