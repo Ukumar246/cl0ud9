@@ -203,9 +203,7 @@
 						<td>
 							<% if @organizer_permissions %>
 							<span class="pull-right">
-								<%= link_to 'Delete', :controller => 'organizer', :action => 'destroy', method:'delete', :id => admin.id do %>
-									<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-								<% end %>
+								<%= link_to "", {controller: "organizer", action: "destroy", id: admin.id}, method:'delete', :class => 'btn btn-xs glyphicon glyphicon-trash' %>
 							</span>
 							<% end %>
 						</td>
