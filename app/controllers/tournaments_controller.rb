@@ -148,7 +148,7 @@ class TournamentsController < ApplicationController
 			if @tournament.ticketsLeft == nil
 				@tournament.ticketsLeft = @tournament.numGuests
 			end
-			
+
 			@tournament.privateURL = params[:tournament][:privateURL] == "0" ? false : true
 
 			if(@tournament.save)
@@ -313,13 +313,13 @@ class TournamentsController < ApplicationController
 	def current_user_is_organizer (tournament)
 		if person_signed_in?
 			is_organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
-      return ( !is_organizer.nil? or current_user_is_admin(tournament) )
+      return ( !is_organizer.nil? or current_user_is_admin )
 		else
 			return false
 		end
 	end
 
-  def current_user_is_admin (tournament)
+  def current_user_is_admin
     if person_signed_in?
       is_cloud9person = Cloud9Person.find_by_person_id(current_person.id)
       return !is_cloud9person.nil?
@@ -350,7 +350,9 @@ class TournamentsController < ApplicationController
 
 	def current_user_permission_level(tournament)
 		organizer = Organizer.find_by_person_id_and_tournament_id(current_person.id, tournament.id)
-    if organizer.nil? or organizer.permissions == "EDIT"
+    if current_user_is_admin
+      return true
+    elsif organizer.nil? or organizer.permissions == "EDIT"
       return false
 		elsif (organizer.permissions == "FULL")
 			return true

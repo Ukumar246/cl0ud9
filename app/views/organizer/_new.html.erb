@@ -11,28 +11,28 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<%= form_for :organizer, url: {:controller =>'organizer', :action => 'create'}, method:'post' do |f| %>
-						
+
 						<% if false %>
 						<%= f.label "Entire Email:"%>
 						<%= text_field_tag id = "email_value", class: 'form-control'%>
-						
+
 						<button id = "search_button" type = "button" class = "btn btn-primary btn-mid">
 							Search
 						</button>
 						<%end%>
-						
+
 						<br>
 						<%= f.label "Select a person" %>
 						<%= f.select :person_id, options_for_select(@person.collect { |person| [person.email, person.id] }.sort.insert(0,""), 0),  {id: "admin_select"}, {class: 'form-control'}%>
 						<br>
-						
+
 						<%= f.label "Select Permission Level" %>
 						<%= f.select :permission, [["Edit", "EDIT"], ["Full", "FULL"]], {},{class: 'form-control'} %>
-						
+
 						<!--Hidden Field for tournament ID-->
 						<%= hidden_field_tag(:tournament_id, @tournament.id) %>
 						<br>
-						<%= f.submit 'Add Admin', class: 'btn btn-primary', id: 'add_admin_btn'%>
+						<%= f.submit 'Add Admin', class: 'btn btn-primary pull-right', id: 'add_admin_btn'%>
 						<% end %>
 					</div>
 				</div>
@@ -41,6 +41,6 @@
             <!--empty now for spacing purposes-->
 			</div>
         </div>
-  
+
 	</div>
 </div>
