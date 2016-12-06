@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'organizer/new'
   post 'organizer/create'
-  delete 'organizer/:id/' => 'organizer#destroy' 
+  delete 'organizer/:id/' => 'organizer#destroy'
 
   resources :check_in
   post 'check_in/submit'
@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
 
   devise_for :people
+  put 'people/update/:id' => 'people#update'
 
 
   get '/players/:id' => 'players#show'#, constraints: { id: /^[1-9][0-9]*$/ }
@@ -57,7 +58,7 @@ Rails.application.routes.draw do
   get "/misc_pages/:misc_page" => "misc_pages#show"
 
   get 'tournaments/:id/organize' => "tournaments#organize"
-  
+
   #for private tournaments
   controller :tournaments do
     get 'tournaments/:id/private/:key'     => :private_url
