@@ -399,8 +399,7 @@ class TournamentsController < ApplicationController
 
 				@host.save
 				@tournament.host_id = @host.id
-			end
-			if params[:tournament][:host_id].present?
+			elsif params[:tournament][:host_id].present?
 				@tournament.host_id = params[:tournament][:host_id]
 			end
 			@tournament.save
