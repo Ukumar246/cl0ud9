@@ -87,45 +87,42 @@
 				</table>
 		</div>
 	</div>
-		<div class="row">
-		<div class="col-md-12 jumbotron">
-		<h3>Tournament Photos</h3><br>
-		<% if @tournament.photos.length < 4 %>
-		<p>
-			<a href="#addPhotoModal" role="button" class="btn btn-primary" data-toggle="modal">Add up to 4 pictures to advertise your tournament</a></p>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Tournament Photos</h3>
+			<% if @tournament.photos.length < 4 %>
+				<p>
+					Add up to 4 pictures to advertise your tournament.
+					<a href="#addPhotoModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Add</a>
+				</p>
 			<% end %>
-			<div class="col-md-12">
-				<div class="text-center">
-				<% if not @tournament.photos.nil? or @tournament.photos.empty? %>
-					<% @tournament.photos.each do |photo| %>
-							<div class="col-md-3">
-							<%= cl_image_tag(photo.photoLink, :width => 200, :height => 200, :crop => :fill)%><br>
-							<span class="pull-right">
-								<%= link_to  [@tournament, photo], remote: true, method: :delete do%>
-									<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-								<% end %>
-							</span>
-							</div>
-					<% end%>
-			  <% end %>
-			  <div>
-			  	<% if @tournament.photos.length < 4 %>
-				  <div class="bg-primary col-md-3" style="width:200px;height:200px;border:1px;">
-				  	<div class="vertical-align text-center">
-				  		<div><br><br>
-				  		<a href="#addPhotoModal" role="button" class="btn" data-toggle="modal">
-					 		<%= cl_image_tag("10133_igb2ve.png", :width => 100, :height => 100, :crop => :fill) %></a>
-					 		</div>
-						</div>
-					</div>
-					<% end %>
-				</div>
-			</div>
-			</div>
+		</div>
 	</div>
 
-	<div class="col-md-12">
+	<div class="row">
+		<% if not @tournament.photos.nil? or @tournament.photos.empty? %>
+			<% @tournament.photos.each do |photo| %>
+				<div class="col-md-3">
+					<span class="pull-right">
+						<%= link_to "", [@tournament, photo], remote: true, method: :delete, :class => 'btn btn-xs glyphicon glyphicon-trash pull-right', :style => 'color: inherit;' %>
+					</span>
+					<%= cl_image_tag(photo.photoLink, :width => 200, :height => 200, :crop => :fill)%><br>
+				</div>
+			<% end %>
+		<% end %>
+		<% if @tournament.photos.length < 4 %>
+		  <div class="col-md-3" style="width:200px;height:200px;border:1px;">
+		  	<div class="vertical-align text-center">
+		  		<div><br><br>
+		  			<a href="#addPhotoModal" role="button" class="btn" data-toggle="modal">
+			 			<%= cl_image_tag("10133_igb2ve.png", :width => 100, :height => 100, :crop => :fill) %></a>
+			 		</div>
+				</div>
+			</div>
+		<% end %>
 	</div>
+
 	<div class= "row">
 		<div class="col-md-4">
 			<p class="text-center">
