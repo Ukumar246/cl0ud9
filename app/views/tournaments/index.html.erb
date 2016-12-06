@@ -65,7 +65,9 @@
           </td>
   				<td><%= link_to tourney.name, tourney%></td>
           <td><%= tourney.tournamentDate.strftime("%d %B, %Y") %></td>
-          <td><%= if (tourney.golf_course != nil) then link_to tourney.golf_course.name, tourney.golf_course.websiteURL end%></td>
+          <td><%= if (tourney.golf_course != nil) then link_to tourney.golf_course.name, tourney.golf_course.websiteURL end%>
+				 <%= if (tourney.golf_course == nil && tourney.course_name != nil) then tourney.course_name end %>	
+		  </td>
 
           <td><%= if (tourney.host != nil) then tourney.host.hostName end%></td>
     	<% end %>
