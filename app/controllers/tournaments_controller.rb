@@ -32,8 +32,18 @@ class TournamentsController < ApplicationController
     @organizers.destroy_all
     @sponsors = Sponsor.where(tournament_id: params[:id])
     @sponsors.destroy_all
+    @sponsorships = Sponsorship.where(tournament_id: params[:id])
+    @sponsorships.destroy_all
 		@ticket_types = TicketType.where(tournament_id: params[:id])
 		@ticket_types.destroy_all
+    @teams = Team.where(tournament_id: params[:id])
+    @teams.destroy_all
+    @photos = Photo.where(tournament_id: params[:id])
+    @photos.destroy_all
+    @scheduled_events = ScheduledEvent.where(tournament_id: params[:id])
+    @scheduled_events.destroy_all
+    @unscheduled_events = UnscheduledEvent.where(tournament_id: params[:id])
+    @unscheduled_events.destroy_all
 
 		@tournament = Tournament.find(params[:id])
 		@tournament.destroy
