@@ -6,13 +6,14 @@
   <h3>There are currently <%= @count%> courses registered with us.</h3>
   <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Add yours today</a>
 
-  <div class="table-responsive">
+ <div class="row">
   <table class="table table-hover">
+    <div class = "col-xs-4">
     <thead>
       <tr>
         <th>
         </th>
-        
+
         <th class="course">
           <div class="dates-container">
             <%= sortable "name", "Courses" %>
@@ -20,33 +21,40 @@
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-      
+      </div>
+
+      <div class = "col-xs-2">
         <th class="phone">
           <div class="tournament-container">
             Phone Number
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-      
+      </div>
+
+      <div class = "col-xs-2">
         <th class="email">
           <div class="course-container">
             Email
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-      
+      </div>
+
+      <div class = "col-xs-2">
         <th class="host_id">
           <div class="host_id-container">
             Location
             <span class="arrow-link arrow-link-down"></span>
           </div>
         </th>
-      
+
       </tr>
     </thead>
+  </div>
 
     <div class="col-xs-12" style="height:40px;"></div>
-    
+
     <tbody>
       <% for gc in @golf_courses %>
         <tr>
