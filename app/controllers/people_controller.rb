@@ -14,6 +14,13 @@ class PeopleController < ApplicationController
     #end
   end
 
+  def update
+    @person = Person.find(params[:id])
+    @person.update(params.require(:person).permit(:fName, :lName, :birthDate, :twitterLink, :fbLink, :profilePicLink))
+
+    redirect_to :action => 'show'
+  end
+
   #show a single player's profile based on passed in id
   def show
     @player_id = params[:id].to_i

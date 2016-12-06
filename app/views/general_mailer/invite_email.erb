@@ -6,9 +6,21 @@
 </head>
 <body>
 <h2>A message from your friend</h2>
-<p>
-  <%= @message %>
-</p>
+<%= @message %>
+<% if @tourney.privateURL %>
+    <p>Here's the link for your tournament: <br>
+      <%= url_for(
+              controller: 'tournaments',
+              action: 'show',
+              id: @tourney.id) + '/private/' + @tourney.private_url.key%>
+<% else %>
+    <p>Here's the link for your tournament:
+      <%= url_for(
+              controller: 'tournaments',
+              action: 'show',
+              id: @tourney.id) %>
+<% end %>
+
 <p>Thanks for being a customer at Cl0ud9 and have a great day!</p>
 </body>
 </html>

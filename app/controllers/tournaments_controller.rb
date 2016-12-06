@@ -54,6 +54,7 @@ class TournamentsController < ApplicationController
 		@sold_out = @tournament.ticketsLeft == 0
 		@ticketsLeft = @tournament.ticketsLeft
 		@tournament_organizer = current_user_is_organizer(@tournament)
+		@sched_events = @tournament.scheduled_events.order('"startTime" asc')
 	end
 
 	def private_url
@@ -85,8 +86,8 @@ class TournamentsController < ApplicationController
 		end
 
 		#Get the players in the tournaments
-		players = Player.where(tournament_id: @tournament.id)
-		player_ids = players.map { |player| player.person_id }
+		@players = Player.where(tournament_id: @tournament.id)
+		player_ids = @players.map { |player| player.person_id }
 		@people = Person.where(id: player_ids)
 
 		@host_name = get_host_name(@tournament)
@@ -140,29 +141,14 @@ class TournamentsController < ApplicationController
 		organizer.person_id = params[:tournament][:person_id]
 		organizer.permissions = 'FULL'
 
-		#create the host
-		host = Host.new
-
 		if(organizer.save)
-			#Create the host entry if needed
-			if(params[:tournament][:hostName].present?)
-				host.hostName = params[:tournament][:hostName]
-				host.email = params[:tournament][:hostEmail]
-				host.phone = params[:tournament][:hostPhone]
-
-				host.save
-			end
 
 			#create the tournament
 			@tournament = Tournament.new(tournament_params)
 			if @tournament.ticketsLeft == nil
 				@tournament.ticketsLeft = @tournament.numGuests
 			end
-
-			#set the host_id if it was typed in
-			if(params[:tournament][:hostName].present?)
-				@tournament.host_id = host.id
-			end
+			
 			@tournament.privateURL = params[:tournament][:privateURL] == "0" ? false : true
 
 			if(@tournament.save)
@@ -221,9 +207,13 @@ class TournamentsController < ApplicationController
 	end
 
 	def invite
+		@tournament = Tournament.find(params[:tournament_id])
+
 		emailAddress = params[:q]
 		puts "POST NEW FORM FOR INVITE #{emailAddress}"
-		@email = GeneralMailer.invite_email(emailAddress).deliver!
+		@email = GeneralMailer.invite_email(emailAddress, @tournament.name, @tournament).deliver!
+		flash[:success] = 'You have successfully invited a friend'
+		redirect_to :action => 'show', :id => params[:tournament_id]
 	end
 
 
@@ -282,18 +272,23 @@ class TournamentsController < ApplicationController
     redirect_to url_for(:action => :organize, :id=>@tournament.id)
 	end
 
+	def create_host
+		create_host_private(params)
+		@tournament = Tournament.find(params[:id])
+    redirect_to url_for(:action => :organize, :id=>@tournament.id)
+	end
+
 	private
 	def tournament_params
-		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :privateURL, :person_id, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
+		params.require(:tournament).permit(:name, :shortDesc, :tournamentDate, :numGuests, :registerStart, :registerEnd, :privateURL, :person_id, :logoLink, :golf_course_id, :course_name, :course_addr, :host_id, :hostName, :hostEmail, :hostPhone, ticket_types_attributes: [:id, :name, :price, :numPlayers,:_destroy])
 	end
 
 
 	def get_host_name (tournament)
 		if(@tournament.host_id)
-			host = Host.find(tournament.host_id)
-			host_name = "Hosted By: " + host.hostName
+			host_name = tournament.host.hostName
 		else
-			host_name = "There are no hosts for this tournament currently"
+			host_name = "None."
 		end
 
 		return host_name
@@ -393,5 +388,23 @@ class TournamentsController < ApplicationController
 			@tournament = Tournament.new
 			@tournament.ticket_types.build
    end
+
+   def create_host_private(params)
+			@tournament = Tournament.find(params[:id])
+   		@host = Host.new
+			if(params[:tournament][:hostName].present?)
+				@host.hostName = params[:tournament][:hostName]
+				@host.email = params[:tournament][:hostEmail]
+				@host.phone = params[:tournament][:hostPhone]
+
+				@host.save
+				@tournament.host_id = @host.id
+			elsif params[:tournament][:host_id].present?
+				@tournament.host_id = params[:tournament][:host_id]
+			end
+			@tournament.save
+
+   end
+
 
 end

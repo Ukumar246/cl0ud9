@@ -24,10 +24,11 @@ default from: 'cl0ud9golfing@gmail.com'
 		mail(to: person.email, subject: subject)
 	end
 
-	def invite_email(emailAddress)
+	def invite_email(emailAddress, tournament_name, tournament)
 		puts "Sending email to address ", emailAddress
-		@message = 'You are invited to join Cl0ud9 Golfing Tour'
-		mail(to: emailAddress, subject: 'Tournament Invite')
+		@tourney = tournament
+		@message = 'You are invited to join Cl0ud9 Golfing Tournament: ' + tournament_name + '.'
+		mail(to: emailAddress, subject: 'Invite to ' + tournament_name)
 	end
 
 end

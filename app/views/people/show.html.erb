@@ -1,4 +1,4 @@
-
+<%= render partial: 'people/edit'%>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,7 +43,10 @@
           </div>
           <div class="col-md-3">
             <div class="pull-right" style="padding-top: 25px;">
-              <%= if (current_person != nil && current_person.id == @player.id) then link_to 'Edit my email or password', edit_person_registration_path end %>
+              <% if (current_person != nil && current_person.id == @player.id) %>
+                <a href="#editModal" role="button" class="btn btn-primary" data-toggle="modal">Edit</a>
+              <% end %>
+              <%= if (current_person != nil && current_person.id == @player.id) then link_to 'Edit my email or password', edit_person_registration_path , :class => 'btn btn-primary' end %>
             </div>
           </div>
         </div>
@@ -117,4 +120,3 @@
         <p><%= if (current_person == nil || current_person.id != @player.id) then "This person is not playing in, sponsoring, organizing, or hosting any tournaments" else "You are not playing, sponsoring, organizing, or hosting any tournaments!" end %></p>
       </div>
     </div>
-

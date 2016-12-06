@@ -13,10 +13,11 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <%= form_tag("/tournaments/invite", :method => "post") do %>
-                <%= label_tag(:q, "Your golfer friend") %>
+                <%= label_tag(:q, "Friend's Email: ") %>
                 <%= text_field_tag(:q) %>
+                <br></br>
                 <%= submit_tag("Invite", class: 'btn btn-primary') %>
-
+                <%= hidden_field_tag :tournament_id, @tournament.id %>
             <% end %>
           </div>
         </div>
