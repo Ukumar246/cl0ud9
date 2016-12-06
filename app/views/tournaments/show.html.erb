@@ -17,16 +17,24 @@
 		</div>
 		<div class="col-md-4">
 			<div class="btn-group-vertical col-md-6 col-md-offset-4">
+        		<!-- Invite Button -->
         		<a href="#inviteModal" role="button" class="btn btn-primary" data-toggle="modal">Invite</a>
+				
+				<!-- Signup Button -->
 				<% if @sold_out %>
 					<a class="btn btn-primary btn-danger" href="#">Sold out!</a>
 				<% else %>
 					<a href="#playerModal" role="button" class="btn btn-primary" data-toggle="modal">Sign up</a>
 				<% end %>
+
+				<!-- Sponsor Button -->
 				<a href="#sponsorModal" role="button" class="btn btn-primary" data-toggle="modal">Sponsor</a>
+				
+				<!-- Oraganize Button -->
 				<% if @tournament_organizer %>
 					<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary'} %>
 				<% end %>
+				
 				<!-- Check In Page *Karsh -->
 				<%= link_to "Check In", {action: "checkin"}, {role: 'button', class: 'btn btn-primary'} %>
 			</div>

@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get 'contact', to: 'messages#new', as: 'contact'
   post 'contact', to: 'messages#create'
   post '/tournaments/invite' => "tournaments#invite"
+  post '/tournaments/sms' => "tournaments#sms"
 
   #payments
   resources :charges
