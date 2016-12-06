@@ -50,7 +50,7 @@
 			<div class="col-md-4">
 				<%= render(:partial => "info" ,:controller=>"tournament", :locals =>{organize: false}) %>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4 text-center">
 			<% @tournament.photos.each do |photo| %>
 				<% if photo.photoLink? %>
 					<%=cl_image_tag(photo.photoLink, :width=>150, :height=>150, :crop => :fill)%>
