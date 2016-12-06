@@ -88,42 +88,8 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-12">
-			<h3>Tournament Photos</h3>
-			<% if @tournament.photos.length < 4 %>
-				<p>
-					Add up to 4 pictures to advertise your tournament.
-					<a href="#addPhotoModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Add</a>
-				</p>
-			<% end %>
-		</div>
-	</div>
-
-	<div class="row">
-		<% if not @tournament.photos.nil? or @tournament.photos.empty? %>
-			<% @tournament.photos.each do |photo| %>
-				<div class="col-md-3">
-					<span class="pull-right">
-						<%= link_to "", [@tournament, photo], remote: true, method: :delete, :class => 'btn btn-xs glyphicon glyphicon-trash pull-right', :style => 'color: inherit;' %>
-					</span>
-					<%= cl_image_tag(photo.photoLink, :width => 200, :height => 200, :crop => :fill)%><br>
-				</div>
-			<% end %>
-		<% end %>
-		<% if @tournament.photos.length < 4 %>
-		  <div class="col-md-3" style="width:200px;height:200px;border:1px;">
-		  	<div class="vertical-align text-center">
-		  		<div><br><br>
-		  			<a href="#addPhotoModal" role="button" class="btn" data-toggle="modal">
-			 			<%= cl_image_tag("10133_igb2ve.png", :width => 100, :height => 100, :crop => :fill) %></a>
-			 		</div>
-				</div>
-			</div>
-		<% end %>
-	</div>
-
 	<div class= "row">
+		<!-- Events and Features -->
 		<div class="col-md-4">
 			<div class="text-center">
 				<strong>Events and Features</strong><br>
@@ -148,6 +114,7 @@
 			<%= render(:partial => 'unscheduled_events/show_features', :locals =>{organize: true}) %>
 		</div>
 
+		<!-- Players -->
 		<div class="col-md-4">
 			<p class="text-center">
 				<strong>Players</strong>
@@ -186,65 +153,107 @@
 			</table>
 		</div>
 
-	<div class="col-md-4">
-		<p class="text-center">
-			<strong>Teams</strong>
-		</p>
-		<table class="table table-striped">
-			<% if @teams.empty? %>
-				<p class="text-center">No teams built yet!</p>
-			<% else %>
-				<tr>
-					<th>Team ID</th>
-					<th>Players</th>
-					<th>Tee time</th>
-					<th></th>
-				</tr>
-				<% @teams.each do |team| %>
+		<!-- Teams -->
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Teams</strong>
+			</p>
+			<table class="table table-striped">
+				<% if @teams.empty? %>
+					<p class="text-center">No teams built yet!</p>
+				<% else %>
 					<tr>
-						<td><%= team.id%></td>
+						<th>Team ID</th>
+						<th>Players</th>
+						<th>Tee time</th>
+						<th></th>
+					</tr>
+					<% @teams.each do |team| %>
+						<tr>
+							<td><%= team.id%></td>
+							<td>
+								<%= team.numPlayers %>
+								<% if team.numPlayers == 4 %>
+									<strong> (FULL)</strong>
+								<% end %>
+							</td>
+							<td> <%= team.teeTime.strftime("%H:%M") %></td>
+							</td>
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
+
+		<!-- Organizers -->
+		<div class="col-md-4">
+			<p class="text-center">
+				<strong>Organizers</strong>
+				<% if @organizer_permissions %>
+				<span class="pull-right">
+					<i class="btn btn-xs glyphicon glyphicon-plus" href="#adminModal"  data-toggle="modal"></i>
+					</span>
+				<% end %>
+			</p>
+			<table class="table table-striped">
+				<% @admins.each do |admin| %>
+					<tr>
+						<td> <%= admin.person.fName + " " + admin.person.lName%></td>
+						<td> <%= admin.permissions %></td>
 						<td>
-							<%= team.numPlayers %>
-							<% if team.numPlayers == 4 %>
-								<strong> (FULL)</strong>
+							<% if @organizer_permissions %>
+							<span class="pull-right">
+								<%= link_to 'Delete', :controller => 'organizer', :action => 'destroy', method:'delete', :id => admin.id do %>
+									<i class="btn btn-xs glyphicon glyphicon-trash"></i>
+								<% end %>
+							</span>
 							<% end %>
-						</td>
-						<td> <%= team.teeTime.strftime("%H:%M") %></td>
 						</td>
 					</tr>
 				<% end %>
+			</table>
+			<% if @admins.length == 1 %>
+			<p class="text-center">Add other cl0ud9 users you want to help organize your tournament here!</p>
+			<%end%>
+		</div>
+	</div>
+
+	<!-- Tournament Photos header -->
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Tournament Photos</h3>
+			<% if @tournament.photos.length < 4 %>
+				<p>
+					Add up to 4 pictures to advertise your tournament.
+					<a href="#addPhotoModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Add</a>
+				</p>
 			<% end %>
-		</table>
+		</div>
 	</div>
-	<div class="col-md-4">
-		<p class="text-center">
-			<strong>Organizers</strong>
-		<% if @organizer_permissions %>
-		<span class="pull-right">
-			<i class="btn btn-xs glyphicon glyphicon-plus" href="#adminModal"  data-toggle="modal"></i>
-			</span>
-		<% end %></p>
-		<table class="table table-striped">
-			<% @admins.each do |admin| %>
-				<tr>
-					<td> <%= admin.person.fName + " " + admin.person.lName%></td>
-					<td> <%= admin.permissions %></td>
-					<td>
-						<% if @organizer_permissions %>
-						<span class="pull-right">
-							<%= link_to 'Delete', :controller => 'organizer', :action => 'destroy', method:'delete', :id => admin.id do %>
-								<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-							<% end %>
-						</span>
-						<% end %>
-					</td>
-				</tr>
+
+	<!-- Tournament Photos -->
+	<div class="row">
+		<% if not @tournament.photos.nil? or @tournament.photos.empty? %>
+			<% @tournament.photos.each do |photo| %>
+				<div class="col-md-3">
+					<span class="pull-right">
+						<%= link_to "", [@tournament, photo], remote: true, method: :delete, :class => 'btn btn-xs glyphicon glyphicon-trash pull-right', :style => 'color: inherit;' %>
+					</span>
+					<%= cl_image_tag(photo.photoLink, :width => 200, :height => 200, :crop => :fill)%><br>
+				</div>
 			<% end %>
-		</table>
-		<% if @admins.length == 1 %>
-		<p class="text-center">Add other cl0ud9 users you want to help organize your tournament here!</p>
-		<%end%>
+		<% end %>
+		<% if @tournament.photos.length < 4 %>
+		  <div class="col-md-3" style="width:200px;height:200px;border:1px;">
+		  	<div class="vertical-align text-center">
+		  		<div><br><br>
+		  			<a href="#addPhotoModal" role="button" class="btn" data-toggle="modal">
+			 			<%= cl_image_tag("10133_igb2ve.png", :width => 100, :height => 100, :crop => :fill) %></a>
+			 		</div>
+				</div>
+			</div>
+		<% end %>
 	</div>
-	</div>
-	</div>
+
+	<br><br><br>
 </div>
