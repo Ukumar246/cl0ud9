@@ -76,6 +76,7 @@ class PlayersController < ApplicationController
     @numPlayersOnTicket = @player.ticket_type.numPlayers
     @numTickets = @player.numTickets.to_i
     @numPlayers = @numTickets * @numPlayersOnTicket
+    price = (@player.ticket_type.price * 100 *@numTickets).to_i
     if (@numPlayersOnTicket * @numTickets > @tournament.ticketsLeft)
       flash[:danger] = 'There are not enough tickets remaining to fill your order'
     else
@@ -93,9 +94,8 @@ class PlayersController < ApplicationController
       if not @allPlayersValid
         flash[:danger] = 'There was an error with your order: ' + @errors.to_s
       else
-
         assign_to_teams(@newPlayers, @tournament.id)
-        require_payment(6000)
+        require_payment(price)
         GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
         # flash.now for to make the flash disappear after a while
         flash[:success] = 'You have successfully joined this tournament.'

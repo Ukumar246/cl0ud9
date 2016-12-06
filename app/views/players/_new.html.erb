@@ -75,6 +75,11 @@
             <%= f.hidden_field :person_id, :value => current_person.id %>
             <%= f.hidden_field :tournament_id, :value => @tournament.id %>
 
+
+            <div>
+              <p>    
+              </p>
+            </div>
             <!-- Payments Stuff -->
               <!-- CREDIT CARD FORM STARTS HERE -->
             <div class="panel panel-default credit-card-box">
@@ -107,17 +112,20 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-7 col-md-7">
+                  <div class="col-xs-12">
                     <div class="form-group">
                       <label>
-                      <span>Expiration (MM/YY)</span>
+                      <span>EXPIRATION (MM/YY)</span>
                       <input type="text" size="2" data-stripe="exp_month"  name="expiry">
-                      </label>
+                      
                     <span> / </span>
                     <input type="text" size="2" data-stripe="exp_year" >
+                    </label>
                     </div>
                   </div>
-                  <div class="col-xs-5 col-md-5 pull-right">
+                </div>
+                <div class="row">
+                  <div class="col-xs-5 col-md-5">
                     <div class="form-group">
                       <label for="cardCVC">CV CODE</label>
                         <input 
@@ -129,14 +137,6 @@
                           autocomplete="cc-csc"
                           required
                         />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="couponCode">COUPON CODE</label>
-                        <input type="text" class="form-control" name="couponCode" />
                     </div>
                   </div>                        
                 </div>
