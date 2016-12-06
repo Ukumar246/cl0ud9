@@ -17,9 +17,9 @@
           <div class="col-md-6 col-md-offset-3">
           <%= form_for :sponsor, url: {:controller =>'sponsors', :action => 'create'}, method:'post' do |f| %>
 
-            <%= f.label :'sponsorshipType'%><text class='text-danger'>*</text>
+            <%= f.label 'Sponsorship Type'%><text class='text-danger'>*</text>
             <div >
-             <%= f.select :sponsorship_id, options_for_select(@tournament.sponsorships.collect { |item| [item.name + ' $' + (item.price).to_s, item.id]}.sort.insert(0,""), 0), {}, {id: "sponsor_sponsorship_id"}%>
+             <%= f.select :sponsorship_id, options_for_select(@tournament.sponsorships.collect { |item| [item.name + ' $' + (item.price).to_s, item.id]}.sort.insert(0,""), 0), {id: "sponsor_sponsorship_id"}, {class: 'form-control'}%>
             </div>
 
             <%= f.label :'Website URL', class: 'text-justify'%>
