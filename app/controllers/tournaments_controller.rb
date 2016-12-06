@@ -240,19 +240,20 @@ class TournamentsController < ApplicationController
 	# SMS Invite
 	def sms
 		@tournament = Tournament.find(params[:tournament_id])
+		tournament_id = params[:tournament_id]
 		phonenumber = params[:phonenumber]
 		puts "POST Send SMS for phone number #{phonenumber}"
 
-	    twilio_sid = "ACe51d7978d00d171e6853f864b547a322"
-	    twilio_token = "534cdf8d865eabcc180a28778c3e53b1"
-	    twilio_phone_number = "6476910067"
+	    twilio_sid = ""
+	    twilio_token = ""
+	    twilio_phone_number = ""
 
 	    @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
 
 	    @twilio_client.account.sms.messages.create(
 	      :from => "+1#{twilio_phone_number}",
 	      :to => phonenumber,
-	      :body => "This is an message. It gets sent to #{phonenumber}"
+	      :body => "You have been invited to join the tournament #{@tournament.name} at link cl0ud9.herokuapp.com/tournaments/#{tournament_id}"
 	    )
 	end
 
