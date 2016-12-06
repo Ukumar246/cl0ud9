@@ -18,10 +18,10 @@
             <%= collection_select :player, :id, @people, :id, :email , {:include_blank => 'Email all players'}, {:class => 'form-control'} %><br>
 
             <%= label_tag(:email_subject, "Subject:") %> <br>
-            <%= text_field_tag(:email_subject) %> <br><br>
+            <%= text_field_tag :email_subject, nil, class: 'form-control' %> <br><br>
 
             <%= label_tag(:email_body, "Email Body:") %> <br>
-            <%= text_area_tag(:email_body) %> <br><br>
+            <%= text_area_tag :email_body, nil, class: 'form-control' %> <br><br>
 
             <%= submit_tag('Send Email', class: 'btn btn-primary') %>
             <% end %>

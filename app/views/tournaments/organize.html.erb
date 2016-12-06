@@ -34,28 +34,24 @@
 				<a href=<%= tournament_url_with_privacy(@tournament) %>="button" class="btn btn-primary" data-toggle="modal">Go back</a>
 			</div>
 		</div>
-	</div> 
+	</div>
 
-	<div class="row" >
+	<div class="row">
 		<div class="col-md-4">
 			<div class="text-center">
-				<h4>Your logo</h4>
+				<strong>Logo</strong>
+				<span class="pull-right">
+					<i class="btn btn-xs glyphicon glyphicon-pencil" href="#updateLogoModal" data-toggle="modal"></i>
+					<%= link_to "", url_for(:action => :delete_logo, :id => @tournament.id), :class => 'btn btn-xs glyphicon glyphicon-trash', :style => 'color: inherit;' %>
+				</span>
 				<% if not @tournament.logoLink? %>
-					<div class="bg-info" style="width:200px;height:200px;border:1px;">
+					<div>
 						<a href="#updateLogoModal" role="button" class="btn btn-primary" data-toggle="modal">Add your logo here!</a>
 					</div>
 				<% else %>
 					<div>
-				  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill)%>
-				  	</div>
-				  	<div style="width:200px;height:200px;">
-				  	<span class="pull-right">
-							<i class="btn btn-xs glyphicon glyphicon-pencil" href="#updateLogoModal" data-toggle="modal"></i>	
-							<%= link_to url_for(:action => :delete_logo, :id => @tournament.id) do%>
-								<i class="btn btn-xs glyphicon glyphicon-trash"></i>
-							<% end %>
-						</span>
-					</div>
+				  	<%= cl_image_tag(@tournament.logoLink, :width => 200, :height => 200, :crop => :fill) %>
+			  	</div>
 		 		 <% end %>
 			</div>
 		</div>
@@ -68,7 +64,7 @@
 				</span>
 			</p>
 			<%= render(:partial => "info" ,:controller=>"tournament", :locals => {organize: @organize}) %>
-	
+
 		</div>
 		<div class="col-md-4">
 				<p class="text-center">
@@ -91,7 +87,7 @@
 					<% end %>
 				</table>
 		</div>
-		</div>
+	</div>
 		<div class="row">
 		<div class="col-md-12 jumbotron">
 		<h3>Tournament Photos</h3><br>
@@ -195,7 +191,7 @@
 			    <% end %>
 			</table>
 		</div>
-		
+
 	<div class="col-md-4">
 		<p class="text-center">
 			<strong>Teams</strong>
@@ -258,4 +254,3 @@
 	</div>
 	</div>
 </div>
-

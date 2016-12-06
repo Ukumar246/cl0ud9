@@ -12,7 +12,7 @@
           <%= form_for :unscheduled_event, url: {:controller =>'unscheduled_events', :action => 'create'}, method:'post' do |f| %>
 
             <%= f.label 'Short Description' %>
-            <%= f.text_area :description %>
+            <%= f.text_area :description, class: 'form-control' %>
             <div>
             <br>
             <br>

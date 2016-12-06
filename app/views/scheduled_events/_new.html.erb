@@ -12,10 +12,10 @@
           <%= form_for :scheduled_event, url: {:controller =>'scheduled_events', :action => 'create'}, method:'post' do |f| %>
 
             <%= f.label 'Short Description' %>
-            <%= f.text_area :description %>
+            <%= f.text_area(:description) %><br>
 
             <%= f.label 'Time' %>
-            <%= f.time_select :startTime %>
+            <%= f.time_select(:startTime, {minute_step: 15}) %>
             <div>
             <br>
             <br>

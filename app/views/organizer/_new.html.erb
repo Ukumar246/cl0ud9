@@ -14,7 +14,7 @@
 						
 						<% if false %>
 						<%= f.label "Entire Email:"%>
-						<%= text_field_tag id = "email_value"%>
+						<%= text_field_tag id = "email_value", class: 'form-control'%>
 						
 						<button id = "search_button" type = "button" class = "btn btn-primary btn-mid">
 							Search
@@ -22,12 +22,12 @@
 						<%end%>
 						
 						<br>
-						<%= f.label "Select an person" %>
-						<%= f.select :person_id, options_for_select(@person.collect { |person| [person.email, person.id] }.sort.insert(0,""), 0), {}, {id: "admin_select"}%>
+						<%= f.label "Select a person" %>
+						<%= f.select :person_id, options_for_select(@person.collect { |person| [person.email, person.id] }.sort.insert(0,""), 0),  {id: "admin_select"}, {class: 'form-control'}%>
 						<br>
 						
 						<%= f.label "Select Permission Level" %>
-						<%= f.select :permission, [["Edit", "EDIT"], ["Full", "FULL"]] %>
+						<%= f.select :permission, [["Edit", "EDIT"], ["Full", "FULL"]], {},{class: 'form-control'} %>
 						
 						<!--Hidden Field for tournament ID-->
 						<%= hidden_field_tag(:tournament_id, @tournament.id) %>
