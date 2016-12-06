@@ -93,7 +93,9 @@ class PlayersController < ApplicationController
       if not @allPlayersValid
         flash[:danger] = 'There was an error with your order: ' + @errors.to_s
       else
+
         assign_to_teams(@newPlayers, @tournament.id)
+        require_payment(6000)
         GeneralMailer.ticket_confirmation_email(@newPlayers).deliver!
         # flash.now for to make the flash disappear after a while
         flash[:success] = 'You have successfully joined this tournament.'
@@ -104,11 +106,11 @@ class PlayersController < ApplicationController
     puts "Player id: #{@player.id}"
 
     if @tournament.privateURL
-      redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
-      #redirect_to url_for(:controller => :tournaments, :action => "private_url", :key => @tournament.private_url.key, :id => @tournament.id)
+      #redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
+      redirect_to url_for(:controller => :tournaments, :action => "private_url", :key => @tournament.private_url.key, :id => @tournament.id)
     else
-      redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
-      #redirect_to @tournament
+      #redirect_to url_for(:controller => :charges , :action => :new, :player_id => @player.id, :sponsorshipType => @player.ticket_type) and return
+      redirect_to @tournament
     end
     #redirect_to url_for(:controller => :charges , :action => :new,:sponsor_id => @sponsor.id,:sponsorshipType => @sponsor.sponsorshipType) and return
   end
@@ -120,6 +122,21 @@ class PlayersController < ApplicationController
   end
 
   def delete
+  end
+
+  def require_payment(price)
+    charge = Stripe::Charge.create(
+      :amount => price,
+      :description => 'Rails Stripe customer',
+      :source => params[:stripeToken],
+      :currency => 'CAD'
+      )
+
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to Tournament.find(params[:player][:tournament_id])
+
+        #@player.paid = true
   end
 
   private
@@ -166,6 +183,8 @@ class PlayersController < ApplicationController
     end
 
   end
+
+  
 
   # private
   #   def get_golf_courses
