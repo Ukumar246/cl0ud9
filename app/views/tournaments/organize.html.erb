@@ -88,7 +88,7 @@
 		</div>
 	</div>
 
-	<div class= "row">
+	<div class= "row" style = "padding-top : 25px; padding-bottom : 25px;">
 		<!-- Events and Features -->
 		<div class="col-md-4">
 			<div class="text-center">
@@ -217,17 +217,23 @@
 	</div>
 
 	<!-- Tournament Photos header -->
+<div style="border-top: 1px grey solid; border-bottom: 1px gray solid; padding-bottom: 10px;">
 	<div class="row">
-		<div class="col-md-12" style="border-top: 1px grey solid; border-bottom: 1px gray solid; padding-bottom: 10px;">
+		<div class="col-md-12">
 			<h3>Tournament Photos</h3>
-			<% if @tournament.photos.length < 4 %>
-				<p>
-					Add up to 4 pictures to advertise your tournament.
+		</div>
+	</div>
+		<div class = "row" >
+			<div class = "col-md-9 col-sm-12">
+				<% if @tournament.photos.length < 4 %>
+				<p> Add up to 4 pictures to advertise your tournament. </p>
+			</div>
+			<div class = "col-md-3 col-sm-12">
 					<a href="#addPhotoModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Add</a>
-				</p>
 			<% end %>
 		</div>
 	</div>
+</div>
 
 	<!-- Tournament Photos -->
 	<div class="row">

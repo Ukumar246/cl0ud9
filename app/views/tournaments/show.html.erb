@@ -16,8 +16,8 @@
 			<h1><%= @tournament.name %></h1>
 		</div>
 		<div class="col-md-4">
-			<div class="pull-right" style="padding-top: 25px;">
-        <a href="#inviteModal" role="button" class="btn btn-primary" data-toggle="modal">Invite</a>
+			<div class="btn-group-vertical col-md-6 col-md-offset-4">
+        		<a href="#inviteModal" role="button" class="btn btn-primary" data-toggle="modal">Invite</a>
 				<% if @sold_out %>
 					<a class="btn btn-primary btn-danger" href="#">Sold out!</a>
 				<% else %>
@@ -27,6 +27,8 @@
 				<% if @tournament_organizer %>
 					<%= link_to "Organize", {action: "organize"}, {role: 'button', class: 'btn btn-primary'} %>
 				<% end %>
+				<!-- Check In Page *Karsh -->
+				<%= link_to "Check In", {action: "checkin"}, {role: 'button', class: 'btn btn-primary'} %>
 			</div>
 		</div>
 	</div>

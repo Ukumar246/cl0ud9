@@ -60,7 +60,6 @@
         <h4 class="modal-title">Play this tournament!</h4>
       </div>
       <div class="modal-body text-justify">
-        
         <!-- Start of ROW  -->
         <div class="row">
           <div class="col-md-8 col-md-offset-2" style="padding-bottom:10%;padding-top:10%">
@@ -73,113 +72,95 @@
 
             <%= f.label 'Quantity' %><text class='text-danger'>*</text><br>
             <%= f.number_field :'numTickets', min: 1, max: @tournament.ticketsLeft, step: 1, value: 1, class: 'form-control' %>
-            <div>
-            <br>
-            <br>
-            </div>
-
             <%= f.hidden_field :person_id, :value => current_person.id %>
             <%= f.hidden_field :tournament_id, :value => @tournament.id %>
 
             <!-- Payments Stuff -->
               <!-- CREDIT CARD FORM STARTS HERE -->
-              <div class="panel panel-default credit-card-box">
-                  <div class="panel-heading display-table" >
-                      <div class="row display-tr" >
-                          <h3 class="panel-title display-td" >Payment Details</h3>
-                          <div class="display-td" >                            
-                              <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
-                          </div>
-                      </div>                    
+            <div class="panel panel-default credit-card-box">
+              <div class="panel-heading display-table" >
+                <div class="row display-tr" >
+                    <h3 class="panel-title display-td" >Payment Details</h3>
+                    <div class="display-td" >                            
+                      <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                    </div>
+                </div>                    
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="cardNumber">CARD NUMBER</label>
+                        <div class="input-group">
+                          <input 
+                            type="tel"
+                            class="form-control"
+                            name="number"
+                            placeholder="Valid Card Number"
+                            data-stripe="number"
+                            autocomplete="cc-number"
+                            required autofocus 
+                          />
+                          <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        </div>
+                    </div>                            
                   </div>
-                  <div class="panel-body">
-                       <%= form_for :charges, url: charges_path, :html => {:id => 'payment-form'}  do |f|%>
-                          <div class="row">
-                              <div class="col-xs-12">
-                                  <div class="form-group">
-                                      <label for="cardNumber">CARD NUMBER</label>
-                                      <div class="input-group">
-                                          <input 
-                                              type="tel"
-                                              class="form-control"
-                                              name="cardNumber"
-                                              placeholder="Valid Card Number"
-                                              autocomplete="cc-number"
-                                              required autofocus 
-                                          />
-                                          <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                      </div>
-                                  </div>                            
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-xs-7 col-md-7">
-                                  <div class="form-group">
-                                      <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                                      <input 
-                                          type="tel" 
-                                          class="form-control" 
-                                          name="cardExpiry"
-                                          placeholder="MM / YY"
-                                          autocomplete="cc-exp"
-                                          required 
-                                      />
-                                  </div>
-                              </div>
-                              <div class="col-xs-5 col-md-5 pull-right">
-                                  <div class="form-group">
-                                      <label for="cardCVC">CV CODE</label>
-                                      <input 
-                                          type="tel" 
-                                          class="form-control"
-                                          name="cardCVC"
-                                          placeholder="CVC"
-                                          autocomplete="cc-csc"
-                                          required
-                                      />
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-xs-12">
-                                  <div class="form-group">
-                                      <label for="couponCode">COUPON CODE</label>
-                                      <input type="text" class="form-control" name="couponCode" />
-                                  </div>
-                              </div>                        
-                          </div>
-                          <div class="row">
-                              <div class="col-xs-12">
-                                  <input type="button" class="submit" id = "sib" value="Submit Payment">
-                              </div>
-                          </div>
-                          <div class="row" style="display:none;">
-                              <div class="col-xs-12">
-                                  <p class="payment-errors"></p>
-                              </div>
-                          </div>
-                      <%end%>
+                </div>
+                <div class="row">
+                  <div class="col-xs-7 col-md-7">
+                    <div class="form-group">
+                      <label>
+                      <span>Expiration (MM/YY)</span>
+                      <input type="text" size="2" data-stripe="exp_month"  name="expiry">
+                      </label>
+                    <span> / </span>
+                    <input type="text" size="2" data-stripe="exp_year" >
+                    </div>
                   </div>
-              </div>            
+                  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                      <label for="cardCVC">CV CODE</label>
+                        <input 
+                          type="tel" 
+                          class="form-control"
+                          name="cvc"
+                          data-stripe="cvc"
+                          placeholder="CVC"
+                          autocomplete="cc-csc"
+                          required
+                        />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="couponCode">COUPON CODE</label>
+                        <input type="text" class="form-control" name="couponCode" />
+                    </div>
+                  </div>                        
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input type="button" class="submit" id = "sib2" value="Submit Payment"/>
+                  </div>
+                </div>
+                <div class="row" style="display:none;">
+                  <div class="col-xs-12">
+                    <p class="payment-errors"></p>
+                  </div>
+                </div>
+              </div>
+            </div>            
               <!-- CREDIT CARD FORM ENDS HERE -->
             
             <!--  End of Payment Stuff -->
-
-            <% end %>
+          <% end %>
           </div>
-
-
-           
-
-
         </div>
         <!-- End of Row -->
-      
-
-
       <!-- End of modal body -->
       </div>
-
       <div class="modal-footer">
         <!--empty now for spacing purposes-->
       </div>
@@ -213,32 +194,31 @@
 
 <!-- JS  -->
   <!-- JQuery -->
-  <script   
+<!--   <script   
     src="https://code.jquery.com/jquery-3.1.1.slim.js"   
     integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA="   
     crossorigin="anonymous">
   </script>
-
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-  
+ -->
+<!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+ -->  
   <!-- Form Js -->
-  <script>
-    $(document).ready(function () {
+<script>
+  $(document).ready(function () {
     console.log("DOCUMENT> READY !!");
-    var $form = $('#payment-form');
     var $player_form = $("#player-form")
     Stripe.setPublishableKey('pk_test_RgnPfafPCKHSojLKReicFHiz');
 
-    $("#sib").on('click',function (e) {
+    $("#sib2").on('click',function (e) {
       console.log("Clicked submit!");
       // Request a token from Stripe:
-      Stripe.card.createToken($form, stripeResponseHandler);
+      Stripe.card.createToken($player_form, stripeResponseHandler);
       // Prevent the form from being submitted:
     });
 
     function stripeResponseHandler(status, response) {
       // Grab the form:
-      var $form = $('#payment-form');
+      //var $player_form = $('#player-form');
       if (response.error) { // Problem!
         console.log("ERROR!");
       } else { // Token was created!
@@ -252,4 +232,4 @@
       }
     }
   });
-  </script>
+</script>
