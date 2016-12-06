@@ -6,16 +6,16 @@ class TournamentsController < ApplicationController
 
 		if params[:sort] == "host"
       		@tournaments = sort_by_hostName
-  	elsif params[:sort] == "course_name"
-  		@tournaments = sort_by_course_name
-  	elsif params[:sort] == "tournamentDate"
-  		@tournaments = sort_by_date
-  	else
-      @tournaments = sort
+  		elsif params[:sort] == "course_name"
+  			@tournaments = sort_by_course_name
+  		elsif params[:sort] == "tournamentDate"
+  			@tournaments = sort_by_date
+  		else
+      		@tournaments = sort
 		end
 
-    #so that the create modal will work
-    init_tournament_and_associations
+    	#so that the create modal will work
+    	init_tournament_and_associations
 
 		#@tournaments.each do |t|
 		#	@addresses.push(get_golf_course_address(t))
@@ -23,27 +23,27 @@ class TournamentsController < ApplicationController
 	end
 
 	def destroy
-    @tournament = Tournament.find(params[:id])
+    	@tournament = Tournament.find(params[:id])
 		assert_user_can_organize(@tournament)
 
 		@players = Player.where(tournament_id: params[:id])
 		@players.destroy_all
-    @organizers = Organizer.where(tournament_id: params[:id])
-    @organizers.destroy_all
-    @sponsors = Sponsor.where(tournament_id: params[:id])
-    @sponsors.destroy_all
-    @sponsorships = Sponsorship.where(tournament_id: params[:id])
-    @sponsorships.destroy_all
-		@ticket_types = TicketType.where(tournament_id: params[:id])
-		@ticket_types.destroy_all
-    @teams = Team.where(tournament_id: params[:id])
-    @teams.destroy_all
-    @photos = Photo.where(tournament_id: params[:id])
-    @photos.destroy_all
-    @scheduled_events = ScheduledEvent.where(tournament_id: params[:id])
-    @scheduled_events.destroy_all
-    @unscheduled_events = UnscheduledEvent.where(tournament_id: params[:id])
-    @unscheduled_events.destroy_all
+	    @organizers = Organizer.where(tournament_id: params[:id])
+	    @organizers.destroy_all
+	    @sponsors = Sponsor.where(tournament_id: params[:id])
+	    @sponsors.destroy_all
+	    @sponsorships = Sponsorship.where(tournament_id: params[:id])
+	    @sponsorships.destroy_all
+			@ticket_types = TicketType.where(tournament_id: params[:id])
+			@ticket_types.destroy_all
+	    @teams = Team.where(tournament_id: params[:id])
+	    @teams.destroy_all
+	    @photos = Photo.where(tournament_id: params[:id])
+	    @photos.destroy_all
+	    @scheduled_events = ScheduledEvent.where(tournament_id: params[:id])
+	    @scheduled_events.destroy_all
+	    @unscheduled_events = UnscheduledEvent.where(tournament_id: params[:id])
+	    @unscheduled_events.destroy_all
 
 		@tournament = Tournament.find(params[:id])
 		@tournament.destroy
@@ -115,9 +115,9 @@ class TournamentsController < ApplicationController
 		@course_name = nil
 		@course_address = nil
 		@course_phone = nil
-    @host = @tournament.host
-    @teams = @tournament.teams.order('"teeTime" asc')
-    get_data_for_reports(@tournament)
+    	@host = @tournament.host
+    	@teams = @tournament.teams.order('"teeTime" asc')
+    	get_data_for_reports(@tournament)
 		get_golf_course_info(@tournament)
 		@sched_events = @tournament.scheduled_events.order('"startTime" asc')
 
@@ -132,19 +132,30 @@ class TournamentsController < ApplicationController
 		setPhoto= (@tournament.photos.nil?) ? 0.0 : 0.1
 		@setHost = (@tournament.host.nil?) ? 0.0 : 0.1
 		@percentage_done = (setDate + setRegDates + setCourse + setnumGuests + setDescription + setTime + setLogo + setEvent + setPhoto + @setHost)*100
-
 	end
+
+	# Check in players at this end point :id/checkin
+	def checkin
+  		puts "Check In Controller..."
+    	# Descending Players (CheckIn Last)
+	    @tourPlayers = Player.where(tournament_id:params[:id]).order(checkedIn: :desc)
+	    puts "Players in this tournament: #{@tourPlayers.length}"
+	    #an_id = @tourPlayers[0].person_id;
+	    #@specificPlayer = Person.where(person_id:an_id)
+	    #puts "Players who can sign up: #{@tourPlayers.length} & #{@tourPlayers[0].person.profilePicLink}"
+	    @avatar_img = 'http://www.w3schools.com/w3css/img_avatar6.png'
+  	end
 
 	def new
 		init_tournament_and_associations
 	end
 
-  def update
-    @tournament = Tournament.find(params[:id])
-    @tournament.update(tournament_params)
+  	def update
+    	@tournament = Tournament.find(params[:id])
+    	@tournament.update(tournament_params)
 
-    redirect_to :action => 'organize'
-  end
+    	redirect_to :action => 'organize'
+  	end
 
 	def create
 		#Create the organizer for the tournament first

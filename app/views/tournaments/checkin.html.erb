@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+<!-- Custom Checkbox CSS -->
+<style>
+
+  /* end .slideThree */
+  /* .roundedOne */
+  .roundedOne {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    margin: 20px auto;
+    background: #fcfff4;
+    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .roundedOne label {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
+    background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+  }
+  .roundedOne label:after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: #27ae60;
+    background: -webkit-linear-gradient(top, #27ae60 0%, #145b32 100%);
+    background: linear-gradient(to bottom, #27ae60 0%, #145b32 100%);
+    opacity: 0;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .roundedOne label:hover::after {
+    opacity: 0.3;
+  }
+  .roundedOne input[type=checkbox] {
+    visibility: hidden;
+  }
+  .roundedOne input[type=checkbox]:checked + label:after {
+    opacity: 1;
+  }
+
+  input[type=checkbox]
+  {
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 10px;
+  }
+
+  /* Might want to wrap a span around your checkbox text */
+  .checkboxtext
+  {
+  /* Checkbox text */
+  font-size: 110%;
+  display: inline;
+  }
+</style>
+
+<!-- Main Frame -->
+<div style="padding-left:15%;padding-right:15%;padding-top:5%;padding-bottom:5%">
+  
+  <!-- Lists  -->
+  <ul class="w3-ul w3-card-4">
+  
+  <!-- Form Start -->
+  <%= form_tag("/check_in/submit", method: "post") do %>
+    <% i = 1 %>
+    <% @tourPlayers.each do |player|%>
+      <li class="w3-padding-16">
+        <!-- Check Box -->
+        <div class="w3-closebtn" style ="margin:2%">
+          <input name=<%= "player_ids[]" %> value=<%= player.id %> type="checkbox">
+        </div>
+        
+        <!-- Avatar Image -->
+        <!-- <img src=<%= @avatar_img %> class="w3-left w3-circle" style="width:60px"> DEFAULT IMAGE-->
+        <%= cl_image_tag(player.person.profilePicLink, :width => 60, :height => 60, :crop => :fill, :class => "w3-left w3-circle")%>
+
+<!-- This person already checked in -->
+        <% if player.checkedIn %>
+          <!-- Name Label -->
+          <span class="w3-xlarge" style="padding-left: 10px;color:#196F3D"> <%="#{player.person.fName} #{player.person.lName}"%> 
+          </span>
+          <br>
+          <!-- Detail Label -->
+          
+          <span style="padding-left: 10px;color:#196F3D"> <%= "#{player.person.email} | Checked In"%> </span>
+        
+<!-- This person has not checked in -->
+        <% else %>
+          
+          <!-- Name Label -->
+          <span class="w3-xlarge" style="padding-left: 10px;"> <%="#{player.person.fName} #{player.person.lName}"%> 
+          </span>
+          <br>
+          <!-- Detail Label -->
+          <span style="padding-left: 10px;"> <%= "#{player.person.email}"%> </span>
+        <% end %>
+        
+      </li>
+      <% i+= 1; %>
+    <% end %>
+    </ul>
+    <!-- Done Button -->
+    <div style="padding-top:2%">
+      <button class="w3-btn w3-padding-xxlarge w3-right" >Done</button>
+    </div>
+  <% end %>
+  
+
+</div>

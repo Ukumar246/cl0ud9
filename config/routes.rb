@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get "/misc_pages/:misc_page" => "misc_pages#show"
 
   get 'tournaments/:id/organize' => "tournaments#organize"
+  get 'tournaments/:id/checkin' => "tournaments#checkin"
 
   #for private tournaments
   controller :tournaments do
