@@ -77,6 +77,9 @@ gem 'cloudinary'
 #stripe
 gem 'stripe'
 
+# twilio
+gem 'twilio-ruby'
+
 #filter and sorting
 gem 'filterrific'
 

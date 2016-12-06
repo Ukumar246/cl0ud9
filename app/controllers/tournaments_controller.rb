@@ -230,7 +230,6 @@ class TournamentsController < ApplicationController
 
 	def invite
 		@tournament = Tournament.find(params[:tournament_id])
-
 		emailAddress = params[:q]
 		puts "POST NEW FORM FOR INVITE #{emailAddress}"
 		@email = GeneralMailer.invite_email(emailAddress, @tournament.name, @tournament).deliver!
@@ -238,7 +237,24 @@ class TournamentsController < ApplicationController
 		redirect_to :action => 'show', :id => params[:tournament_id]
 	end
 
+	# SMS Invite
+	def sms
+		@tournament = Tournament.find(params[:tournament_id])
+		phonenumber = params[:phonenumber]
+		puts "POST Send SMS for phone number #{phonenumber}"
 
+	    twilio_sid = "ACe51d7978d00d171e6853f864b547a322"
+	    twilio_token = "534cdf8d865eabcc180a28778c3e53b1"
+	    twilio_phone_number = "6476910067"
+
+	    @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+
+	    @twilio_client.account.sms.messages.create(
+	      :from => "+1#{twilio_phone_number}",
+	      :to => phonenumber,
+	      :body => "This is an message. It gets sent to #{phonenumber}"
+	    )
+	end
 
   def refund
     @tournament = Tournament.find(params[:id])
