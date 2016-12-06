@@ -246,7 +246,7 @@ class TournamentsController < ApplicationController
 
 	    twilio_sid = ""
 	    twilio_token = ""
-	    twilio_phone_number = ""
+	    twilio_phone_number = "6475609305"
 
 	    @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
 
@@ -256,6 +256,22 @@ class TournamentsController < ApplicationController
 	      :body => "You have been invited to join the tournament #{@tournament.name} at link cl0ud9.herokuapp.com/tournaments/#{tournament_id}"
 	    )
 	end
+
+	def submit_list
+    	params[:player_ids].each do |player_id|
+     	 puts "you submitted this form for player id: #{player_id}"
+      	@aplayer = Player.find(player_id)
+      	puts "player -> #{@aplayer.person.email}"
+      	@aplayer.checkedIn = true;
+
+      	if @aplayer.save 
+        	puts "Saved!"
+      	else
+        	puts "Error: cant save this player"
+      	end
+      	redirect_to :back
+    end
+end
 
   def refund
     @tournament = Tournament.find(params[:id])
@@ -431,20 +447,19 @@ class TournamentsController < ApplicationController
    end
 
    def create_host_private(params)
-			@tournament = Tournament.find(params[:id])
-   		@host = Host.new
-			if(params[:tournament][:hostName].present?)
-				@host.hostName = params[:tournament][:hostName]
-				@host.email = params[:tournament][:hostEmail]
-				@host.phone = params[:tournament][:hostPhone]
+		@tournament = Tournament.find(params[:id])
+			@host = Host.new
+		if(params[:tournament][:hostName].present?)
+			@host.hostName = params[:tournament][:hostName]
+			@host.email = params[:tournament][:hostEmail]
+			@host.phone = params[:tournament][:hostPhone]
 
-				@host.save
-				@tournament.host_id = @host.id
-			elsif params[:tournament][:host_id].present?
-				@tournament.host_id = params[:tournament][:host_id]
-			end
-			@tournament.save
-
+			@host.save
+			@tournament.host_id = @host.id
+		elsif params[:tournament][:host_id].present?
+			@tournament.host_id = params[:tournament][:host_id]
+		end
+		@tournament.save
    end
 
 

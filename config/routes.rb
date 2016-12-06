@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete 'organizer/:id/' => 'organizer#destroy'
 
   resources :check_in
-  post 'check_in/submit'
+  post 'check_in/submit' =>  'tournaments#submit_list'
 
   get 'sponsors/new'
   #post 'charges/create'
