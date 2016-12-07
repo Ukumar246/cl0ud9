@@ -133,15 +133,16 @@ class PlayersController < ApplicationController
       :currency => 'CAD'
       )
 
+      @player.paid = true
+      @player.save
+      @newPlayers.each do |p|
+        p.paid = true
+        p.save
+      end
+
       rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to Tournament.find(params[:player][:tournament_id])
-
-        @player.paid = true
-        @newPlayers.each do |p|
-          p.paid = true
-          p.save
-        end
   end
 
   private
