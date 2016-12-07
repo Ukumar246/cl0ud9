@@ -1,40 +1,41 @@
 <%= form_for @message, url: contact_path do |message_form| %>
   <div class="container">
-    <h2 class="col-xs-4"> Contact Us </h2>
-    <br>
-    <br>
-    <br>
-    <br>
-    
-    <h5 class="col-xs-4"> Questions, Comments, Hate Mail? </h5>
-    <br>
-    <br>
+    <div class = "row">
+      <div class = "col-md-12 col-sm-12">
+       <h2> Contact Us </h2>
+      </div>
+    </div>
 
-    <div class="form-group col-xs-4">
+    <div class = "row">
+      <div class = "col-md-6 col-sm-12" style = "padding-top :25px;">
+       <h5> Questions, Comments, Hate Mail? </h5>
+     </div>
+   </div>
+
+
+   <div class = "row">
+     <div class = "col-md-4 col-sm-12" style = "padding-top :25px;">
       <%= message_form.text_field :name, placeholder: "Name", class: "form-control" %>
     </div>
-    <br>
-    <br>
-    <br>
-    
-    <div class="form-group col-xs-4 ">
+  </div>
+
+
+  <div class = "row">
+    <div class = "col-md-4 col-sm-12" style = "padding-top :25px;">
       <%= message_form.email_field :email, placeholder: "Email", class: "form-control" %>
     </div>
-    <br>
-    <br>
-    <br>
-    
-    <div class="form-group col-xs-6">
+  </div>
+
+  <div class = "row">
+    <div class = "col-md-4 col-sm-12" style = "padding-top :25px;">
       <%= message_form.text_area :content, placeholder: "Message", class: "form-control", rows: "3" %>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+  </div>
 
-    <div class="form-group col-xs-4">
+  <div class = "row">
+    <div class = "col-md-6 col-sm-12" style = "padding-top :25px;">
       <%= message_form.submit "Send", class: "btn btn-primary" %>
     </div>
   </div>
+</div>
 <% end %>
