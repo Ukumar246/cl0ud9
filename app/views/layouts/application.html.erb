@@ -65,9 +65,7 @@
             <span class="icon-bar"></span>
           </button>
 
-          <div class="">
-          <%= link_to cl_image_tag("http://res.cloudinary.com/cl0ud9/image/upload/c_fill,h_40,w_40/cl0ud9_icon_2"), "/"%>
-          </div>
+         <a href="/"><img src="http://res.cloudinary.com/cl0ud9/image/upload/cl0ud9_icon_1" width="42" height="42"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -84,7 +82,7 @@
           <ul class="nav navbar-nav">
             <li><%= link_to 'Users', people_path%></li>
           </ul>
-		  
+
 		  <div>
             <%= form_tag(search_index_path, method: :get, :class => "navbar-form navbar-nav") do %>
 				<%= text_field_tag :search, params[:search] %>
